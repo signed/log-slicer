@@ -27,7 +27,7 @@ public class LogSlicer extends Application{
         String path = parameters.getUnnamed().get(0);
         String s = FileUtils.readFileToString(Paths.get(path).toFile(), Charset.forName("UTF-8"));
         logPresenter.initialize();
-        logModel.takeEntriesFrom(new RawLog(s));
+        logModel.addEntriesFrom(new RawLog(s));
     }
 
     @Override

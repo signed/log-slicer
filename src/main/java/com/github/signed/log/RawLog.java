@@ -33,7 +33,7 @@ public class RawLog implements Iterable<LogEntry> {
         }
 
         for (List<String> allRawEntry : allRawEntries) {
-            LogEntry e = new LogEntry(Joiner.on("\n").join(allRawEntry));
+            LogEntry e = LogEntry.createLogEntry(Joiner.on("\n").join(allRawEntry));
             logEntries.add(e);
         }
 

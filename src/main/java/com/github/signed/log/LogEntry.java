@@ -1,28 +1,32 @@
 package com.github.signed.log;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 public class LogEntry {
-    private final DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss,SSS");
-    public final String text;
 
-    public LogEntry(String text) {
+    public static LogEntry createLogEntry(String text) {
+        DateTime timestamp = new TimeStampExtractor(text).extract();
+        LoggedThread thread = new ThreadExtractor(text).extract();
+
+        return new LogEntry(text, timestamp, thread);
+    }
+
+
+    public final String text;
+    private final DateTime timestamp;
+    private final LoggedThread thread;
+
+    public LogEntry(String text, DateTime timestamp, LoggedThread thread) {
         this.text = text;
+        this.timestamp = timestamp;
+        this.thread = thread;
     }
 
     public DateTime taken() {
-        String date = Iterables.get(spaceSplit(), 0);
-        String timeStamp = Iterables.get(spaceSplit(), 1);
-
-
-        return formatter.parseDateTime(date+" "+timeStamp);
+        return timestamp;
     }
 
-    private Iterable<String> spaceSplit() {
-        return Splitter.on(" ").split(text);
+    public LoggedThread thread() {
+        return thread;
     }
 }
