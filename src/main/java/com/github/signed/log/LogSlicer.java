@@ -1,9 +1,9 @@
-package com.github.signed.log.ui;
+package com.github.signed.log;
 
+import com.github.signed.log.compare.SideBySideLogPresenter;
+import com.github.signed.log.compare.SideBySideLogView;
 import com.github.signed.log.core.RawLog;
-import com.github.signed.log.ui.compare.SideBySideLogView;
-import com.github.signed.log.ui.list.LogModel;
-import com.github.signed.log.ui.list.LogPresenter;
+import com.github.signed.log.list.LogModel;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
@@ -22,7 +22,7 @@ public class LogSlicer extends Application{
 
     private final LogModel logModel = new LogModel();
     private final SideBySideLogView logView = new SideBySideLogView();
-    private final LogPresenter logPresenter = new LogPresenter(logModel, logView);
+    private final SideBySideLogPresenter logPresenter = new SideBySideLogPresenter(logModel, logView);
 
 
     @Override

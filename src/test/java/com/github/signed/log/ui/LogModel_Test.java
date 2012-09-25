@@ -1,8 +1,8 @@
 package com.github.signed.log.ui;
 
 import com.github.signed.log.core.LogEntry;
+import com.github.signed.log.list.LogModel;
 import com.github.signed.log.thread.LoggedThread;
-import com.github.signed.log.ui.list.LogModel;
 import lang.ArgumentClosure;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;

@@ -1,4 +1,4 @@
-package com.github.signed.log.ui;
+package com.github.signed.log;
 
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;

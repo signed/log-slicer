@@ -1,4 +1,4 @@
-package com.github.signed.log.ui.list;
+package com.github.signed.log.list;
 
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.thread.LoggedThread;

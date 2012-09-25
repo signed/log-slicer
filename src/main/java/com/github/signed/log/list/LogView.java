@@ -1,11 +1,11 @@
-package com.github.signed.log.ui.list;
+package com.github.signed.log.list;
 
+import com.github.signed.log.ViewOrphanage;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.thread.LoggedThread;
 import com.github.signed.log.thread.ui.LoggedThreadProvider;
 import com.github.signed.log.timestamp.ui.TimeStampProvider;
-import com.github.signed.log.ui.ViewOrphanage;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
