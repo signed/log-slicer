@@ -84,11 +84,11 @@ public class LogView {
         availableThreads.setCellFactory(new Callback<ListView<LoggedThread>, ListCell<LoggedThread>>() {
             @Override
             public ListCell<LoggedThread> call(ListView<LoggedThread> loggedThreadListView) {
-                return new ListCell<LoggedThread>(){
+                return new ListCell<LoggedThread>() {
                     @Override
                     protected void updateItem(LoggedThread loggedThread, boolean b) {
                         super.updateItem(loggedThread, b);
-                        if(null == loggedThread){
+                        if (null == loggedThread) {
                             setText("null");
                             return;
                         }
@@ -124,5 +124,9 @@ public class LogView {
             }
         });
         return timestampColumn;
+    }
+
+    public void scrollTo(int index) {
+        table.scrollTo(index);
     }
 }
