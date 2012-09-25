@@ -6,7 +6,7 @@ public class LogEntry {
 
     public static LogEntry createLogEntry(String text) {
         DateTime timestamp = new TimeStampExtractor(text).extract();
-        LoggedThread thread = new ThreadExtractor(text).extract();
+        LoggedThread thread = new LoggedThreadExtractor(text).extract();
 
         return new LogEntry(text, timestamp, thread);
     }

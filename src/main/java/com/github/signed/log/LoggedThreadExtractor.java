@@ -3,11 +3,11 @@ package com.github.signed.log;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ThreadExtractor {
+public class LoggedThreadExtractor {
 
     private final String text;
 
-    public ThreadExtractor(String text) {
+    public LoggedThreadExtractor(String text) {
         this.text = text;
     }
 

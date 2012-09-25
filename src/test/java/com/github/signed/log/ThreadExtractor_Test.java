@@ -9,7 +9,7 @@ public class ThreadExtractor_Test {
 
     @Test
     public void threadEndsAtTheFirstClosingBracket() throws Exception {
-        ThreadExtractor extractor = new ThreadExtractor("stuff (thread name) a message that contains a closing braket)");
+        LoggedThreadExtractor extractor = new LoggedThreadExtractor("stuff (thread name) a message that contains a closing braket)");
         assertThat(extractor.extract(), is(new LoggedThread("thread name")));
     }
 }
