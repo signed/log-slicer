@@ -2,6 +2,7 @@ package com.github.signed.log.ui;
 
 import com.github.signed.log.LogEntry;
 import com.github.signed.log.LoggedThread;
+import com.github.signed.log.TimeStamp;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -13,7 +14,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
-import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -44,11 +44,8 @@ public class LogView {
 
 
     private void createColumns() {
-        TableColumn<LogEntry, DateTime> timestampColumn = createTimeStampColumn();
-        table.getColumns().add(timestampColumn);
-
-        TableColumn<LogEntry, LoggedThread> threadColumn = createThreadColumn();
-        table.getColumns().add(threadColumn);
+        table.getColumns().add(createTimeStampColumn());
+        table.getColumns().add(createThreadColumn());
     }
 
     private TableColumn<LogEntry, LoggedThread> createThreadColumn() {
@@ -100,26 +97,26 @@ public class LogView {
         });
     }
 
-    private TableColumn<LogEntry, DateTime> createTimeStampColumn() {
-        TableColumn<LogEntry, DateTime> timestampColumn = new TableColumn<>();
+    private TableColumn<LogEntry, TimeStamp> createTimeStampColumn() {
+        TableColumn<LogEntry, TimeStamp> timestampColumn = new TableColumn<>();
         timestampColumn.setText("timestamp");
-        timestampColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LogEntry, DateTime>, ObservableValue<DateTime>>() {
+        timestampColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LogEntry, TimeStamp>, ObservableValue<TimeStamp>>() {
             @Override
-            public ObservableValue<DateTime> call(TableColumn.CellDataFeatures<LogEntry, DateTime> logEntryDateTimeCellDataFeatures) {
+            public ObservableValue<TimeStamp> call(TableColumn.CellDataFeatures<LogEntry, TimeStamp> logEntryDateTimeCellDataFeatures) {
                 return new SimpleObjectProperty<>(logEntryDateTimeCellDataFeatures.getValue().taken());
             }
         });
-        timestampColumn.setCellFactory(new Callback<TableColumn<LogEntry, DateTime>, TableCell<LogEntry, DateTime>>() {
+        timestampColumn.setCellFactory(new Callback<TableColumn<LogEntry, TimeStamp>, TableCell<LogEntry, TimeStamp>>() {
             @Override
-            public TableCell<LogEntry, DateTime> call(TableColumn<LogEntry, DateTime> logEntryDateTimeTableColumn) {
-                return new TableCell<LogEntry, DateTime>(){
+            public TableCell<LogEntry, TimeStamp> call(TableColumn<LogEntry, TimeStamp> logEntryDateTimeTableColumn) {
+                return new TableCell<LogEntry, TimeStamp>(){
                     @Override
-                    protected void updateItem(DateTime dateTime, boolean b) {
-                        if(null == dateTime){
+                    protected void updateItem(TimeStamp timeStamp, boolean b) {
+                        if(null == timeStamp){
                             setText("null");
                             return;
                         }
-                        setText(dateTime.toString());
+                        setText(timeStamp.toString());
                     }
                 };
             }

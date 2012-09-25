@@ -11,7 +11,7 @@ public class LogEntry_Test {
     @Test
     public void retrieveTheTimeStampFromTheLog() throws Exception {
         LogEntry entry = LogEntry.createLogEntry("2012-09-18 20:14:58,518 stuff (ThreadName)");
-        assertThat(entry.taken(), is(new DateTime(2012, 9,18, 20,14, 58, 518)));
+        assertThat(entry.taken(), is(new TimeStamp(new DateTime(2012, 9,18, 20,14, 58, 518))));
     }
 
     @Test

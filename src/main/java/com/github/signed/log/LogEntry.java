@@ -1,11 +1,9 @@
 package com.github.signed.log;
 
-import org.joda.time.DateTime;
-
 public class LogEntry {
 
     public static LogEntry createLogEntry(String text) {
-        DateTime timestamp = new TimeStampExtractor(text).extract();
+        TimeStamp timestamp = new TimeStampExtractor(text).extract();
         LoggedThread thread = new LoggedThreadExtractor(text).extract();
 
         return new LogEntry(text, timestamp, thread);
@@ -13,16 +11,16 @@ public class LogEntry {
 
 
     public final String text;
-    private final DateTime timestamp;
+    private final TimeStamp timestamp;
     private final LoggedThread thread;
 
-    public LogEntry(String text, DateTime timestamp, LoggedThread thread) {
+    public LogEntry(String text, TimeStamp timestamp, LoggedThread thread) {
         this.text = text;
         this.timestamp = timestamp;
         this.thread = thread;
     }
 
-    public DateTime taken() {
+    public TimeStamp taken() {
         return timestamp;
     }
 

@@ -2,7 +2,6 @@ package com.github.signed.log;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -14,10 +13,10 @@ public class TimeStampExtractor {
         this.text = text;
     }
 
-    public DateTime extract() {
+    public TimeStamp extract() {
         String date = Iterables.get(spaceSplit(), 0);
         String timeStamp = Iterables.get(spaceSplit(), 1);
-        return formatter.parseDateTime(date + " " + timeStamp);
+        return new TimeStamp(formatter.parseDateTime(date + " " + timeStamp));
     }
 
     private Iterable<String> spaceSplit() {
