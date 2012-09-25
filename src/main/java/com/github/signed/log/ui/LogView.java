@@ -49,6 +49,33 @@ public class LogView {
         });
         table.getColumns().add(timestampColumn);
 
+        TableColumn<LogEntry, LoggedThread> threadColumn = new TableColumn<>("thread");
+        threadColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LogEntry, LoggedThread>, ObservableValue<LoggedThread>>() {
+            @Override
+            public ObservableValue<LoggedThread> call(TableColumn.CellDataFeatures<LogEntry, LoggedThread> logEntryLoggedThreadCellDataFeatures) {
+                LogEntry value = logEntryLoggedThreadCellDataFeatures.getValue();
+                return new SimpleObjectProperty<>(value.thread());
+            }
+        });
+
+        threadColumn.setCellFactory(new Callback<TableColumn<LogEntry, LoggedThread>, TableCell<LogEntry, LoggedThread>>() {
+            @Override
+            public TableCell<LogEntry, LoggedThread> call(TableColumn<LogEntry, LoggedThread> logEntryLoggedThreadTableColumn) {
+                return new TableCell<LogEntry, LoggedThread>() {
+                    @Override
+                    protected void updateItem(LoggedThread loggedThread, boolean b) {
+                        super.updateItem(loggedThread, b);
+                        if (loggedThread == null) {
+                            setText("null");
+                            return;
+                        }
+                        setText(loggedThread.toString());
+                    }
+                };
+            }
+        });
+        table.getColumns().add(threadColumn);
+
         availableThreads.setPromptText("threads");
         availableThreads.setCellFactory(new Callback<ListView<LoggedThread>, ListCell<LoggedThread>>() {
             @Override
