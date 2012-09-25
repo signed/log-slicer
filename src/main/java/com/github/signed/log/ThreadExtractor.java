@@ -12,7 +12,7 @@ public class ThreadExtractor {
     }
 
     public LoggedThread extract() {
-        Pattern compile = Pattern.compile("\\((.+)\\)");
+        Pattern compile = Pattern.compile("\\(([^\\)]+)\\)");
         Matcher matcher = compile.matcher(text);
         matcher.find();
         return new LoggedThread(matcher.group(1));

@@ -23,6 +23,6 @@ public class LoggedThread {
 
     @Override
     public String toString() {
-        return "("+ threadName+")";
+        return threadName;
     }
 }
