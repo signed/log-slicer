@@ -3,7 +3,8 @@ package com.github.signed.log.ui;
 import com.github.signed.log.RawLog;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 
@@ -32,9 +33,11 @@ public class LogSlicer extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        FlowPane pane = new FlowPane();
-        logView.addTo(pane);
+        Pane pane = new HBox();
+        logView.addTo(new ViewOrphanage(pane));
+
         stage.setScene(new Scene(pane));
         stage.show();
     }
+
 }

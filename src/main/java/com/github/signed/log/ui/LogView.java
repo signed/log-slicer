@@ -12,7 +12,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import org.joda.time.DateTime;
 
@@ -24,31 +23,34 @@ public class LogView {
     private final ComboBox<LoggedThread> availableThreads = new ComboBox<>();
 
     public LogView(){
-        TableColumn<LogEntry, DateTime> timestampColumn = new TableColumn<>();
-        timestampColumn.setText("timestamp");
-        timestampColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LogEntry, DateTime>, ObservableValue<DateTime>>() {
-            @Override
-            public ObservableValue<DateTime> call(TableColumn.CellDataFeatures<LogEntry, DateTime> logEntryDateTimeCellDataFeatures) {
-                return new SimpleObjectProperty<>(logEntryDateTimeCellDataFeatures.getValue().taken());
-            }
-        });
-        timestampColumn.setCellFactory(new Callback<TableColumn<LogEntry, DateTime>, TableCell<LogEntry, DateTime>>() {
-            @Override
-            public TableCell<LogEntry, DateTime> call(TableColumn<LogEntry, DateTime> logEntryDateTimeTableColumn) {
-                return new TableCell<LogEntry, DateTime>(){
-                    @Override
-                    protected void updateItem(DateTime dateTime, boolean b) {
-                        if(null == dateTime){
-                            setText("null");
-                            return;
-                        }
-                        setText(dateTime.toString());
-                    }
-                };
-            }
-        });
+        createColumns();
+        createThreadsComboBox();
+        borderPane.setCenter(table);
+        borderPane.setTop(availableThreads);
+    }
+
+    public void display(List<LogEntry> entries){
+        table.setItems(new ObservableListWrapper<>(entries));
+    }
+
+    public void displayAvailableThreads(List<LoggedThread> threads){
+        availableThreads.setItems(new ObservableListWrapper<>(threads));
+    }
+
+    public void addTo(ViewOrphanage pane) {
+        pane.add(borderPane);
+    }
+
+
+    private void createColumns() {
+        TableColumn<LogEntry, DateTime> timestampColumn = createTimeStampColumn();
         table.getColumns().add(timestampColumn);
 
+        TableColumn<LogEntry, LoggedThread> threadColumn = createThreadColumn();
+        table.getColumns().add(threadColumn);
+    }
+
+    private TableColumn<LogEntry, LoggedThread> createThreadColumn() {
         TableColumn<LogEntry, LoggedThread> threadColumn = new TableColumn<>("thread");
         threadColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LogEntry, LoggedThread>, ObservableValue<LoggedThread>>() {
             @Override
@@ -74,8 +76,10 @@ public class LogView {
                 };
             }
         });
-        table.getColumns().add(threadColumn);
+        return threadColumn;
+    }
 
+    private void createThreadsComboBox() {
         availableThreads.setPromptText("threads");
         availableThreads.setCellFactory(new Callback<ListView<LoggedThread>, ListCell<LoggedThread>>() {
             @Override
@@ -93,23 +97,32 @@ public class LogView {
                 };
             }
         });
-
-
-        borderPane.setCenter(table);
-        borderPane.setTop(availableThreads);
-
     }
 
-    public void display(List<LogEntry> entries){
-        table.setItems(new ObservableListWrapper<>(entries));
+    private TableColumn<LogEntry, DateTime> createTimeStampColumn() {
+        TableColumn<LogEntry, DateTime> timestampColumn = new TableColumn<>();
+        timestampColumn.setText("timestamp");
+        timestampColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LogEntry, DateTime>, ObservableValue<DateTime>>() {
+            @Override
+            public ObservableValue<DateTime> call(TableColumn.CellDataFeatures<LogEntry, DateTime> logEntryDateTimeCellDataFeatures) {
+                return new SimpleObjectProperty<>(logEntryDateTimeCellDataFeatures.getValue().taken());
+            }
+        });
+        timestampColumn.setCellFactory(new Callback<TableColumn<LogEntry, DateTime>, TableCell<LogEntry, DateTime>>() {
+            @Override
+            public TableCell<LogEntry, DateTime> call(TableColumn<LogEntry, DateTime> logEntryDateTimeTableColumn) {
+                return new TableCell<LogEntry, DateTime>(){
+                    @Override
+                    protected void updateItem(DateTime dateTime, boolean b) {
+                        if(null == dateTime){
+                            setText("null");
+                            return;
+                        }
+                        setText(dateTime.toString());
+                    }
+                };
+            }
+        });
+        return timestampColumn;
     }
-
-    public void displayAvailableThreads(List<LoggedThread> threads){
-        availableThreads.setItems(new ObservableListWrapper<>(threads));
-    }
-
-    public void addTo(Pane pane) {
-        pane.getChildren().add(borderPane);
-    }
-
 }
