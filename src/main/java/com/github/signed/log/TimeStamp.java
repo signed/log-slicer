@@ -14,4 +14,9 @@ public class TimeStamp extends LogPart {
     public String toString() {
         return time.toString();
     }
+
+    @Override
+    public void dumpInto(StringBuilder builder) {
+        builder.append(time.toString());
+    }
 }

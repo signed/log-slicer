@@ -12,4 +12,9 @@ public class LoggedThread extends LogPart{
     public String toString() {
         return threadName;
     }
+
+    @Override
+    public void dumpInto(StringBuilder builder) {
+        builder.append(threadName);
+    }
 }

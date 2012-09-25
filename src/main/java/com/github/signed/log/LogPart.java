@@ -13,4 +13,8 @@ public class LogPart {
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
+
+    public void dumpInto(StringBuilder builder) {
+        builder.append(this.toString());
+    }
 }

@@ -69,7 +69,9 @@ public class LogView {
                             setText("null");
                             return;
                         }
-                        setText(loggedThread.toString());
+                        StringBuilder builder = new StringBuilder();
+                        loggedThread.dumpInto(builder);
+                        setText(builder.toString());
                     }
                 };
             }
@@ -90,7 +92,9 @@ public class LogView {
                             setText("null");
                             return;
                         }
-                        setText(loggedThread.toString());
+                        StringBuilder builder = new StringBuilder();
+                        loggedThread.dumpInto(builder);
+                        setText(builder.toString());
                     }
                 };
             }
@@ -116,7 +120,9 @@ public class LogView {
                             setText("null");
                             return;
                         }
-                        setText(timeStamp.toString());
+                        StringBuilder builder = new StringBuilder();
+                        timeStamp.dumpInto(builder);
+                        setText(builder.toString());
                     }
                 };
             }
