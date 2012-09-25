@@ -5,6 +5,19 @@ import org.joda.time.DateTime;
 
 public class TimeStamp extends LogPart {
 
+    public static final TimeStamp Null = new TimeStamp(null){
+
+        @Override
+        public String toString() {
+            return "NullTimeStampe";
+        }
+
+        @Override
+        public void dumpInto(StringBuilder builder) {
+            //do nothing
+        }
+    };
+
     private final DateTime time;
 
     public TimeStamp(DateTime time){

@@ -7,6 +7,8 @@ import com.github.signed.log.thread.LoggedThread;
 import com.github.signed.log.thread.ui.LoggedThreadProvider;
 import com.github.signed.log.timestamp.ui.TimeStampProvider;
 import com.sun.javafx.collections.ObservableListWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -14,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
+import lang.ArgumentClosure;
 
 import java.util.List;
 
@@ -86,6 +89,15 @@ public class LogView {
 
     public void scrollTo(int index) {
         table.scrollTo(index);
+    }
+
+    public void onSelectedThreadChanges(final ArgumentClosure<LoggedThread>closure){
+       availableThreads.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LoggedThread>() {
+           @Override
+           public void changed(ObservableValue<? extends LoggedThread> observableValue, LoggedThread loggedThread, LoggedThread loggedThread1) {
+               closure.excecute(loggedThread1);
+           }
+       });
     }
 
 }

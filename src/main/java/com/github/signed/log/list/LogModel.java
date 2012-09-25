@@ -3,13 +3,15 @@ package com.github.signed.log.list;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.thread.LoggedThread;
 import com.google.common.base.Function;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import lang.Announcer;
 import lang.ArgumentClosure;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public class LogModel {
     private final Announcer<Runnable> changeListener = new Announcer<>(Runnable.class);
@@ -40,6 +42,9 @@ public class LogModel {
             }
         });
 
-        closure.excecute(ImmutableSet.copyOf(transform).asList());
+        Set<LoggedThread> unique = Sets.newHashSet(transform);
+        List<LoggedThread> list = Lists.newArrayList(unique);
+        Collections.sort(list);
+        closure.excecute(list);
     }
 }

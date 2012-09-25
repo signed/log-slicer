@@ -14,6 +14,8 @@ public class LogEntry {
         return new LogEntry(text, timestamp, thread);
     }
 
+    public static final LogEntry Null = new LogEntry("",TimeStamp.Null, LoggedThread.Null);
+
 
     public final String text;
     private final TimeStamp timestamp;
