@@ -1,7 +1,7 @@
-package com.github.signed.log.ui;
+package com.github.signed.log.ui.list;
 
-import com.github.signed.log.LogEntry;
-import com.github.signed.log.LoggedThread;
+import com.github.signed.log.core.LogEntry;
+import com.github.signed.log.thread.LoggedThread;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;

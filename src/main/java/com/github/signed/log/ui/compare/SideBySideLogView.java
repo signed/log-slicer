@@ -1,9 +1,9 @@
 package com.github.signed.log.ui.compare;
 
-import com.github.signed.log.LogEntry;
-import com.github.signed.log.LoggedThread;
-import com.github.signed.log.ui.LogView;
+import com.github.signed.log.core.LogEntry;
+import com.github.signed.log.thread.LoggedThread;
 import com.github.signed.log.ui.ViewOrphanage;
+import com.github.signed.log.ui.list.LogView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;

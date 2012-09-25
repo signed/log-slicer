@@ -1,7 +1,9 @@
 package com.github.signed.log.ui;
 
-import com.github.signed.log.RawLog;
+import com.github.signed.log.core.RawLog;
 import com.github.signed.log.ui.compare.SideBySideLogView;
+import com.github.signed.log.ui.list.LogModel;
+import com.github.signed.log.ui.list.LogPresenter;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;

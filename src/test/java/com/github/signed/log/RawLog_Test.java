@@ -1,5 +1,7 @@
 package com.github.signed.log;
 
+import com.github.signed.log.core.LogEntry;
+import com.github.signed.log.core.RawLog;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterators;
 import org.junit.Test;

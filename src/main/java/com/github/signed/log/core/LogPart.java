@@ -1,4 +1,4 @@
-package com.github.signed.log;
+package com.github.signed.log.core;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;

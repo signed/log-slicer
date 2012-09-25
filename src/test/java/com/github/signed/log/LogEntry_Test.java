@@ -1,5 +1,8 @@
 package com.github.signed.log;
 
+import com.github.signed.log.core.LogEntry;
+import com.github.signed.log.thread.LoggedThread;
+import com.github.signed.log.timestamp.TimeStamp;
 import org.joda.time.DateTime;
 import org.junit.Test;
 

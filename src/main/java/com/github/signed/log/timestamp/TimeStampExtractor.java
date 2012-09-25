@@ -1,4 +1,4 @@
-package com.github.signed.log;
+package com.github.signed.log.timestamp;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;

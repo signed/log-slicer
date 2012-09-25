@@ -1,6 +1,8 @@
-package com.github.signed.log;
+package com.github.signed.log.thread;
 
-public class LoggedThread extends LogPart{
+import com.github.signed.log.core.LogPart;
+
+public class LoggedThread extends LogPart {
 
     private final String threadName;
 

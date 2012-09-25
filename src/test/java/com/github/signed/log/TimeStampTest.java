@@ -1,5 +1,6 @@
 package com.github.signed.log;
 
+import com.github.signed.log.timestamp.TimeStamp;
 import org.hamcrest.MatcherAssert;
 import org.joda.time.LocalDate;
 import org.junit.Test;

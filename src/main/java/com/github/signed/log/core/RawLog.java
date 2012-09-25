@@ -1,4 +1,4 @@
-package com.github.signed.log;
+package com.github.signed.log.core;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;

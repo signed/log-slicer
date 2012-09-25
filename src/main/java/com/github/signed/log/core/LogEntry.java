@@ -1,4 +1,9 @@
-package com.github.signed.log;
+package com.github.signed.log.core;
+
+import com.github.signed.log.thread.LoggedThread;
+import com.github.signed.log.thread.LoggedThreadExtractor;
+import com.github.signed.log.timestamp.TimeStamp;
+import com.github.signed.log.timestamp.TimeStampExtractor;
 
 public class LogEntry {
 

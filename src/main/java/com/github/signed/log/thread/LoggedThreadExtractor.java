@@ -1,4 +1,4 @@
-package com.github.signed.log;
+package com.github.signed.log.thread;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

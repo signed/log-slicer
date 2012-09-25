@@ -1,5 +1,6 @@
 package com.github.signed.log;
 
+import com.github.signed.log.thread.LoggedThread;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
