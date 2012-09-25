@@ -52,7 +52,7 @@ public class LogModel_Test {
     @SuppressWarnings("unchecked")
     private List<LoggedThread> theThreadsKownByTheModel() {
         ArgumentClosure<List<LoggedThread>> closure = mock(ArgumentClosure.class);
-        logModel.passThreadChoides(closure);
+        logModel.provideThreadChoicesTo(closure);
 
         return availableThreads(closure);
     }

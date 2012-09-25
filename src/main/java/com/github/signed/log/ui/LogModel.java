@@ -32,7 +32,7 @@ public class LogModel {
        argumentClosure.excecute(Lists.newArrayList(logEntries));
     }
 
-    public void passThreadChoides(ArgumentClosure<List<LoggedThread>> closure) {
+    public void provideThreadChoicesTo(ArgumentClosure<List<LoggedThread>> closure) {
         List<LoggedThread> transform = Lists.transform(logEntries, new Function<LogEntry, LoggedThread>() {
             @Override
             public LoggedThread apply(LogEntry input) {
