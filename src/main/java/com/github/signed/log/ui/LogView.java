@@ -23,6 +23,7 @@ public class LogView {
     private final ComboBox<LoggedThread> availableThreads = new ComboBox<>();
 
     public LogView(){
+        table.getStyleClass().add("no-scroll-bars");
         createColumns();
         createThreadsComboBox();
         borderPane.setCenter(table);

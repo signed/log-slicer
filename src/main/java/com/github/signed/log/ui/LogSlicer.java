@@ -37,7 +37,10 @@ public class LogSlicer extends Application{
         Pane pane = new HBox();
         logView.addTo(new ViewOrphanage(pane));
 
-        stage.setScene(new Scene(pane));
+
+        Scene scene = new Scene(pane);
+        scene.getStylesheets().addAll(LogSlicer.class.getResource("/hide-scroll-bar.css").toExternalForm());
+        stage.setScene(scene);
         stage.show();
     }
 
