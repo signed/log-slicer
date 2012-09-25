@@ -1,6 +1,7 @@
 package com.github.signed.log.ui;
 
 import com.github.signed.log.RawLog;
+import com.github.signed.log.ui.compare.SideBySideLogView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
@@ -18,7 +19,7 @@ public class LogSlicer extends Application{
     }
 
     private final LogModel logModel = new LogModel();
-    private final LogView logView = new LogView();
+    private final SideBySideLogView logView = new SideBySideLogView();
     private final LogPresenter logPresenter = new LogPresenter(logModel, logView);
 
 

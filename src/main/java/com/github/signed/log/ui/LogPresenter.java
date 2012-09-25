@@ -2,6 +2,7 @@ package com.github.signed.log.ui;
 
 import com.github.signed.log.LogEntry;
 import com.github.signed.log.LoggedThread;
+import com.github.signed.log.ui.compare.SideBySideLogView;
 import lang.ArgumentClosure;
 
 import java.util.List;
@@ -9,9 +10,9 @@ import java.util.List;
 public class LogPresenter {
 
     private final LogModel logModel;
-    private final LogView logView;
+    private final SideBySideLogView logView;
 
-    public LogPresenter(LogModel logModel, LogView logView) {
+    public LogPresenter(LogModel logModel, SideBySideLogView logView) {
         this.logModel = logModel;
         this.logView = logView;
     }
@@ -23,13 +24,15 @@ public class LogPresenter {
                 logModel.provideElementsTo(new ArgumentClosure<List<LogEntry>>() {
                     @Override
                     public void excecute(List<LogEntry> logEntries) {
-                        logView.display(logEntries);
+                        logView.displayLeft(logEntries);
+                        logView.displayRight(logEntries);
                     }
                 });
                 logModel.provideThreadChoicesTo(new ArgumentClosure<List<LoggedThread>>() {
                     @Override
                     public void excecute(List<LoggedThread> loggedThreads) {
-                        logView.displayAvailableThreads(loggedThreads);
+                        logView.displayAvailableThreadsLeft(loggedThreads);
+                        logView.displayAvailableThreadsRight(loggedThreads);
                     }
                 });
             }
