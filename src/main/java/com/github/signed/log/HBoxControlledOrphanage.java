@@ -4,11 +4,11 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
-public class HboxControledOrphanage implements ViewOrphanage {
+public class HBoxControlledOrphanage implements ViewOrphanage {
 
     private final HBox hBox;
 
-    public HboxControledOrphanage(HBox hBox) {
+    public HBoxControlledOrphanage(HBox hBox) {
         this.hBox = hBox;
     }
 

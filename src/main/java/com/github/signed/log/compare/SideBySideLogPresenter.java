@@ -3,23 +3,25 @@ package com.github.signed.log.compare;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.list.LogModel;
 import com.github.signed.log.list.LogPresenter;
+import com.github.signed.log.list.Presenter;
 import lang.ArgumentClosure;
 
 import java.util.List;
 
-public class SideBySideLogPresenter {
+public class SideBySideLogPresenter implements Presenter {
     private final LogPresenter leftLogPresenter;
     private final LogPresenter rightLogPresenter;
     private final LogModel logModel;
     private final SideBySideLogView logView;
 
-    public SideBySideLogPresenter(LogModel logModel, SideBySideLogView logView) {
+    public SideBySideLogPresenter(LogModel logModel, SideBySideLogView sideBySideLogView, LogPresenter leftLogPresenter, LogPresenter rightLogPresenter) {
         this.logModel = logModel;
-        this.logView = logView;
-        leftLogPresenter = new LogPresenter(logModel, logView.left());
-        rightLogPresenter = new LogPresenter(logModel, logView.right());
+        this.logView = sideBySideLogView;
+        this.leftLogPresenter = leftLogPresenter;
+        this.rightLogPresenter = rightLogPresenter;
     }
 
+    @Override
     public void initialize() {
         leftLogPresenter.initialize();
         rightLogPresenter.initialize();

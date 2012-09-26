@@ -1,7 +1,7 @@
 package com.github.signed.log.ui;
 
 import com.github.signed.log.core.LogEntry;
-import com.github.signed.log.list.LogModel;
+import com.github.signed.log.list.SimpleLogModel;
 import com.github.signed.log.thread.LoggedThread;
 import lang.ArgumentClosure;
 import org.hamcrest.Matcher;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class LogModel_Test {
-    private final LogModel logModel = new LogModel();
+    private final SimpleLogModel logModel = new SimpleLogModel();
 
     @Test
     public void retrieveTheAvailableThreads() throws Exception {

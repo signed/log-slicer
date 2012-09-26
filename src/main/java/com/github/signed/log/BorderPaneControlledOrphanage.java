@@ -1,6 +1,5 @@
-package com.github.signed.log.list;
+package com.github.signed.log;
 
-import com.github.signed.log.ViewOrphanage;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import lang.ArgumentClosure;
