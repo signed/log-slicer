@@ -29,22 +29,19 @@ public class LogPresenter {
                 logModel.provideThreadChoicesTo(new ArgumentClosure<List<LoggedThread>>() {
                     @Override
                     public void excecute(List<LoggedThread> loggedThreads) {
-                        logView.displayAvailableThreads(loggedThreads);
+                        logView.filter().displayAvailableThreads(loggedThreads);
                     }
                 });
             }
         });
 
-
-        logView.onSelectedThreadChanges(new ArgumentClosure<LoggedThread>() {
+        logView.filter().onSelectedThreadChanges(new ArgumentClosure<LoggedThread>() {
             @Override
             public void excecute(LoggedThread loggedThread) {
                 threadToFilterBy = Optional.fromNullable(loggedThread);
                 updateLogEntriesInView();
             }
         });
-
-
     }
 
     private void updateLogEntriesInView() {
