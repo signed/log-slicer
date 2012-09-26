@@ -1,6 +1,7 @@
 package com.github.signed.log.list;
 
 import com.github.signed.log.core.LogEntry;
+import com.github.signed.log.filteredlisting.LogEntryListingWithFilterInputView;
 import com.github.signed.log.thread.LoggedThread;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
@@ -13,12 +14,12 @@ import java.util.List;
 public class LogPresenter {
 
     private final LogModel logModel;
-    private final LogView logView;
+    private final LogEntryListingWithFilterInputView logEntryListingWithFilterInputView;
     private Optional<LoggedThread> threadToFilterBy = Optional.absent();
 
-    public LogPresenter(LogModel logModel, LogView logView) {
+    public LogPresenter(LogModel logModel, LogEntryListingWithFilterInputView logEntryListingWithFilterInputView) {
         this.logModel = logModel;
-        this.logView = logView;
+        this.logEntryListingWithFilterInputView = logEntryListingWithFilterInputView;
     }
 
     public void initialize() {
@@ -29,13 +30,13 @@ public class LogPresenter {
                 logModel.provideThreadChoicesTo(new ArgumentClosure<List<LoggedThread>>() {
                     @Override
                     public void excecute(List<LoggedThread> loggedThreads) {
-                        logView.filter().displayAvailableThreads(loggedThreads);
+                        logEntryListingWithFilterInputView.filter().displayAvailableThreads(loggedThreads);
                     }
                 });
             }
         });
 
-        logView.filter().onSelectedThreadChanges(new ArgumentClosure<LoggedThread>() {
+        logEntryListingWithFilterInputView.filter().onSelectedThreadChanges(new ArgumentClosure<LoggedThread>() {
             @Override
             public void excecute(LoggedThread loggedThread) {
                 threadToFilterBy = Optional.fromNullable(loggedThread);
@@ -58,15 +59,15 @@ public class LogPresenter {
                             return LogEntry.Null;
                         }
                     });
-                    logView.display(transformed);
+                    logEntryListingWithFilterInputView.logView().display(transformed);
                 } else {
-                    logView.display(logEntries);
+                    logEntryListingWithFilterInputView.logView().display(logEntries);
                 }
             }
         });
     }
 
     public void scrollTo(Integer index) {
-        logView.scrollTo(index);
+        logEntryListingWithFilterInputView.scrollTo(index);
     }
 }

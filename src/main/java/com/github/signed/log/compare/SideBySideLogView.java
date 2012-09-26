@@ -2,7 +2,7 @@ package com.github.signed.log.compare;
 
 import com.github.signed.log.HboxControledOrphanage;
 import com.github.signed.log.ViewOrphanage;
-import com.github.signed.log.list.LogView;
+import com.github.signed.log.filteredlisting.LogEntryListingWithFilterInputView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;
@@ -12,9 +12,9 @@ import lang.ArgumentClosure;
 
 public class SideBySideLogView {
     private final HBox container = new HBox();
-    private final LogView left = new LogView();
+    private final LogEntryListingWithFilterInputView left = new LogEntryListingWithFilterInputView();
     private final ScrollBar scrollBar = new ScrollBar();
-    private final LogView right = new LogView();
+    private final LogEntryListingWithFilterInputView right = new LogEntryListingWithFilterInputView();
 
     public SideBySideLogView() {
         ViewOrphanage viewOrphanage = new HboxControledOrphanage(container);
@@ -29,11 +29,11 @@ public class SideBySideLogView {
         orphanage.add(container);
     }
 
-    public LogView left() {
+    public LogEntryListingWithFilterInputView left() {
         return left;
     }
 
-    public LogView right() {
+    public LogEntryListingWithFilterInputView right() {
         return right;
     }
 
