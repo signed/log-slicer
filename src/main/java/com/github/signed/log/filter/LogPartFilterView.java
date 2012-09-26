@@ -1,5 +1,6 @@
 package com.github.signed.log.filter;
 
+import com.github.signed.log.ViewOrphanage;
 import com.github.signed.log.thread.LoggedThread;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.beans.value.ChangeListener;
@@ -58,5 +59,9 @@ public class LogPartFilterView {
                 };
             }
         });
+    }
+
+    public void addTo(ViewOrphanage viewOrphanage) {
+        viewOrphanage.add(node());
     }
 }

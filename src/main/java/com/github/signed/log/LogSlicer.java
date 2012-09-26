@@ -7,7 +7,6 @@ import com.github.signed.log.list.LogModel;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 
@@ -36,11 +35,10 @@ public class LogSlicer extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        Pane pane = new HBox();
-        logView.addTo(new ViewOrphanage(pane));
+        HBox hBox = new HBox();
+        logView.addTo(new HboxControledOrphanage(hBox));
 
-
-        Scene scene = new Scene(pane);
+        Scene scene = new Scene(hBox);
         scene.getStylesheets().addAll(LogSlicer.class.getResource("/hide-scroll-bar.css").toExternalForm());
         stage.setScene(scene);
         stage.show();

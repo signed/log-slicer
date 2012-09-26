@@ -23,7 +23,9 @@ public class LogView {
         createColumns();
 
         borderPane.setCenter(table);
-        borderPane.setTop(filterView.node());
+        BorderPaneControlledOrphanage viewOrphanage = new BorderPaneControlledOrphanage(borderPane);
+        viewOrphanage.nextAtTop();
+        filterView.addTo(viewOrphanage);
     }
 
     public void display(List<LogEntry> entries) {
@@ -47,7 +49,7 @@ public class LogView {
     }
 
     private TableColumn<LogEntry, LogPart> createTimeStampColumn() {
-       TableColumn<LogEntry, LogPart> timestampColumn = new TableColumn<>("timestamp");
+        TableColumn<LogEntry, LogPart> timestampColumn = new TableColumn<>("timestamp");
         timestampColumn.setCellValueFactory(new LogPartCellValueFactory(new TimeStampProvider()));
         timestampColumn.setCellFactory(new LogPartCellFactory());
         return timestampColumn;

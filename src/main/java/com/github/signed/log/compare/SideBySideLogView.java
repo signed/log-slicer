@@ -1,5 +1,6 @@
 package com.github.signed.log.compare;
 
+import com.github.signed.log.HboxControledOrphanage;
 import com.github.signed.log.ViewOrphanage;
 import com.github.signed.log.list.LogView;
 import javafx.beans.value.ChangeListener;
@@ -16,7 +17,7 @@ public class SideBySideLogView {
     private final LogView right = new LogView();
 
     public SideBySideLogView() {
-        ViewOrphanage viewOrphanage = new ViewOrphanage(container);
+        ViewOrphanage viewOrphanage = new HboxControledOrphanage(container);
         left.addTo(viewOrphanage);
         container.getChildren().add(scrollBar);
         right.addTo(viewOrphanage);
