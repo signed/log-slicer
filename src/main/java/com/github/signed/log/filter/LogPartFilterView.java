@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import lang.Announcer;
@@ -21,7 +22,7 @@ import java.util.List;
 public class LogPartFilterView {
     private final VBox vbox = new VBox();
     private ComboBox<LoggedThread> availableThreads;
-    private final VBox selectedFilterContainer = new VBox();
+    private final FlowPane selectedFilterContainer = new FlowPane();
     private final Announcer<ArgumentClosure> discardFilterListeners = new Announcer<>(ArgumentClosure.class);
     private final Announcer<ArgumentClosure> selectionListener = new Announcer<>(ArgumentClosure.class);
 
