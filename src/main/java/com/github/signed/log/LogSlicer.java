@@ -34,14 +34,14 @@ public class LogSlicer extends Application{
 
     private final LogPartFilterModel leftLogPartFilterModel = new LogPartFilterModel(logModel);
     private final LogPartFilterView  leftLogPartFilterView = new LogPartFilterView();
-    private final LogPartFilterPresenter leftLogPartFilterPresenter = new LogPartFilterPresenter(leftLogPartFilterView, leftLogPartFilterModel, logModel);
+    private final LogPartFilterPresenter leftLogPartFilterPresenter = new LogPartFilterPresenter(leftLogPartFilterView, leftLogPartFilterModel);
 
     private final LogView leftLogView = new LogView();
     private final LogPresenter leftLogPresenter = new LogPresenter(leftLogPartFilterModel, leftLogView);
 
     private final LogPartFilterModel rightLogPartFilterModel = new LogPartFilterModel(logModel);
     private final LogPartFilterView  rightLogPartFilterView = new LogPartFilterView();
-    private final LogPartFilterPresenter rightLogPartFilterPresenter = new LogPartFilterPresenter(rightLogPartFilterView, rightLogPartFilterModel, logModel);
+    private final LogPartFilterPresenter rightLogPartFilterPresenter = new LogPartFilterPresenter(rightLogPartFilterView, rightLogPartFilterModel);
 
     private final LogView rightLogView = new LogView();
     private final LogPresenter rightLogPresenter = new LogPresenter(rightLogPartFilterModel, rightLogView);

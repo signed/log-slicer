@@ -54,6 +54,11 @@ public class LogPartFilterModel implements LogModel {
         });
     }
 
+    @Override
+    public void provideThreadChoicesTo(ArgumentClosure<List<LoggedThread>> argumentClosure) {
+        logModel.provideThreadChoicesTo(argumentClosure);
+    }
+
     private void filterAndForwardTo(List<LogEntry> logEntries, ArgumentClosure<List<LogEntry>> argumentClosure) {
         if (threadToFilterBy.isPresent()) {
             List<LogEntry> transformed = Lists.transform(logEntries, new Function<LogEntry, LogEntry>() {
