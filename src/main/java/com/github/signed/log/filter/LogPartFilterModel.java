@@ -25,10 +25,14 @@ public class LogPartFilterModel implements LogModel {
         logModel.onChange(new Runnable() {
             @Override
             public void run() {
-                availableThreadChangeListener.announce().run();
+                announceThreadSelectionChanged();
                 announceChange();
             }
         });
+    }
+
+    private void announceThreadSelectionChanged() {
+        availableThreadChangeListener.announce().run();
     }
 
     @Override
@@ -38,6 +42,7 @@ public class LogPartFilterModel implements LogModel {
 
     public void matches(LoggedThread loggedThread) {
         threadToFilterBy = Optional.fromNullable(loggedThread);
+        announceThreadSelectionChanged();
         announceChange();
     }
 
@@ -80,7 +85,7 @@ public class LogPartFilterModel implements LogModel {
         });
     }
 
-    public void provideSelectedThreadTo(ArgumentClosure<List<LoggedThread>> argumentClosure) {
+    public void provideSelectedThreadsTo(ArgumentClosure<List<LoggedThread>> argumentClosure) {
         List<LoggedThread> selectedFilters = Lists.newArrayList();
         if (threadToFilterBy.isPresent()) {
             selectedFilters.add(threadToFilterBy.get());
