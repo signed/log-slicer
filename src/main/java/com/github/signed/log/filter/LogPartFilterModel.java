@@ -63,17 +63,22 @@ public class LogPartFilterModel implements LogModel {
     private void filterAndForwardTo(List<LogEntry> logEntries, ArgumentClosure<List<LogEntry>> argumentClosure) {
         List<LogEntry> forward = logEntries;
         if (threadToFilterBy.isPresent()) {
-            forward = Lists.transform(logEntries, new Function<LogEntry, LogEntry>() {
-                @Override
-                public LogEntry apply(@Nullable LogEntry input) {
-                    if (input.thread().equals(threadToFilterBy.get())) {
-                        return input;
-                    }
-                    return LogEntry.Null;
-                }
-            });
+            forward = filterBySelectedThreads(logEntries);
         }
         argumentClosure.excecute(ImmutableList.copyOf(forward));
+    }
+
+    private List<LogEntry> filterBySelectedThreads(List<LogEntry> logEntries) {
+
+        return  Lists.transform(logEntries, new Function<LogEntry, LogEntry>() {
+            @Override
+            public LogEntry apply(@Nullable LogEntry input) {
+                if (input.thread().equals(threadToFilterBy.get())) {
+                    return input;
+                }
+                return LogEntry.Null;
+            }
+        });
     }
 
     public void provideSelectedThreadTo(ArgumentClosure<List<LoggedThread>> argumentClosure) {
