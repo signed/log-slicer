@@ -6,26 +6,27 @@ import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import lang.ArgumentClosure;
 
 import java.util.List;
 
 public class LogPartFilterView {
+    private final VBox vbox = new VBox();
     private final ComboBox<LoggedThread> availableThreads = new ComboBox<>();
+    private final VBox selectedFilterContainer = new VBox();
 
     public LogPartFilterView() {
         createThreadsComboBox();
-    }
-
-    public ComboBox<LoggedThread> node() {
-        return availableThreads;
+        vbox.getChildren().addAll(availableThreads, selectedFilterContainer);
     }
 
     public void onSelectedThreadChanges(final ArgumentClosure<LoggedThread> closure){
-        node().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LoggedThread>() {
+        availableThreads.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LoggedThread>() {
             @Override
             public void changed(ObservableValue<? extends LoggedThread> observableValue, LoggedThread loggedThread, LoggedThread loggedThread1) {
                 closure.excecute(loggedThread1);
@@ -34,14 +35,12 @@ public class LogPartFilterView {
     }
 
     public void displayAvailableThreads(List<LoggedThread> threads) {
-        node().setItems(new ObservableListWrapper<>(threads));
+        availableThreads.setItems(new ObservableListWrapper<>(threads));
     }
 
-
-
     public void createThreadsComboBox() {
-        node().setPromptText("threads");
-        node().setCellFactory(new Callback<ListView<LoggedThread>, ListCell<LoggedThread>>() {
+        availableThreads.setPromptText("threads");
+        availableThreads.setCellFactory(new Callback<ListView<LoggedThread>, ListCell<LoggedThread>>() {
             @Override
             public ListCell<LoggedThread> call(ListView<LoggedThread> loggedThreadListView) {
                 return new ListCell<LoggedThread>() {
@@ -62,6 +61,12 @@ public class LogPartFilterView {
     }
 
     public void addTo(ViewOrphanage viewOrphanage) {
-        viewOrphanage.add(node());
+        viewOrphanage.add(vbox);
+    }
+
+    public void displaySelectedFilter(LoggedThread loggedThread) {
+        selectedFilterContainer.getChildren().clear();
+        Label label = new Label(loggedThread.toString());
+        selectedFilterContainer.getChildren().add(label);
     }
 }

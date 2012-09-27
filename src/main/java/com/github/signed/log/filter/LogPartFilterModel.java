@@ -68,4 +68,10 @@ public class LogPartFilterModel implements LogModel {
             argumentClosure.excecute(logEntries);
         }
     }
+
+    public void provideSelectedThreadTo(ArgumentClosure<LoggedThread> argumentClosure) {
+        if(threadToFilterBy.isPresent()){
+            argumentClosure.excecute(threadToFilterBy.get());
+        }
+    }
 }

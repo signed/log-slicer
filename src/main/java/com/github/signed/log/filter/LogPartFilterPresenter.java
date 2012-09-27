@@ -38,5 +38,21 @@ public class LogPartFilterPresenter implements Presenter {
                 model.matches(loggedThread);
             }
         });
+
+        model.onChange(new Runnable() {
+            @Override
+            public void run() {
+                model.provideSelectedThreadTo(new ArgumentClosure<LoggedThread>() {
+                    @Override
+                    public void excecute(LoggedThread loggedThread) {
+                        logPartFilterView.displaySelectedFilter(loggedThread);
+                    }
+                });
+
+            }
+        });
+
+
+
     }
 }
