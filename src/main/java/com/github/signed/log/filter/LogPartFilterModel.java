@@ -14,6 +14,7 @@ import java.util.List;
 
 public class LogPartFilterModel implements LogModel {
 
+    private final Announcer<Runnable> availableThreadChangeListener = new Announcer<>(Runnable.class);
     private final Announcer<Runnable> changeListener = new Announcer<>(Runnable.class);
     private final LogModel logModel;
     private Optional<LoggedThread> threadToFilterBy = Optional.absent();
@@ -23,6 +24,7 @@ public class LogPartFilterModel implements LogModel {
         logModel.onChange(new Runnable() {
             @Override
             public void run() {
+                availableThreadChangeListener.announce().run();
                 announceChange();
             }
         });
@@ -73,5 +75,9 @@ public class LogPartFilterModel implements LogModel {
         if(threadToFilterBy.isPresent()){
             argumentClosure.excecute(threadToFilterBy.get());
         }
+    }
+
+    public void onAvailableThreadsChanges(Runnable runnable) {
+        this.availableThreadChangeListener.addListener(runnable);
     }
 }

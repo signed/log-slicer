@@ -20,7 +20,7 @@ public class LogPartFilterPresenter implements Presenter {
 
     @Override
     public void initialize() {
-        logModel.onChange(new Runnable() {
+        model.onAvailableThreadsChanges(new Runnable() {
             @Override
             public void run() {
                 logModel.provideThreadChoicesTo(new ArgumentClosure<List<LoggedThread>>() {
