@@ -48,8 +48,5 @@ public class LogPartFilterPresenter implements Presenter {
 
             }
         });
-
-
-
     }
 }
