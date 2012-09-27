@@ -8,12 +8,12 @@ import lang.ArgumentClosure;
 import java.util.List;
 
 public class LogPartFilterPresenter implements Presenter {
-    private final LogPartFilterView logPartFilterView;
+    private final LogPartFilterView view;
     private final LogPartFilterModel model;
     private final SimpleLogModel logModel;
 
-    public LogPartFilterPresenter(LogPartFilterView logPartFilterView, LogPartFilterModel model, SimpleLogModel logModel) {
-        this.logPartFilterView = logPartFilterView;
+    public LogPartFilterPresenter(LogPartFilterView view, LogPartFilterModel model, SimpleLogModel logModel) {
+        this.view = view;
         this.model = model;
         this.logModel = logModel;
     }
@@ -26,13 +26,13 @@ public class LogPartFilterPresenter implements Presenter {
                 logModel.provideThreadChoicesTo(new ArgumentClosure<List<LoggedThread>>() {
                     @Override
                     public void excecute(List<LoggedThread> loggedThreads) {
-                        logPartFilterView.displayAvailableThreads(loggedThreads);
+                        view.displayAvailableThreads(loggedThreads);
                     }
                 });
             }
         });
 
-        logPartFilterView.onSelectedThreadChanges(new ArgumentClosure<LoggedThread>() {
+        view.onSelectedThreadChanges(new ArgumentClosure<LoggedThread>() {
             @Override
             public void excecute(LoggedThread loggedThread) {
                 model.matches(loggedThread);
@@ -45,7 +45,7 @@ public class LogPartFilterPresenter implements Presenter {
                 model.provideSelectedThreadTo(new ArgumentClosure<LoggedThread>() {
                     @Override
                     public void excecute(LoggedThread loggedThread) {
-                        logPartFilterView.displaySelectedFilter(loggedThread);
+                        view.displaySelectedFilter(loggedThread);
                     }
                 });
 
