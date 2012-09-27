@@ -4,24 +4,25 @@ import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.list.LogModel;
 import com.github.signed.log.thread.LoggedThread;
 import com.google.common.base.Function;
-import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.sun.istack.internal.Nullable;
 import lang.Announcer;
 import lang.ArgumentClosure;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class LogPartFilterModel implements LogModel {
 
     private final Announcer<Runnable> availableThreadChangeListener = new Announcer<>(Runnable.class);
     private final Announcer<Runnable> changeListener = new Announcer<>(Runnable.class);
     private final LogModel logModel;
-    private Optional<LoggedThread> threadToFilterBy = Optional.absent();
+    private final Set<LoggedThread> loggedThreadsToDisplay = Sets.newLinkedHashSet();
 
     public LogPartFilterModel(LogModel logModel) {
         this.logModel = logModel;
@@ -44,7 +45,7 @@ public class LogPartFilterModel implements LogModel {
     }
 
     public void matches(LoggedThread loggedThread) {
-        threadToFilterBy = Optional.fromNullable(loggedThread);
+        loggedThreadsToDisplay.add(loggedThread);
         announceThreadSelectionChanged();
         announceChange();
     }
@@ -65,27 +66,24 @@ public class LogPartFilterModel implements LogModel {
 
     @Override
     public void provideThreadChoicesTo(final ArgumentClosure<List<LoggedThread>> argumentClosure) {
-        ArgumentClosure<List<LoggedThread>> finalClosure = argumentClosure;
-        if(threadToFilterBy.isPresent()){
-            finalClosure = new ArgumentClosure<List<LoggedThread>>() {
+        ArgumentClosure<List<LoggedThread>> filterClosure=  new ArgumentClosure<List<LoggedThread>>() {
                 @Override
                 public void excecute(List<LoggedThread> loggedThreads) {
                     Collection<LoggedThread> filtered = Collections2.filter(loggedThreads, new Predicate<LoggedThread>() {
                         @Override
                         public boolean apply(@Nullable LoggedThread input) {
-                            return !threadToFilterBy.get().equals(input);
+                            return !loggedThreadsToDisplay.contains(input);
                         }
                     });
                     argumentClosure.excecute(ImmutableList.copyOf(filtered));
                 }
             };
-        }
-        logModel.provideThreadChoicesTo(finalClosure);
+        logModel.provideThreadChoicesTo(filterClosure);
     }
 
     private void filterAndForwardTo(List<LogEntry> logEntries, ArgumentClosure<List<LogEntry>> argumentClosure) {
         List<LogEntry> forward = logEntries;
-        if (threadToFilterBy.isPresent()) {
+        if (!this.loggedThreadsToDisplay.isEmpty()) {
             forward = filterBySelectedThreads(logEntries);
         }
         argumentClosure.excecute(ImmutableList.copyOf(forward));
@@ -95,7 +93,7 @@ public class LogPartFilterModel implements LogModel {
         return  Lists.transform(logEntries, new Function<LogEntry, LogEntry>() {
             @Override
             public LogEntry apply(@Nullable LogEntry input) {
-                if (input.thread().equals(threadToFilterBy.get())) {
+                if ( loggedThreadsToDisplay.contains(input.thread())) {
                     return input;
                 }
                 return LogEntry.Null;
@@ -104,11 +102,7 @@ public class LogPartFilterModel implements LogModel {
     }
 
     public void provideSelectedThreadsTo(ArgumentClosure<List<LoggedThread>> argumentClosure) {
-        List<LoggedThread> selectedFilters = Lists.newArrayList();
-        if (threadToFilterBy.isPresent()) {
-            selectedFilters.add(threadToFilterBy.get());
-        }
-        argumentClosure.excecute(selectedFilters);
+        argumentClosure.excecute(ImmutableList.copyOf(loggedThreadsToDisplay));
     }
 
     public void onAvailableThreadsChanges(Runnable runnable) {
@@ -116,7 +110,7 @@ public class LogPartFilterModel implements LogModel {
     }
 
     public void discardFilter(LoggedThread loggedThread) {
-        threadToFilterBy = Optional.absent();
+        this.loggedThreadsToDisplay.remove(loggedThread);
         announceChange();
         announceThreadSelectionChanged();
     }
