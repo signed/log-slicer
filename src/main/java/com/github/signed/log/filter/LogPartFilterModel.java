@@ -61,8 +61,20 @@ public class LogPartFilterModel implements LogModel {
     }
 
     @Override
-    public void provideThreadChoicesTo(ArgumentClosure<List<LoggedThread>> argumentClosure) {
-        logModel.provideThreadChoicesTo(argumentClosure);
+    public void provideThreadChoicesTo(final ArgumentClosure<List<LoggedThread>> argumentClosure) {
+        ArgumentClosure<List<LoggedThread>> finalClosure = argumentClosure;
+        if(threadToFilterBy.isPresent()){
+            finalClosure = new ArgumentClosure<List<LoggedThread>>() {
+                @Override
+                public void excecute(List<LoggedThread> loggedThreads) {
+                    System.out.println("do filter stuff ...");
+                    argumentClosure.excecute(loggedThreads);
+                }
+            };
+        }else{
+            System.out.println("unfiltered");
+        }
+        logModel.provideThreadChoicesTo(finalClosure);
     }
 
     private void filterAndForwardTo(List<LogEntry> logEntries, ArgumentClosure<List<LogEntry>> argumentClosure) {
@@ -100,5 +112,6 @@ public class LogPartFilterModel implements LogModel {
     public void discardFilter(LoggedThread loggedThread) {
         threadToFilterBy = Optional.absent();
         announceChange();
+        announceThreadSelectionChanged();
     }
 }
