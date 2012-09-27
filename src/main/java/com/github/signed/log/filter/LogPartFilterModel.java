@@ -76,13 +76,12 @@ public class LogPartFilterModel implements LogModel {
         argumentClosure.excecute(ImmutableList.copyOf(forward));
     }
 
-    public void provideSelectedThreadTo(ArgumentClosure<LoggedThread> argumentClosure) {
-
+    public void provideSelectedThreadTo(ArgumentClosure<List<LoggedThread>> argumentClosure) {
+        List<LoggedThread> selectedFilters = Lists.newArrayList();
         if (threadToFilterBy.isPresent()) {
-            argumentClosure.excecute(threadToFilterBy.get());
-        } else {
-            argumentClosure.excecute(null);
+            selectedFilters.add(threadToFilterBy.get());
         }
+        argumentClosure.excecute(selectedFilters);
     }
 
     public void onAvailableThreadsChanges(Runnable runnable) {

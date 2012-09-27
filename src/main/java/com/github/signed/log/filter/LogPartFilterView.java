@@ -68,21 +68,24 @@ public class LogPartFilterView {
         viewOrphanage.add(vbox);
     }
 
-    public void displaySelectedFilter(final LoggedThread loggedThread) {
+    public void displaySelectedFilter(final List<LoggedThread> whiteListedThreads) {
         selectedFilterContainer.getChildren().clear();
-        if( null == loggedThread){
-            return;
+
+        for (final LoggedThread thread : whiteListedThreads) {
+            Label label = createLabelFor(thread);
+            selectedFilterContainer.getChildren().add(label);
         }
+    }
 
-        Label label = new Label(loggedThread.toString());
-        selectedFilterContainer.getChildren().add(label);
-
+    private Label createLabelFor(final LoggedThread thread) {
+        Label label = new Label(thread.toString());
         label.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                discardFilterListeners.announce().excecute(loggedThread);
+                discardFilterListeners.announce().excecute(thread);
             }
         });
+        return label;
     }
 
     public void onDiscardFilter(ArgumentClosure<LoggedThread> argumentClosure) {

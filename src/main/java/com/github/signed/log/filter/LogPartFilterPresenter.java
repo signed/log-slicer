@@ -46,9 +46,9 @@ public class LogPartFilterPresenter implements Presenter {
         model.onChange(new Runnable() {
             @Override
             public void run() {
-                model.provideSelectedThreadTo(new ArgumentClosure<LoggedThread>() {
+                model.provideSelectedThreadTo(new ArgumentClosure<List<LoggedThread>>() {
                     @Override
-                    public void excecute(LoggedThread loggedThread) {
+                    public void excecute(List<LoggedThread> loggedThread) {
                         view.displaySelectedFilter(loggedThread);
                     }
                 });
