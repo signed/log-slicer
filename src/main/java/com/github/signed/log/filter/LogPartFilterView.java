@@ -20,29 +20,41 @@ import java.util.List;
 
 public class LogPartFilterView {
     private final VBox vbox = new VBox();
-    private final ComboBox<LoggedThread> availableThreads = new ComboBox<>();
+    private ComboBox<LoggedThread> availableThreads;
     private final VBox selectedFilterContainer = new VBox();
     private final Announcer<ArgumentClosure> discardFilterListeners = new Announcer<>(ArgumentClosure.class);
+    private final Announcer<ArgumentClosure> selectionListener = new Announcer<>(ArgumentClosure.class);
 
     public LogPartFilterView() {
-        createThreadsComboBox();
+        createAvailableThreadsCombobox();
         vbox.getChildren().addAll(availableThreads, selectedFilterContainer);
     }
 
     public void onSelectedThreadChanges(final ArgumentClosure<LoggedThread> closure) {
-        availableThreads.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LoggedThread>() {
-            @Override
-            public void changed(ObservableValue<? extends LoggedThread> observableValue, LoggedThread loggedThread, LoggedThread loggedThread1) {
-                closure.excecute(loggedThread1);
-            }
-        });
+        selectionListener.addListener(closure);
     }
 
     public void displayAvailableThreads(List<LoggedThread> threads) {
+        reCreateComboBox();
+        availableThreads.getSelectionModel().clearSelection();
         availableThreads.setItems(new ObservableListWrapper<>(threads));
     }
 
-    public void createThreadsComboBox() {
+    public void reCreateComboBox(){
+        createAvailableThreadsCombobox();
+        vbox.getChildren().remove(0);
+        vbox.getChildren().add(0, availableThreads);
+    }
+
+    public void createAvailableThreadsCombobox() {
+        availableThreads = new ComboBox<>();
+        availableThreads.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LoggedThread>() {
+            @Override
+            public void changed(ObservableValue<? extends LoggedThread> observableValue, LoggedThread loggedThread, LoggedThread loggedThread1) {
+                selectionListener.announce().excecute(loggedThread1);
+            }
+        });
+
         availableThreads.setPromptText("threads");
         availableThreads.setCellFactory(new Callback<ListView<LoggedThread>, ListCell<LoggedThread>>() {
             @Override

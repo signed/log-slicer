@@ -5,12 +5,15 @@ import com.github.signed.log.list.LogModel;
 import com.github.signed.log.thread.LoggedThread;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.sun.istack.internal.Nullable;
 import lang.Announcer;
 import lang.ArgumentClosure;
 
+import java.util.Collection;
 import java.util.List;
 
 public class LogPartFilterModel implements LogModel {
@@ -67,12 +70,15 @@ public class LogPartFilterModel implements LogModel {
             finalClosure = new ArgumentClosure<List<LoggedThread>>() {
                 @Override
                 public void excecute(List<LoggedThread> loggedThreads) {
-                    System.out.println("do filter stuff ...");
-                    argumentClosure.excecute(loggedThreads);
+                    Collection<LoggedThread> filtered = Collections2.filter(loggedThreads, new Predicate<LoggedThread>() {
+                        @Override
+                        public boolean apply(@Nullable LoggedThread input) {
+                            return !threadToFilterBy.get().equals(input);
+                        }
+                    });
+                    argumentClosure.excecute(ImmutableList.copyOf(filtered));
                 }
             };
-        }else{
-            System.out.println("unfiltered");
         }
         logModel.provideThreadChoicesTo(finalClosure);
     }
