@@ -69,7 +69,6 @@ public class LogPartFilterModel implements LogModel {
     }
 
     private List<LogEntry> filterBySelectedThreads(List<LogEntry> logEntries) {
-
         return  Lists.transform(logEntries, new Function<LogEntry, LogEntry>() {
             @Override
             public LogEntry apply(@Nullable LogEntry input) {
