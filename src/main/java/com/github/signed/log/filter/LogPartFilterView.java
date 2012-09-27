@@ -92,6 +92,7 @@ public class LogPartFilterView {
 
     private Label createLabelFor(final LoggedThread thread) {
         Label label = new Label(thread.toString());
+        label.getStyleClass().add("filter-predicate");
         label.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {

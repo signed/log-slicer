@@ -78,6 +78,7 @@ public class LogSlicer extends Application{
 
         Scene scene = new Scene(hBox);
         scene.getStylesheets().addAll(LogSlicer.class.getResource("/hide-scroll-bar.css").toExternalForm());
+        scene.getStylesheets().addAll(LogSlicer.class.getResource("/filter-predicate.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }

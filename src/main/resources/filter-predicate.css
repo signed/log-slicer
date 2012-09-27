@@ -1,0 +1,13 @@
+/* The main scrollbar **track** CSS class  */
+
+.filter-predicate {
+    -fx-border-color: darkgreen;
+    -fx-border-radius:2em;
+    -fx-padding:1 6 1 6;
+    -fx-background-color:lightgreen;
+    -fx-background-radius:2em;
+}
+
+.filter-predicate:hover .text{
+    -fx-strikethrough:true;
+}
