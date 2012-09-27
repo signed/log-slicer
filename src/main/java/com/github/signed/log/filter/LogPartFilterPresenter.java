@@ -36,6 +36,13 @@ public class LogPartFilterPresenter implements Presenter {
             }
         });
 
+        view.onDiscardFilter(new ArgumentClosure<LoggedThread>() {
+            @Override
+            public void excecute(LoggedThread loggedThread) {
+                model.discardFilter(loggedThread);
+            }
+        });
+
         model.onChange(new Runnable() {
             @Override
             public void run() {

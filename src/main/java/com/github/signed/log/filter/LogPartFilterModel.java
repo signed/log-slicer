@@ -5,6 +5,7 @@ import com.github.signed.log.list.LogModel;
 import com.github.signed.log.thread.LoggedThread;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.sun.istack.internal.Nullable;
 import lang.Announcer;
@@ -60,8 +61,9 @@ public class LogPartFilterModel implements LogModel {
     }
 
     private void filterAndForwardTo(List<LogEntry> logEntries, ArgumentClosure<List<LogEntry>> argumentClosure) {
+        List<LogEntry> forward = logEntries;
         if (threadToFilterBy.isPresent()) {
-            List<LogEntry> transformed = Lists.transform(logEntries, new Function<LogEntry, LogEntry>() {
+            forward = Lists.transform(logEntries, new Function<LogEntry, LogEntry>() {
                 @Override
                 public LogEntry apply(@Nullable LogEntry input) {
                     if (input.thread().equals(threadToFilterBy.get())) {
@@ -70,19 +72,25 @@ public class LogPartFilterModel implements LogModel {
                     return LogEntry.Null;
                 }
             });
-            argumentClosure.excecute(transformed);
-        } else {
-            argumentClosure.excecute(logEntries);
         }
+        argumentClosure.excecute(ImmutableList.copyOf(forward));
     }
 
     public void provideSelectedThreadTo(ArgumentClosure<LoggedThread> argumentClosure) {
-        if(threadToFilterBy.isPresent()){
+
+        if (threadToFilterBy.isPresent()) {
             argumentClosure.excecute(threadToFilterBy.get());
+        } else {
+            argumentClosure.excecute(null);
         }
     }
 
     public void onAvailableThreadsChanges(Runnable runnable) {
         this.availableThreadChangeListener.addListener(runnable);
+    }
+
+    public void discardFilter(LoggedThread loggedThread) {
+        threadToFilterBy = Optional.absent();
+        announceChange();
     }
 }
