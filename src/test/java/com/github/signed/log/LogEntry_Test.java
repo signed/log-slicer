@@ -13,12 +13,6 @@ import static org.hamcrest.Matchers.is;
 
 public class LogEntry_Test {
     @Test
-    public void retrieveThreadInformationFromLogEntry() throws Exception {
-        LogEntry entry = LogEntry.createLogEntry("2012-09-18 20:14:58,518 stuff (ThreadName)");
-        assertThat(entry.thread(), is(new LoggedThread("ThreadName")));
-    }
-
-    @Test
     @Ignore
     public void retrievesRawLineLine() throws Exception {
         assertThat(LogEntry.createLogEntry("the raw line").getPart(RawLogEntry.class), is(new RawLogEntry("the raw line")));
