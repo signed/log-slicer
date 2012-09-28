@@ -7,7 +7,7 @@ import static org.hamcrest.Matchers.is;
 
 public class RawLogEntry_Test {
     @Test
-    public void testName() throws Exception {
+    public void dumpPlainString() throws Exception {
         RawLogEntry entry = new RawLogEntry("more or less useful information");
         StringBuilder stringBuilder = new StringBuilder();
         entry.dumpInto(stringBuilder);

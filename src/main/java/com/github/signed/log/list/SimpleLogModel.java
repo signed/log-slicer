@@ -40,7 +40,7 @@ public class SimpleLogModel implements LogModel {
         List<LoggedThread> transform = Lists.transform(logEntries, new Function<LogEntry, LoggedThread>() {
             @Override
             public LoggedThread apply(LogEntry input) {
-                return input.getPart(LoggedThread.class);
+                return input.getDerivedPart(LoggedThread.class);
             }
         });
 

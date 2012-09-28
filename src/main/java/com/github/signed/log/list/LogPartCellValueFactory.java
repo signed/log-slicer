@@ -17,7 +17,6 @@ public class LogPartCellValueFactory implements Callback<TableColumn.CellDataFea
     @Override
     public ObservableValue<LogPart> call(TableColumn.CellDataFeatures<LogEntry, LogPart> logEntryLoggedThreadCellDataFeatures) {
         LogEntry value = logEntryLoggedThreadCellDataFeatures.getValue();
-
         return new SimpleObjectProperty<>(logPartProvider.from(value));
     }
 }

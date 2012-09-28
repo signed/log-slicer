@@ -6,6 +6,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.util.Callback;
+import lang.ArgumentClosure;
 
 public class LogEntryRowFactory implements Callback<TableView<LogEntry>, TableRow<LogEntry>> {
     @Override
@@ -17,10 +18,12 @@ public class LogEntryRowFactory implements Callback<TableView<LogEntry>, TableRo
                 if(null == logEntry){
                     setTooltip(null);
                 }else{
-                    RawLogEntry part = logEntry.getPart(RawLogEntry.class);
-                    StringBuilder builder = new StringBuilder();
-                    part.dumpInto(builder);
-                    setTooltip(new Tooltip(builder.toString()));
+                    logEntry.dumpPartInto(RawLogEntry.class, new ArgumentClosure<String>() {
+                        @Override
+                        public void excecute(String s) {
+                            setTooltip(new Tooltip(s));
+                        }
+                    });
                 }
             }
         };
