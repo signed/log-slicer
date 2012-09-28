@@ -41,7 +41,7 @@ public class LogModel_Test {
 
     private void logOnThread(LoggedThread thread) {
         ImmutableList<LogPart> of = ImmutableList.<LogPart>of(thread);
-        LogEntry logEntry = new LogEntry("", of);
+        LogEntry logEntry = new LogEntry(of);
         logModel.addEntriesFrom(Collections.singletonList(logEntry));
     }
 

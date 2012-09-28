@@ -18,7 +18,7 @@ public class RawLog_Test {
         String firstLine = "2012-09-18 20:14:58,518 stuff";
         RawLog rawLog = new RawLog(firstLine);
 
-        assertThat(rawLog.iterator().next().text, is(firstLine));
+        assertThat(first(rawLog), is(firstLine));
     }
 
 
@@ -27,7 +27,7 @@ public class RawLog_Test {
         String firstLine = "2012-09-18 20:14:58,518 stuff";
         RawLog rawLog = new RawLog(firstLine+"\n");
 
-        assertThat(rawLog.iterator().next().text, is(firstLine));
+        assertThat(first(rawLog), is(firstLine));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class RawLog_Test {
         String secondLine = "just some additional logging information on the next line";
         RawLog rawLog = new RawLog(Joiner.on("\n").join(firstLine, secondLine));
 
-        assertThat(rawLog.iterator().next().text, is(firstLine+"\n"+secondLine));
+        assertThat(first(rawLog), is(firstLine+"\n"+secondLine));
     }
 
     @Test
@@ -48,16 +48,31 @@ public class RawLog_Test {
         assertThat(Iterators.size(rawLog.iterator()), is(2));
     }
 
-
     @Test
     public void returnLinesInOrder() throws Exception {
         String firstLine = "2012-09-18 20:14:58,518 first";
         String secondLine = "2012-09-18 20:14:58,518 second";
         RawLog rawLog = new RawLog(Joiner.on("\n").join(firstLine, secondLine));
 
+        String second = second(rawLog);
+        assertThat(second, is(secondLine));
+    }
+
+
+    private String first(RawLog rawLog) {
+        LogEntry next = rawLog.iterator().next();
+        return toString(next);
+    }
+
+    private String second(RawLog rawLog) {
         Iterator<LogEntry> iterator = rawLog.iterator();
         iterator.next();
+        return toString(iterator.next());
+    }
 
-        assertThat(iterator.next().text, is(secondLine));
+    private String toString(LogEntry next) {
+        StringBuilder builder = new StringBuilder();
+        next.getPart(RawLogEntry.class).dumpInto(builder);
+        return builder.toString();
     }
 }

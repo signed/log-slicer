@@ -15,7 +15,7 @@ public class TimeStampProvider_Test {
     @Test
     public void testName() throws Exception {
         LogPart timeStamp = new TimeStamp(null);
-        LogPart from = new TimeStampProvider().from(new LogEntry("", Collections.singleton(timeStamp)));
+        LogPart from = new TimeStampProvider().from(new LogEntry(Collections.singleton(timeStamp)));
         assertThat(from, is((LogPart)new TimeStamp(null)));
     }
 }

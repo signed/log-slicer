@@ -24,7 +24,7 @@ public class LogEntry_Test {
 
         final TimeStamp timestamp = new TimeStamp(time);
         final LoggedThread thread = new LoggedThread("");
-        LogEntry entry = new LogEntry("", ImmutableList.of(timestamp, thread));
+        LogEntry entry = new LogEntry(ImmutableList.of(timestamp, thread));
         assertThat(entry.getPart(TimeStamp.class), is(new TimeStamp(time)));
     }
 
@@ -32,7 +32,7 @@ public class LogEntry_Test {
     public void retrieveDifferentLogPartsByClassName() throws Exception {
         final TimeStamp timestamp = new TimeStamp(null);
         final LoggedThread name = new LoggedThread("name");
-        LogEntry entry = new LogEntry("", ImmutableList.of(timestamp, name));
+        LogEntry entry = new LogEntry(ImmutableList.of(timestamp, name));
         assertThat(entry.getPart(LoggedThread.class), is(new LoggedThread("name")));
     }
 }

@@ -19,28 +19,17 @@ public class LogEntry {
         bucket.add(new RawLogEntry(text));
         new TimeStampExtractor(text).passLogPartTo(bucket);
         new LoggedThreadExtractor(text).passLogPartTo(bucket);
-        return new LogEntry(text, bucket);
+        return new LogEntry(bucket);
     }
 
-    public static final LogEntry Null = new LogEntry("", ImmutableList.of(TimeStamp.Null, LoggedThread.Null));
+    public static final LogEntry Null = new LogEntry(ImmutableList.of(TimeStamp.Null, LoggedThread.Null));
 
-
-    public final String text;
     private final Map<Class<? extends LogPart>, Object> parts = Maps.newHashMap();
 
-    public LogEntry(String text, Collection<LogPart> availableParts) {
-        this.text = text;
+    public LogEntry(Collection<LogPart> availableParts) {
         for (LogPart availablePart : availableParts) {
             parts.put(availablePart.getClass(), availablePart);
         }
-    }
-
-    public TimeStamp taken() {
-        return getPart(TimeStamp.class);
-    }
-
-    public LoggedThread thread() {
-        return getPart(LoggedThread.class);
     }
 
     @SuppressWarnings("unchecked")
