@@ -5,15 +5,15 @@ import com.github.signed.log.thread.LoggedThread;
 import com.github.signed.log.timestamp.TimeStamp;
 import com.google.common.collect.ImmutableList;
 import org.joda.time.DateTime;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class LogEntry_Test {
+
+
     @Test
-    @Ignore
     public void retrievesRawLineLine() throws Exception {
         assertThat(LogEntry.createLogEntry("the raw line").getPart(RawLogEntry.class), is(new RawLogEntry("the raw line")));
     }

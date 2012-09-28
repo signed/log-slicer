@@ -1,5 +1,6 @@
 package com.github.signed.log.core;
 
+import com.github.signed.log.RawLogEntry;
 import com.github.signed.log.thread.LoggedThread;
 import com.github.signed.log.thread.LoggedThreadExtractor;
 import com.github.signed.log.timestamp.TimeStamp;
@@ -15,6 +16,7 @@ public class LogEntry {
 
     public static LogEntry createLogEntry(String text) {
         Collection<LogPart> bucket = Lists.newArrayList();
+        bucket.add(new RawLogEntry(text));
         new TimeStampExtractor(text).passLogPartTo(bucket);
         new LoggedThreadExtractor(text).passLogPartTo(bucket);
         return new LogEntry(text, bucket);
