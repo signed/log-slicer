@@ -7,8 +7,6 @@ import org.junit.Test;
 
 import java.util.Collection;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -20,7 +18,9 @@ public class LoggedThreadExtractor_Test {
     @Test
     public void threadEndsAtTheFirstClosingBracket() throws Exception {
         LoggedThreadExtractor extractor = new LoggedThreadExtractor("stuff (thread name) a message that contains a closing braket)");
-        assertThat(extractor.extract(), is(new LoggedThread("thread name")));
+        extractor.passLogPartTo(bucket);
+
+        verify(bucket).add(new LoggedThread("thread name"));
     }
 
     @Test
