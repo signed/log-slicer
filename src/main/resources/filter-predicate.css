@@ -11,3 +11,7 @@
 .filter-predicate:hover .text{
     -fx-strikethrough:true;
 }
+
+.filter-predicate:hover{
+    -fx-background-color:red;
+}

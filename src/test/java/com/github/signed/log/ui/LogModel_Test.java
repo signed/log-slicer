@@ -1,8 +1,10 @@
 package com.github.signed.log.ui;
 
 import com.github.signed.log.core.LogEntry;
+import com.github.signed.log.core.LogPart;
 import com.github.signed.log.list.SimpleLogModel;
 import com.github.signed.log.thread.LoggedThread;
+import com.google.common.collect.ImmutableList;
 import lang.ArgumentClosure;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
@@ -38,7 +40,8 @@ public class LogModel_Test {
     }
 
     private void logOnThread(LoggedThread thread) {
-        LogEntry logEntry = new LogEntry("", null, thread);
+        ImmutableList<LogPart> of = ImmutableList.<LogPart>of(thread);
+        LogEntry logEntry = new LogEntry("", of);
         logModel.addEntriesFrom(Collections.singletonList(logEntry));
     }
 
@@ -68,7 +71,4 @@ public class LogModel_Test {
     private void logEntryOnThread(String thread) {
         logOnThread(new LoggedThread(thread));
     }
-
-
-
 }
