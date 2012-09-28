@@ -12,15 +12,16 @@ import javafx.scene.control.TableView;
 import java.util.List;
 
 public class LogView {
-    private final TableView<LogEntry> table = new TableView<LogEntry>();
+    private final TableView<LogEntry> table = new TableView<>();
 
     public LogView() {
         table.getStyleClass().add("no-scroll-bars");
+        table.setRowFactory(new LogEntryRowFactory());
         createColumns();
     }
 
     public void display(List<LogEntry> entries) {
-        table.setItems(new ObservableListWrapper<LogEntry>(entries));
+        table.setItems(new ObservableListWrapper<>(entries));
     }
 
     public void scrollTo(int index) {
@@ -37,14 +38,14 @@ public class LogView {
     }
 
     private TableColumn<LogEntry, LogPart> createThreadColumn() {
-        TableColumn<LogEntry, LogPart> threadColumn = new TableColumn<LogEntry, LogPart>("thread");
+        TableColumn<LogEntry, LogPart> threadColumn = new TableColumn<>("thread");
         threadColumn.setCellValueFactory(new LogPartCellValueFactory(new LoggedThreadProvider()));
         threadColumn.setCellFactory(new LogPartCellFactory());
         return threadColumn;
     }
 
     private TableColumn<LogEntry, LogPart> createTimeStampColumn() {
-        TableColumn<LogEntry, LogPart> timestampColumn = new TableColumn<LogEntry, LogPart>("timestamp");
+        TableColumn<LogEntry, LogPart> timestampColumn = new TableColumn<>("timestamp");
         timestampColumn.setCellValueFactory(new LogPartCellValueFactory(new TimeStampProvider()));
         timestampColumn.setCellFactory(new LogPartCellFactory());
         return timestampColumn;
