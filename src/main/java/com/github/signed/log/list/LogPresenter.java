@@ -1,10 +1,9 @@
 package com.github.signed.log.list;
 
+import com.github.signed.log.core.Authority;
+import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.ui.Presenter;
-import com.github.signed.log.loglevel.LogLevel;
-import com.github.signed.log.thread.LoggedThread;
-import com.github.signed.log.timestamp.TimeStamp;
 import lang.ArgumentClosure;
 
 import java.util.List;
@@ -21,9 +20,17 @@ public class LogPresenter implements Presenter {
 
     @Override
     public void initialize() {
-        logView.showLogPart("loglevel", LogLevel.class);
-        logView.showLogPart("thread", LoggedThread.class);
-        logView.showLogPart("timestamp", TimeStamp.class);
+        logModel.onChange(new Runnable() {
+            @Override
+            public void run() {
+                logModel.describeTo(new Authority() {
+                    @Override
+                    public void accept(Descriptor descriptor) {
+                        logView.showLogPart(descriptor.name, descriptor.type);
+                    }
+                });
+            }
+        });
 
         logModel.onChange(new Runnable() {
             @Override

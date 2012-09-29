@@ -54,7 +54,7 @@ public class SimpleLogModel implements LogModel {
     }
 
     @Override
-    public void passDescriptorsTo(Authority authority) {
+    public void describeTo(Authority authority) {
         HashSet<Descriptor> authority1 = new HashSet<>();
         for (LogEntry logEntry : logEntries) {
             logEntry.describeTo(authority1);

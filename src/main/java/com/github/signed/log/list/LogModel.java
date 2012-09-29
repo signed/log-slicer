@@ -14,5 +14,5 @@ public interface LogModel {
 
     void provideThreadChoicesTo(ArgumentClosure<List<LoggedThread>> argumentClosure);
 
-    void passDescriptorsTo(Authority authority);
+    void describeTo(Authority authority);
 }

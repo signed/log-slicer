@@ -14,8 +14,8 @@ public class LogPartFilterModel_Test {
         Authority authority = mock(Authority.class);
         LogModel wrapped = mock(LogModel.class);
         LogPartFilterModel model = new LogPartFilterModel(wrapped);
-        model.passDescriptorsTo(authority);
+        model.describeTo(authority);
 
-        verify(wrapped).passDescriptorsTo(authority);
+        verify(wrapped).describeTo(authority);
     }
 }

@@ -44,7 +44,7 @@ public class SimpleLogModel_Test {
         logModel.addEntriesFrom(Collections.singletonList(logEntry));
 
         Authority authority = mock(Authority.class);
-        logModel.passDescriptorsTo(authority);
+        logModel.describeTo(authority);
         verify(authority).accept(new Descriptor("Dummy", DummyLogPart.class));
     }
 
