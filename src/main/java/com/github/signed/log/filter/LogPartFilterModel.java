@@ -84,7 +84,7 @@ public class LogPartFilterModel implements LogModel {
 
     @Override
     public void passDescriptorsTo(Authority authority) {
-        throw new RuntimeException();
+        logModel.passDescriptorsTo(authority);
     }
 
     private void filterAndForwardTo(List<LogEntry> logEntries, ArgumentClosure<List<LogEntry>> argumentClosure) {
