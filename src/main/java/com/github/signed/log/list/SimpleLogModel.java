@@ -30,7 +30,7 @@ public class SimpleLogModel implements LogModel {
     }
 
     @Override
-    public void onChange(Runnable runnable) {
+    public void onLogEntryChange(Runnable runnable) {
         changeListener.addListener(runnable);
     }
 

@@ -23,7 +23,7 @@ public class SideBySideLogPresenter implements Presenter {
 
     @Override
     public void initialize() {
-        logModel.onChange(new Runnable() {
+        logModel.onLogEntryChange(new Runnable() {
             @Override
             public void run() {
                 logModel.provideElementsTo(new ArgumentClosure<List<LogEntry>>() {

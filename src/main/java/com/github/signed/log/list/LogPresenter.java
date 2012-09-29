@@ -20,13 +20,13 @@ public class LogPresenter implements Presenter {
 
     @Override
     public void initialize() {
-        logModel.onChange(new Runnable() {
+        logModel.onLogEntryChange(new Runnable() {
             @Override
             public void run() {
                 logModel.describeTo(new Authority() {
                     @Override
                     public void accept(Descriptor descriptor) {
-                        if(descriptor.display){
+                        if (descriptor.display) {
                             logView.showLogPart(descriptor.name, descriptor.type);
                         }
                     }
@@ -34,7 +34,7 @@ public class LogPresenter implements Presenter {
             }
         });
 
-        logModel.onChange(new Runnable() {
+        logModel.onLogEntryChange(new Runnable() {
             @Override
             public void run() {
                 logModel.provideElementsTo(new ArgumentClosure<List<LogEntry>>() {

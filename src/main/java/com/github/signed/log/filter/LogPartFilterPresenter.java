@@ -22,7 +22,7 @@ public class LogPartFilterPresenter implements Presenter {
 
     @Override
     public void initialize() {
-        model.onChange(new PassSelectedFiltersToView(model, view));
+        model.onLogEntryChange(new PassSelectedFiltersToView(model, view));
         model.onAvailableThreadsChanges(new Runnable() {
             @Override
             public void run() {

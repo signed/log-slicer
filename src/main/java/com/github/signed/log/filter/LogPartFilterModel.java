@@ -27,7 +27,7 @@ public class LogPartFilterModel implements LogModel {
 
     public LogPartFilterModel(LogModel logModel) {
         this.logModel = logModel;
-        logModel.onChange(new Runnable() {
+        logModel.onLogEntryChange(new Runnable() {
             @Override
             public void run() {
                 announceThreadSelectionChanged();
@@ -41,7 +41,7 @@ public class LogPartFilterModel implements LogModel {
     }
 
     @Override
-    public void onChange(Runnable runnable) {
+    public void onLogEntryChange(Runnable runnable) {
         changeListener.addListener(runnable);
     }
 

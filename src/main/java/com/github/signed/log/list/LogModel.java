@@ -8,7 +8,7 @@ import lang.ArgumentClosure;
 import java.util.List;
 
 public interface LogModel {
-    void onChange(Runnable runnable);
+    void onLogEntryChange(Runnable runnable);
 
     void provideElementsTo(ArgumentClosure<List<LogEntry>> argumentClosure);
 
