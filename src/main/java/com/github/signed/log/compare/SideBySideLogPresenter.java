@@ -23,9 +23,6 @@ public class SideBySideLogPresenter implements Presenter {
 
     @Override
     public void initialize() {
-        leftLogPresenter.initialize();
-        rightLogPresenter.initialize();
-
         logModel.onChange(new Runnable() {
             @Override
             public void run() {

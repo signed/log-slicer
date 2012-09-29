@@ -4,8 +4,6 @@ import com.github.signed.log.ViewOrphanage;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.core.ui.KeyBasedLogPartProvider;
-import com.github.signed.log.thread.LoggedThread;
-import com.github.signed.log.timestamp.TimeStamp;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,7 +16,6 @@ public class LogView {
     public LogView() {
         table.getStyleClass().add("no-scroll-bars");
         table.setRowFactory(new LogEntryRowFactory());
-        createColumns();
     }
 
     public void display(List<LogEntry> entries) {
@@ -33,21 +30,13 @@ public class LogView {
         viewOrphanage.add(table);
     }
 
-    private void createColumns() {
-        table.getColumns().add(createTimeStampColumn());
-        table.getColumns().add(createThreadColumn());
+    public void showLogPart(String name, Class<? extends LogPart> key) {
+        table.getColumns().add(createColumn(name, key));
     }
 
-    private TableColumn<LogEntry, LogPart> createThreadColumn() {
-        TableColumn<LogEntry, LogPart> threadColumn = new TableColumn<>("thread");
-        threadColumn.setCellValueFactory(new LogPartCellValueFactory( new KeyBasedLogPartProvider(LoggedThread.class)));
-        threadColumn.setCellFactory(new LogPartCellFactory());
-        return threadColumn;
-    }
-
-    private TableColumn<LogEntry, LogPart> createTimeStampColumn() {
-        TableColumn<LogEntry, LogPart> timestampColumn = new TableColumn<>("timestamp");
-        timestampColumn.setCellValueFactory(new LogPartCellValueFactory(new KeyBasedLogPartProvider(TimeStamp.class)));
+    private TableColumn<LogEntry, LogPart> createColumn(String columnName, Class<? extends LogPart> keyToLogPart) {
+        TableColumn<LogEntry, LogPart> timestampColumn = new TableColumn<>(columnName);
+        timestampColumn.setCellValueFactory(new LogPartCellValueFactory(new KeyBasedLogPartProvider(keyToLogPart)));
         timestampColumn.setCellFactory(new LogPartCellFactory());
         return timestampColumn;
     }

@@ -2,6 +2,9 @@ package com.github.signed.log.list;
 
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.ui.Presenter;
+import com.github.signed.log.loglevel.LogLevel;
+import com.github.signed.log.thread.LoggedThread;
+import com.github.signed.log.timestamp.TimeStamp;
 import lang.ArgumentClosure;
 
 import java.util.List;
@@ -18,6 +21,10 @@ public class LogPresenter implements Presenter {
 
     @Override
     public void initialize() {
+        logView.showLogPart("loglevel", LogLevel.class);
+        logView.showLogPart("thread", LoggedThread.class);
+        logView.showLogPart("timestamp", TimeStamp.class);
+
         logModel.onChange(new Runnable() {
             @Override
             public void run() {
