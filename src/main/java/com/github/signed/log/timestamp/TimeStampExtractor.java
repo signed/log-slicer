@@ -1,7 +1,7 @@
 package com.github.signed.log.timestamp;
 
+import com.github.signed.log.core.Extractor;
 import com.github.signed.log.core.LogPart;
-import com.github.signed.log.thread.Extractor;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 import org.joda.time.format.DateTimeFormat;

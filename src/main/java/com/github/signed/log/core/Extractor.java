@@ -1,6 +1,4 @@
-package com.github.signed.log.thread;
-
-import com.github.signed.log.core.LogPart;
+package com.github.signed.log.core;
 
 import java.util.Collection;
 

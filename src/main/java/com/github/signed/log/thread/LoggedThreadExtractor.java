@@ -1,5 +1,7 @@
 package com.github.signed.log.thread;
 
+import com.github.signed.log.core.Extractor;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
