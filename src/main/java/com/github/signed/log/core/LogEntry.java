@@ -1,6 +1,7 @@
 package com.github.signed.log.core;
 
 import com.github.signed.log.RawLogEntry;
+import com.github.signed.log.loglevel.LogLevelExtractor;
 import com.github.signed.log.thread.LoggedThreadExtractor;
 import com.github.signed.log.timestamp.TimeStampExtractor;
 import com.google.common.collect.Lists;
@@ -18,6 +19,7 @@ public class LogEntry {
         bucket.add(new RawLogEntry(text));
         new TimeStampExtractor(text).passLogPartTo(bucket);
         new LoggedThreadExtractor(text).passLogPartTo(bucket);
+        new LogLevelExtractor(text).passLogPartTo(bucket);
         return new LogEntry(bucket);
     }
 
