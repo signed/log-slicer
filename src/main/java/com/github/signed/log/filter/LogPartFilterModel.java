@@ -45,6 +45,11 @@ public class LogPartFilterModel implements LogModel {
         changeListener.addListener(runnable);
     }
 
+    @Override
+    public void onDescriptorChange(Runnable runnable) {
+        logModel.onDescriptorChange(runnable);
+    }
+
     public void matches(LoggedThread loggedThread) {
         loggedThreadsToDisplay.add(loggedThread);
         announceThreadSelectionChanged();

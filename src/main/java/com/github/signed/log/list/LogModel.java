@@ -10,6 +10,8 @@ import java.util.List;
 public interface LogModel {
     void onLogEntryChange(Runnable runnable);
 
+    void onDescriptorChange(Runnable runnable);
+
     void provideElementsTo(ArgumentClosure<List<LogEntry>> argumentClosure);
 
     void provideThreadChoicesTo(ArgumentClosure<List<LoggedThread>> argumentClosure);

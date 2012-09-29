@@ -18,6 +18,7 @@ import java.util.Set;
 
 public class SimpleLogModel implements LogModel {
     private final Announcer<Runnable> changeListener = new Announcer<>(Runnable.class);
+    private final Announcer<Runnable> descriptorChangeListener = new Announcer<>(Runnable.class);
     private final List<LogEntry> logEntries = Lists.newArrayList();
 
     public void addEntriesFrom(Iterable<LogEntry> logEntries) {
@@ -26,12 +27,18 @@ public class SimpleLogModel implements LogModel {
     }
 
     private void announceChange() {
+        descriptorChangeListener.announce().run();
         changeListener.announce().run();
     }
 
     @Override
     public void onLogEntryChange(Runnable runnable) {
         changeListener.addListener(runnable);
+    }
+
+    @Override
+    public void onDescriptorChange(Runnable runnable) {
+        descriptorChangeListener.addListener(runnable);
     }
 
     @Override

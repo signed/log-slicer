@@ -20,9 +20,11 @@ public class LogPresenter implements Presenter {
 
     @Override
     public void initialize() {
-        logModel.onLogEntryChange(new Runnable() {
+
+        logModel.onDescriptorChange(new Runnable() {
             @Override
             public void run() {
+                logView.clearDisplayedLogParts();
                 logModel.describeTo(new Authority() {
                     @Override
                     public void accept(Descriptor descriptor) {

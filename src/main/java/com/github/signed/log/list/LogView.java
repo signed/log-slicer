@@ -41,4 +41,8 @@ public class LogView {
         return timestampColumn;
     }
 
+    public void clearDisplayedLogParts() {
+        table.getColumns().clear();
+    }
+
 }
