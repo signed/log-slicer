@@ -1,5 +1,7 @@
 package com.github.signed.log.list;
 
+import com.github.signed.log.core.Authority;
+import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.thread.LoggedThread;
 import com.google.common.base.Function;
@@ -10,6 +12,7 @@ import lang.Announcer;
 import lang.ArgumentClosure;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -48,5 +51,16 @@ public class SimpleLogModel implements LogModel {
         List<LoggedThread> list = Lists.newArrayList(unique);
         Collections.sort(list);
         closure.excecute(list);
+    }
+
+    @Override
+    public void passDescriptorsTo(Authority authority) {
+        HashSet<Descriptor> authority1 = new HashSet<>();
+        for (LogEntry logEntry : logEntries) {
+            logEntry.describeTo(authority1);
+        }
+        for (Descriptor descriptor : authority1) {
+            authority.accept(descriptor);
+        }
     }
 }

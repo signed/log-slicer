@@ -1,5 +1,8 @@
 package com.github.signed.log.ui;
 
+import com.github.signed.log.DummyLogPart;
+import com.github.signed.log.core.Authority;
+import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.list.SimpleLogModel;
 import com.github.signed.log.thread.LoggedThread;
@@ -33,6 +36,16 @@ public class SimpleLogModel_Test {
         logEntryOnThread("one");
         logEntryOnThread("one");
         assertThat(theThreadsKnownByTheModel(), containsThreadsWithName("one"));
+    }
+
+    @Test
+    public void retrieveTheAvailableDescriptors() throws Exception {
+        LogEntry logEntry = ofParts( new DummyLogPart("do no care")).build();
+        logModel.addEntriesFrom(Collections.singletonList(logEntry));
+
+        Authority authority = mock(Authority.class);
+        logModel.passDescriptorsTo(authority);
+        verify(authority).accept(new Descriptor("Dummy", DummyLogPart.class));
     }
 
     private void logOnThread(LoggedThread thread) {

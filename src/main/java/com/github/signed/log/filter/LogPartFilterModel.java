@@ -1,5 +1,6 @@
 package com.github.signed.log.filter;
 
+import com.github.signed.log.core.Authority;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.list.LogModel;
 import com.github.signed.log.thread.LoggedThread;
@@ -79,6 +80,11 @@ public class LogPartFilterModel implements LogModel {
                 }
             };
         logModel.provideThreadChoicesTo(filterClosure);
+    }
+
+    @Override
+    public void passDescriptorsTo(Authority authority) {
+        throw new RuntimeException();
     }
 
     private void filterAndForwardTo(List<LogEntry> logEntries, ArgumentClosure<List<LogEntry>> argumentClosure) {
