@@ -1,5 +1,6 @@
 package com.github.signed.log.core;
 
+import com.github.signed.log.core.parser.LogEntryParser;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -33,7 +34,7 @@ public class RawLog implements Iterable<LogEntry> {
         }
 
         for (List<String> allRawEntry : allRawEntries) {
-            LogEntry e = LogEntry.createLogEntry(Joiner.on("\n").join(allRawEntry));
+            LogEntry e = new LogEntryParser().parse(Joiner.on("\n").join(allRawEntry));
             logEntries.add(e);
         }
 

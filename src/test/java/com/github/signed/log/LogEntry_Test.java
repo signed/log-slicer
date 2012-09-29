@@ -27,11 +27,6 @@ public class LogEntry_Test {
     private final Authority authority = mock(Authority.class);
 
     @Test
-    public void retrievesRawLineLine() throws Exception {
-        assertThat(LogEntry.createLogEntry("the raw line").getPart(RawLogEntry.RawLogIdentification), is(RawLogEntry.RawLog("the raw line")));
-    }
-
-    @Test
     public void retrieveLogPartsByIdentification() throws Exception {
         LogEntry blabla = LogEntryBuilder.ofParts(new DummyLogPart("blabla")).build();
         assertThat(blabla.getPart(DummyLogPart.DummyLogPartIdentification), is(DummyLogPart.Dummy("blabla")));
