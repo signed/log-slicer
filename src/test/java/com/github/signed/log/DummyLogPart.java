@@ -22,4 +22,9 @@ public class DummyLogPart extends BaseLogPart {
     public void dumpInto(StringBuilder builder) {
         builder.append(property);
     }
+
+    @Override
+    protected Identification identification() {
+        return DummyLogPartIdentification;
+    }
 }

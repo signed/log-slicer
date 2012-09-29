@@ -24,4 +24,8 @@ public class LoggedThread extends BaseLogPart {
         builder.append(threadName);
     }
 
+    @Override
+    protected Identification identification() {
+        return LoggedThreadIdentification;
+    }
 }

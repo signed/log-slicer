@@ -1,12 +1,9 @@
 package com.github.signed.log.timestamp;
 
 import com.github.signed.log.core.BaseLogPart;
-import com.github.signed.log.core.Identification;
 import org.joda.time.DateTime;
 
 public class TimeStamp extends BaseLogPart {
-    public static final Identification TimeStampIdentification = new Identification("timestamp");
-
     private final DateTime time;
 
     public TimeStamp(DateTime time){

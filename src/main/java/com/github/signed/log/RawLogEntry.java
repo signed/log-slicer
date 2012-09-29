@@ -26,4 +26,9 @@ public class RawLogEntry extends BaseLogPart {
     protected boolean visible() {
         return false;
     }
+
+    @Override
+    protected Identification identification() {
+        return RawLogIdentification;
+    }
 }
