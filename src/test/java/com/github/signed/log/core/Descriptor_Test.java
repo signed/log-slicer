@@ -9,9 +9,9 @@ import static org.hamcrest.Matchers.is;
 public class Descriptor_Test {
 
     @Test
-    public void determineEqualityBasedOnName() throws Exception {
-        Descriptor one = new Descriptor("one", true);
-        Descriptor anotherOne = new Descriptor("one", false);
+    public void determineEqualityBasedOnIdentification() throws Exception {
+        Descriptor one = new Descriptor(new Identification("one"), "one", true);
+        Descriptor anotherOne = new Descriptor(new Identification("one"), "other", false);
 
         assertThat(one, is(Matchers.equalTo(anotherOne)));
     }

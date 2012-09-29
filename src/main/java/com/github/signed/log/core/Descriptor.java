@@ -8,8 +8,8 @@ public class Descriptor {
     public final String name;
     public final boolean display;
 
-    public Descriptor(String name, boolean display) {
-        this.identification = new Identification(name);
+    public Descriptor(Identification identification, String name, boolean display) {
+        this.identification = identification;
         this.name = name;
         this.display = display;
     }
