@@ -1,8 +1,12 @@
 package com.github.signed.log.thread;
 
 import com.github.signed.log.core.BaseLogPart;
+import com.github.signed.log.core.Identification;
 
 public class LoggedThread extends BaseLogPart implements Comparable<LoggedThread> {
+
+    public static final Identification LoggedThreadIdentification = new Identification("thread");
+
     private final String threadName;
 
     public LoggedThread(String threadName) {

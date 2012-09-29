@@ -1,9 +1,12 @@
 package com.github.signed.log;
 
 import com.github.signed.log.core.BaseLogPart;
+import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogPart;
 
 public class DummyLogPart extends BaseLogPart {
+
+    public static Identification DummyLogPartIdentification = new Identification("Dummy");
 
     public static LogPart Dummy(String id) {
         return new DummyLogPart(id);

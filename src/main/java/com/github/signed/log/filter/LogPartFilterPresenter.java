@@ -1,6 +1,5 @@
 package com.github.signed.log.filter;
 
-import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.core.ui.Presenter;
 import com.github.signed.log.thread.LoggedThread;
@@ -34,7 +33,7 @@ public class LogPartFilterPresenter implements Presenter {
                     public void excecute(List<LogPart> loggedThreads) {
                         view.displayAvailableThreads(loggedThreads);
                     }
-                }, new Identification("thread"));
+                }, LoggedThread.LoggedThreadIdentification);
                 updateModelWithSelection.activate();
             }
         });

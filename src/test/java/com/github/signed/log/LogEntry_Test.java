@@ -1,7 +1,6 @@
 package com.github.signed.log;
 
 import com.github.signed.log.core.Authority;
-import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.thread.LoggedThread;
@@ -23,7 +22,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class LogEntry_Test {
-    public static final Identification IdentificationForLoggedThread = new Identification("thread");
     @SuppressWarnings("unchecked")
     private final ArgumentClosure<String> closure = mock(ArgumentClosure.class);
     @SuppressWarnings("unchecked")
@@ -37,7 +35,7 @@ public class LogEntry_Test {
     @Test
     public void retrieveLogPartsByIdentification() throws Exception {
         LogEntry blabla = LogEntryBuilder.ofParts(new DummyLogPart("blabla")).build();
-        assertThat(blabla.getPart(new Identification("Dummy")), is(DummyLogPart.Dummy("blabla")));
+        assertThat(blabla.getPart(DummyLogPart.DummyLogPartIdentification), is(DummyLogPart.Dummy("blabla")));
     }
 
     @Test
@@ -56,7 +54,7 @@ public class LogEntry_Test {
     @Test
     public void passTheRawStringInformationToTheClosure() throws Exception {
         LogEntry entry = LogEntryBuilder.ofParts(new LoggedThread("uno")).build();
-        entry.dumpPartInto(IdentificationForLoggedThread, closure);
+        entry.dumpPartInto(LoggedThread.LoggedThreadIdentification, closure);
 
         verify(closure).excecute("uno");
     }
@@ -64,7 +62,7 @@ public class LogEntry_Test {
     @Test
     public void ifTheRequestedLogPartIsNotAvailablePassAnEmptyStringToTheClosure() throws Exception {
         LogEntry entry = new LogEntry(Collections.<LogPart>emptyList());
-        entry.dumpPartInto(IdentificationForLoggedThread, closure);
+        entry.dumpPartInto(LoggedThread.LoggedThreadIdentification, closure);
 
         verify(closure).excecute("");
     }

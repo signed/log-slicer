@@ -106,7 +106,7 @@ public class LogPartFilterModel implements LogModel {
         return  Lists.transform(logEntries, new Function<LogEntry, LogEntry>() {
             @Override
             public LogEntry apply(@Nullable LogEntry input) {
-                if ( loggedThreadsToDisplay.contains(input.getPart(new Identification("thread")))) {
+                if ( loggedThreadsToDisplay.contains(input.getPart(LoggedThread.LoggedThreadIdentification))) {
                     return input;
                 }
                 return LogEntry.Null;

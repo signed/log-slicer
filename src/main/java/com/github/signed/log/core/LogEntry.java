@@ -49,7 +49,6 @@ public class LogEntry {
         return Functions.forMap(partsByIdentification, NullLogPart.TheNullLogPart).apply(identification);
     }
 
-
     public <T extends LogPart> LogPart getPart(Class<T> type) {
         if(parts.containsKey(type)){
             return parts.get(type);

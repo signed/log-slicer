@@ -72,7 +72,7 @@ public class RawLog_Test {
 
     private String toString(LogEntry next) {
         StringBuilder builder = new StringBuilder();
-        next.getDerivedPart(RawLogEntry.class).dumpInto(builder);
+        next.getPart(RawLogEntry.RawLogIdentification).dumpInto(builder);
         return builder.toString();
     }
 }

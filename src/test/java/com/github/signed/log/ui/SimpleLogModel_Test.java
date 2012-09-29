@@ -3,7 +3,6 @@ package com.github.signed.log.ui;
 import com.github.signed.log.DummyLogPart;
 import com.github.signed.log.core.Authority;
 import com.github.signed.log.core.Descriptor;
-import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.list.SimpleLogModel;
@@ -82,7 +81,7 @@ public class SimpleLogModel_Test {
     @SuppressWarnings("unchecked")
     private List<LoggedThread> theThreadsKnownByTheModel() {
         ArgumentClosure<List<LogPart>> closure = mock(ArgumentClosure.class);
-        logModel.provideThreadChoicesTo(closure, new Identification("thread"));
+        logModel.provideThreadChoicesTo(closure, LoggedThread.LoggedThreadIdentification);
 
         return availableThreads(closure);
     }
