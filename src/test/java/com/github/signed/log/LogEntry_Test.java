@@ -23,6 +23,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class LogEntry_Test {
+    public static final Identification IdentificationForLoggedThread = new Identification("thread");
     @SuppressWarnings("unchecked")
     private final ArgumentClosure<String> closure = mock(ArgumentClosure.class);
     @SuppressWarnings("unchecked")
@@ -36,7 +37,7 @@ public class LogEntry_Test {
     @Test
     public void retrieveLogPartsByIdentification() throws Exception {
         LogEntry blabla = LogEntryBuilder.ofParts(new DummyLogPart("blabla")).build();
-        assertThat(blabla.getPart(new Identification("Dummy")), is( DummyLogPart.Dummy("blabla")));
+        assertThat(blabla.getPart(new Identification("Dummy")), is(DummyLogPart.Dummy("blabla")));
     }
 
     @Test
@@ -55,7 +56,7 @@ public class LogEntry_Test {
     @Test
     public void passTheRawStringInformationToTheClosure() throws Exception {
         LogEntry entry = LogEntryBuilder.ofParts(new LoggedThread("uno")).build();
-        entry.dumpPartInto(LoggedThread.class, closure);
+        entry.dumpPartInto(IdentificationForLoggedThread, closure);
 
         verify(closure).excecute("uno");
     }
@@ -63,7 +64,7 @@ public class LogEntry_Test {
     @Test
     public void ifTheRequestedLogPartIsNotAvailablePassAnEmptyStringToTheClosure() throws Exception {
         LogEntry entry = new LogEntry(Collections.<LogPart>emptyList());
-        entry.dumpPartInto(LoggedThread.class, closure);
+        entry.dumpPartInto(IdentificationForLoggedThread, closure);
 
         verify(closure).excecute("");
     }

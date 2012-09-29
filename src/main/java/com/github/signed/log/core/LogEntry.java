@@ -66,19 +66,9 @@ public class LogEntry {
         }
     }
 
-    public <T extends LogPart> void  dumpPartInto(Class<T> type, ArgumentClosure<String> closure) {
-        LogPart part = getPart(type);
-        StringBuilder builder = new StringBuilder();
-        if(null != part){
-            part.dumpInto(builder);
-            closure.excecute(builder.toString());
-        }
-    }
-
     public void describeTo(Authority authority) {
         for (LogPart logPart : parts.values()) {
             logPart.describeTo(authority);
         }
     }
-
 }
