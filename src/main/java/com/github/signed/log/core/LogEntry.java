@@ -25,10 +25,17 @@ public class LogEntry {
 
     public static final LogEntry Null = new LogEntry(Collections.<LogPart>emptyList());
     private final Map<Class<? extends LogPart>, LogPart> parts = Maps.newHashMap();
+    private final Map<Identification, LogPart> partsByIdentification = Maps.newHashMap();
 
     public LogEntry(Collection<LogPart> availableParts) {
-        for (LogPart availablePart : availableParts) {
+        for (final LogPart availablePart : availableParts) {
             parts.put(availablePart.getClass(), availablePart);
+            availablePart.describeTo(new Authority() {
+                @Override
+                public void accept(Descriptor descriptor) {
+                    partsByIdentification.put(descriptor.identification, availablePart);
+                }
+            });
         }
     }
 
