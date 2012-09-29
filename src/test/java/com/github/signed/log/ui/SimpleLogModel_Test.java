@@ -45,7 +45,7 @@ public class SimpleLogModel_Test {
 
         Authority authority = mock(Authority.class);
         logModel.describeTo(authority);
-        verify(authority).accept(new Descriptor("Dummy", DummyLogPart.class));
+        verify(authority).accept(new Descriptor("Dummy", DummyLogPart.class, true));
     }
 
     private void logOnThread(LoggedThread thread) {

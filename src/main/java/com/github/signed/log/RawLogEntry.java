@@ -14,4 +14,9 @@ public class RawLogEntry extends BaseLogPart {
     public void dumpInto(StringBuilder builder) {
         builder.append(line);
     }
+
+    @Override
+    protected boolean visible() {
+        return false;
+    }
 }

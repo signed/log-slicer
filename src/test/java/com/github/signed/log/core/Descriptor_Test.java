@@ -11,8 +11,8 @@ public class Descriptor_Test {
 
     @Test
     public void determineEqualityBasedOnClassNameAndName() throws Exception {
-        Descriptor one = new Descriptor("one", DummyLogPart.class);
-        Descriptor anotherOne = new Descriptor("one", DummyLogPart.class);
+        Descriptor one = new Descriptor("one", DummyLogPart.class, true);
+        Descriptor anotherOne = new Descriptor("one", DummyLogPart.class, false);
 
         assertThat(one, is(Matchers.equalTo(anotherOne)));
     }

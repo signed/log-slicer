@@ -1,27 +1,42 @@
 package com.github.signed.log.core;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import com.google.common.base.Objects;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class Descriptor {
 
-    public final String name;
-    public final Class<?extends LogPart> type;
+    public static Descriptor Visible(String name, Class<? extends LogPart> type) {
+        return new Descriptor(name, type, true);
+    }
 
-    public Descriptor(String name, Class<? extends LogPart> type) {
+    public static Descriptor Hidden(String name, Class<? extends LogPart> type) {
+        return new Descriptor(name, type, true);
+    }
+
+    public final String name;
+    public final Class<? extends LogPart> type;
+    public final boolean display;
+
+    public Descriptor(String name, Class<? extends LogPart> type, boolean display) {
         this.name = name;
         this.type = type;
+        this.display = display;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+        if (obj instanceof Descriptor) {
+            final Descriptor other = (Descriptor) obj;
+            return Objects.equal(this.name, other.name)
+                && Objects.equal(this.type, other.type);
+        } else {
+            return false;
+        }
     }
 
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        return Objects.hashCode(name, type);
     }
 
     @Override

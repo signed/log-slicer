@@ -26,7 +26,9 @@ public class LogPresenter implements Presenter {
                 logModel.describeTo(new Authority() {
                     @Override
                     public void accept(Descriptor descriptor) {
-                        logView.showLogPart(descriptor.name, descriptor.type);
+                        if(descriptor.display){
+                            logView.showLogPart(descriptor.name, descriptor.type);
+                        }
                     }
                 });
             }

@@ -29,7 +29,10 @@ public class BaseLogPart implements LogPart {
 
     @Override
     public void describeTo(Collection<Descriptor> authority) {
-        authority.add(new Descriptor(description, this.getClass()));
+        authority.add(new Descriptor(description, this.getClass(), visible()));
     }
 
+    protected boolean visible(){
+        return true;
+    }
 }
