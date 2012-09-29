@@ -4,9 +4,7 @@ import com.github.signed.log.core.Authority;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.thread.LoggedThread;
-import com.github.signed.log.timestamp.TimeStamp;
 import lang.ArgumentClosure;
-import org.joda.time.DateTime;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -29,26 +27,13 @@ public class LogEntry_Test {
 
     @Test
     public void retrievesRawLineLine() throws Exception {
-        assertThat(LogEntry.createLogEntry("the raw line").getDerivedPart(RawLogEntry.class), is(new RawLogEntry("the raw line")));
+        assertThat(LogEntry.createLogEntry("the raw line").getPart(RawLogEntry.RawLogIdentification), is(RawLogEntry.RawLog("the raw line")));
     }
 
     @Test
     public void retrieveLogPartsByIdentification() throws Exception {
         LogEntry blabla = LogEntryBuilder.ofParts(new DummyLogPart("blabla")).build();
         assertThat(blabla.getPart(DummyLogPart.DummyLogPartIdentification), is(DummyLogPart.Dummy("blabla")));
-    }
-
-    @Test
-    public void retrieveLogPartsByClassName() throws Exception {
-        DateTime time = new DateTime();
-        LogEntry entry = LogEntryBuilder.ofParts(new TimeStamp(time), new LoggedThread("")).build();
-        assertThat(entry.getDerivedPart(TimeStamp.class), is(new TimeStamp(time)));
-    }
-
-    @Test
-    public void retrieveDifferentLogPartsByClassName() throws Exception {
-        LogEntry entry = LogEntryBuilder.ofParts(new TimeStamp(null), new LoggedThread("name")).build();
-        assertThat(entry.getDerivedPart(LoggedThread.class), is(new LoggedThread("name")));
     }
 
     @Test
@@ -70,14 +55,14 @@ public class LogEntry_Test {
     @Test
     public void returnAsPlainLogPart() throws Exception {
         LogEntry entry = ofParts(Dummy("hans")).build();
-        LogPart actual = entry.getPart(DummyLogPart.class);
+        LogPart actual = entry.getPart(DummyLogPart.DummyLogPartIdentification);
         assertThat(actual, is(Dummy("hans")));
     }
 
     @Test
     public void ifNoLogPartOfTheRequestedTypeIsAvailableReturnANullPart() throws Exception {
         LogEntry entry = withNoParts().build();
-        LogPart actual = entry.getPart(DummyLogPart.class);
+        LogPart actual = entry.getPart(DummyLogPart.DummyLogPartIdentification);
         assertThat(actual, is(sameInstance(TheNullLogPart)));
     }
 

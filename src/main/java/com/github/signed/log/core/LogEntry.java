@@ -40,20 +40,8 @@ public class LogEntry {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public<T extends BaseLogPart> T getDerivedPart(Class<T> type) {
-        return (T) getPart(type);
-    }
-
     public LogPart getPart(Identification identification) {
         return Functions.forMap(partsByIdentification, NullLogPart.TheNullLogPart).apply(identification);
-    }
-
-    public <T extends LogPart> LogPart getPart(Class<T> type) {
-        if(parts.containsKey(type)){
-            return parts.get(type);
-        }
-        return NullLogPart.TheNullLogPart;
     }
 
     public void dumpPartInto(Identification identification, ArgumentClosure<String> closure) {
