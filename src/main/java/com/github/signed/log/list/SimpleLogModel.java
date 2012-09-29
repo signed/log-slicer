@@ -2,8 +2,9 @@ package com.github.signed.log.list;
 
 import com.github.signed.log.core.Authority;
 import com.github.signed.log.core.Descriptor;
+import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
-import com.github.signed.log.thread.LoggedThread;
+import com.github.signed.log.core.LogPart;
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -11,7 +12,6 @@ import com.google.common.collect.Sets;
 import lang.Announcer;
 import lang.ArgumentClosure;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -45,17 +45,16 @@ public class SimpleLogModel implements LogModel {
        argumentClosure.excecute(Lists.newArrayList(logEntries));
     }
 
-    public void provideThreadChoicesTo(ArgumentClosure<List<LoggedThread>> closure) {
-        List<LoggedThread> transform = Lists.transform(logEntries, new Function<LogEntry, LoggedThread>() {
+    public void provideThreadChoicesTo(ArgumentClosure<List<LogPart>> closure, final Identification identification) {
+        List<LogPart> transform = Lists.transform(logEntries, new Function<LogEntry, LogPart>() {
             @Override
-            public LoggedThread apply(LogEntry input) {
-                return input.getDerivedPart(LoggedThread.class);
+            public LogPart apply(LogEntry input) {
+                return input.getPart(identification);
             }
         });
 
-        Set<LoggedThread> unique = Sets.newHashSet(transform);
-        List<LoggedThread> list = Lists.newArrayList(unique);
-        Collections.sort(list);
+        Set<LogPart> unique = Sets.newHashSet(transform);
+        List<LogPart> list = Lists.newArrayList(unique);
         closure.excecute(list);
     }
 

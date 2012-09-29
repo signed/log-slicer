@@ -1,5 +1,7 @@
 package com.github.signed.log.filter;
 
+import com.github.signed.log.core.Identification;
+import com.github.signed.log.core.LogPart;
 import com.github.signed.log.core.ui.Presenter;
 import com.github.signed.log.thread.LoggedThread;
 import lang.ArgumentClosure;
@@ -27,12 +29,12 @@ public class LogPartFilterPresenter implements Presenter {
             @Override
             public void run() {
                 updateModelWithSelection.suspend();
-                model.provideThreadChoicesTo(new ArgumentClosure<List<LoggedThread>>() {
+                model.provideThreadChoicesTo(new ArgumentClosure<List<LogPart>>() {
                     @Override
-                    public void excecute(List<LoggedThread> loggedThreads) {
+                    public void excecute(List<LogPart> loggedThreads) {
                         view.displayAvailableThreads(loggedThreads);
                     }
-                });
+                }, new Identification("thread"));
                 updateModelWithSelection.activate();
             }
         });
@@ -81,9 +83,9 @@ public class LogPartFilterPresenter implements Presenter {
 
         @Override
         public void run() {
-            model.provideSelectedThreadsTo(new ArgumentClosure<List<LoggedThread>>() {
+            model.provideSelectedThreadsTo(new ArgumentClosure<List<LogPart>>() {
                 @Override
-                public void excecute(List<LoggedThread> loggedThread) {
+                public void excecute(List<LogPart> loggedThread) {
                     view.displaySelectedFilter(loggedThread);
                 }
             });

@@ -3,7 +3,9 @@ package com.github.signed.log.ui;
 import com.github.signed.log.DummyLogPart;
 import com.github.signed.log.core.Authority;
 import com.github.signed.log.core.Descriptor;
+import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
+import com.github.signed.log.core.LogPart;
 import com.github.signed.log.list.SimpleLogModel;
 import com.github.signed.log.thread.LoggedThread;
 import lang.ArgumentClosure;
@@ -79,14 +81,14 @@ public class SimpleLogModel_Test {
 
     @SuppressWarnings("unchecked")
     private List<LoggedThread> theThreadsKnownByTheModel() {
-        ArgumentClosure<List<LoggedThread>> closure = mock(ArgumentClosure.class);
-        logModel.provideThreadChoicesTo(closure);
+        ArgumentClosure<List<LogPart>> closure = mock(ArgumentClosure.class);
+        logModel.provideThreadChoicesTo(closure, new Identification("thread"));
 
         return availableThreads(closure);
     }
 
     @SuppressWarnings("unchecked")
-    private List<LoggedThread> availableThreads(ArgumentClosure<List<LoggedThread>> closure) {
+    private List<LoggedThread> availableThreads(ArgumentClosure<List<LogPart>> closure) {
         ArgumentCaptor<List> captor = ArgumentCaptor.forClass(List.class);
         verify(closure).excecute(captor.capture());
         return captor.getValue();

@@ -1,7 +1,9 @@
 package com.github.signed.log.filter;
 
 import com.github.signed.log.core.Authority;
+import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
+import com.github.signed.log.core.LogPart;
 import com.github.signed.log.list.LogModel;
 import com.github.signed.log.thread.LoggedThread;
 import com.google.common.base.Function;
@@ -23,7 +25,7 @@ public class LogPartFilterModel implements LogModel {
     private final Announcer<Runnable> availableThreadChangeListener = new Announcer<>(Runnable.class);
     private final Announcer<Runnable> changeListener = new Announcer<>(Runnable.class);
     private final LogModel logModel;
-    private final Set<LoggedThread> loggedThreadsToDisplay = Sets.newLinkedHashSet();
+    private final Set<LogPart> loggedThreadsToDisplay = Sets.newLinkedHashSet();
 
     public LogPartFilterModel(LogModel logModel) {
         this.logModel = logModel;
@@ -71,20 +73,20 @@ public class LogPartFilterModel implements LogModel {
     }
 
     @Override
-    public void provideThreadChoicesTo(final ArgumentClosure<List<LoggedThread>> argumentClosure) {
-        ArgumentClosure<List<LoggedThread>> filterClosure=  new ArgumentClosure<List<LoggedThread>>() {
+    public void provideThreadChoicesTo(final ArgumentClosure<List<LogPart>> argumentClosure, Identification identification) {
+        ArgumentClosure<List<LogPart>> filterClosure=  new ArgumentClosure<List<LogPart>>() {
                 @Override
-                public void excecute(List<LoggedThread> loggedThreads) {
-                    Collection<LoggedThread> filtered = Collections2.filter(loggedThreads, new Predicate<LoggedThread>() {
+                public void excecute(List<LogPart> loggedThreads) {
+                    Collection<LogPart> filtered = Collections2.filter(loggedThreads, new Predicate<LogPart>() {
                         @Override
-                        public boolean apply(@Nullable LoggedThread input) {
+                        public boolean apply(@Nullable LogPart input) {
                             return !loggedThreadsToDisplay.contains(input);
                         }
                     });
                     argumentClosure.excecute(ImmutableList.copyOf(filtered));
                 }
             };
-        logModel.provideThreadChoicesTo(filterClosure);
+        logModel.provideThreadChoicesTo(filterClosure, identification);
     }
 
     @Override
@@ -112,7 +114,7 @@ public class LogPartFilterModel implements LogModel {
         });
     }
 
-    public void provideSelectedThreadsTo(ArgumentClosure<List<LoggedThread>> argumentClosure) {
+    public void provideSelectedThreadsTo(ArgumentClosure<List<LogPart>> argumentClosure) {
         argumentClosure.excecute(ImmutableList.copyOf(loggedThreadsToDisplay));
     }
 
