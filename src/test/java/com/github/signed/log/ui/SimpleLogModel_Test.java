@@ -25,14 +25,14 @@ public class SimpleLogModel_Test {
     public void retrieveTheAvailableThreads() throws Exception {
         logEntryOnThread("one");
 
-        assertThat(theThreadsKownByTheModel(), containsThreadsWithName("one"));
+        assertThat(theThreadsKnownByTheModel(), containsThreadsWithName("one"));
     }
 
     @Test
     public void removeDuplicatedThreadsWhileRetrieving() throws Exception {
         logEntryOnThread("one");
         logEntryOnThread("one");
-        assertThat(theThreadsKownByTheModel(), containsThreadsWithName("one"));
+        assertThat(theThreadsKnownByTheModel(), containsThreadsWithName("one"));
     }
 
     private void logOnThread(LoggedThread thread) {
@@ -49,7 +49,7 @@ public class SimpleLogModel_Test {
     }
 
     @SuppressWarnings("unchecked")
-    private List<LoggedThread> theThreadsKownByTheModel() {
+    private List<LoggedThread> theThreadsKnownByTheModel() {
         ArgumentClosure<List<LoggedThread>> closure = mock(ArgumentClosure.class);
         logModel.provideThreadChoicesTo(closure);
 
