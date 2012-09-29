@@ -14,7 +14,7 @@ public class KeyBasedLogPartProvider_Test {
 
     @Test
     public void retrieveTheLogPartWithTheGivenKey() throws Exception {
-        LogEntry logEntry = new LogEntry(Collections.singleton(DummyLogPart.Dummy("you are")));
+        LogEntry logEntry = LogEntry.Create(Collections.singleton(DummyLogPart.Dummy("you are")));
         LogPart actual = new KeyBasedLogPartProvider(DummyLogPart.DummyLogPartIdentification).from(logEntry);
         assertThat(actual, is(DummyLogPart.Dummy("you are")));
     }

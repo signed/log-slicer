@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Map;
 
 public class LogEntry {
+    public static final LogEntry Null = Create(Collections.<LogPart>emptyList());
 
     public static LogEntry createLogEntry(String text) {
         Collection<LogPart> bucket = Lists.newArrayList();
@@ -21,33 +22,36 @@ public class LogEntry {
         new TimeStampExtractor(text).passLogPartTo(bucket);
         new LoggedThreadExtractor(text).passLogPartTo(bucket);
         new LogLevelExtractor(text).passLogPartTo(bucket);
-        return new LogEntry(bucket);
+        return Create(bucket);
     }
 
-    public static final LogEntry Null = new LogEntry(Collections.<LogPart>emptyList());
-    private final Map<Class<? extends LogPart>, LogPart> parts = Maps.newHashMap();
-    private final Map<Identification, LogPart> partsByIdentification = Maps.newHashMap();
-
-    public LogEntry(Collection<LogPart> availableParts) {
+    public static LogEntry Create(Collection<LogPart> availableParts) {
+        final LogEntry logEntry = new LogEntry();
         for (final LogPart availablePart : availableParts) {
-            parts.put(availablePart.getClass(), availablePart);
             availablePart.describeTo(new Authority() {
                 @Override
                 public void accept(Descriptor descriptor) {
-                    partsByIdentification.put(descriptor.identification, availablePart);
+                    logEntry.addPart(descriptor.identification, availablePart);
                 }
             });
         }
+        return logEntry;
     }
 
+    public void addPart(Identification identification, LogPart availablePart) {
+        this.parts.put(identification, availablePart);
+    }
+
+    private final Map<Identification, LogPart> parts = Maps.newHashMap();
+
     public LogPart getPart(Identification identification) {
-        return Functions.forMap(partsByIdentification, NullLogPart.TheNullLogPart).apply(identification);
+        return Functions.forMap(parts, NullLogPart.TheNullLogPart).apply(identification);
     }
 
     public void dumpPartInto(Identification identification, ArgumentClosure<String> closure) {
         LogPart part = getPart(identification);
         StringBuilder builder = new StringBuilder();
-        if(null != part){
+        if (null != part) {
             part.dumpInto(builder);
             closure.excecute(builder.toString());
         }

@@ -27,6 +27,6 @@ public class LogEntryBuilder {
     }
 
     public LogEntry build() {
-        return new LogEntry(parts);
+        return LogEntry.Create(parts);
     }
 }

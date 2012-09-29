@@ -1,6 +1,7 @@
 package com.github.signed.log;
 
 import com.github.signed.log.core.Authority;
+import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.thread.LoggedThread;
@@ -46,7 +47,7 @@ public class LogEntry_Test {
 
     @Test
     public void ifTheRequestedLogPartIsNotAvailablePassAnEmptyStringToTheClosure() throws Exception {
-        LogEntry entry = new LogEntry(Collections.<LogPart>emptyList());
+        LogEntry entry = LogEntry.Create(Collections.<LogPart>emptyList());
         entry.dumpPartInto(LoggedThread.LoggedThreadIdentification, closure);
 
         verify(closure).excecute("");
@@ -66,19 +67,15 @@ public class LogEntry_Test {
         assertThat(actual, is(sameInstance(TheNullLogPart)));
     }
 
-
-    public static interface PartOne extends LogPart{
-
-    }
-
     @Test
     public void collectTheDescriptorsFromAllLogParts() throws Exception {
-
-
-        LogPart one = mock(PartOne.class);
+        LogPart one = mock(LogPart.class);
         LogPart two = mock(LogPart.class);
 
-        LogEntry entry = LogEntryBuilder.ofParts(one, two).build();
+        LogEntry entry = new LogEntry();
+        entry.addPart(new Identification("any"), one);
+        entry.addPart(new Identification("other"), two);
+
         entry.describeTo(authority);
 
         verify(one).describeTo(authority);
