@@ -52,4 +52,10 @@ public class LogEntry {
             closure.excecute(builder.toString());
         }
     }
+
+    public void describeTo(Collection<Descriptor> authority) {
+        for (LogPart logPart : parts.values()) {
+            logPart.describeTo(authority);
+        }
+    }
 }

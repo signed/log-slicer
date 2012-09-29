@@ -1,5 +1,6 @@
 package com.github.signed.log;
 
+import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.thread.LoggedThread;
@@ -8,6 +9,7 @@ import lang.ArgumentClosure;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.Collections;
 
 import static com.github.signed.log.DummyLogPart.Dummy;
@@ -23,6 +25,8 @@ import static org.mockito.Mockito.verify;
 public class LogEntry_Test {
     @SuppressWarnings("unchecked")
     private final ArgumentClosure<String> closure = mock(ArgumentClosure.class);
+    @SuppressWarnings("unchecked")
+    private final Collection<Descriptor> authority = mock(Collection.class);
 
     @Test
     public void retrievesRawLineLine() throws Exception {
@@ -70,5 +74,24 @@ public class LogEntry_Test {
         LogEntry entry = withNoParts().build();
         LogPart actual = entry.getPart(DummyLogPart.class);
         assertThat(actual, is(sameInstance(TheNullLogPart)));
+    }
+
+
+    public static interface PartOne extends LogPart{
+
+    }
+
+    @Test
+    public void collectTheDescriptorsFromAllLogParts() throws Exception {
+
+
+        LogPart one = mock(PartOne.class);
+        LogPart two = mock(LogPart.class);
+
+        LogEntry entry = LogEntryBuilder.ofParts(one, two).build();
+        entry.describeTo(authority);
+
+        verify(one).describeTo(authority);
+        verify(two).describeTo(authority);
     }
 }

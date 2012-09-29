@@ -32,9 +32,6 @@ public class LogModel_Test {
     public void removeDuplicatedThreadsWhileRetrieving() throws Exception {
         logEntryOnThread("one");
         logEntryOnThread("one");
-
-
-
         assertThat(theThreadsKownByTheModel(), containsThreadsWithName("one"));
     }
 
