@@ -19,5 +19,4 @@ public class LoggedThreadExtractor extends Extractor {
         matcher.find();
         return new LoggedThread(matcher.group(1));
     }
-
 }
