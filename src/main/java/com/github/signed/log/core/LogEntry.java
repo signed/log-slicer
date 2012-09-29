@@ -53,7 +53,7 @@ public class LogEntry {
         }
     }
 
-    public void describeTo(Collection<Descriptor> authority) {
+    public void describeTo(Authority authority) {
         for (LogPart logPart : parts.values()) {
             logPart.describeTo(authority);
         }

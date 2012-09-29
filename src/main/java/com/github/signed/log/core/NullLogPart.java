@@ -1,12 +1,9 @@
 package com.github.signed.log.core;
 
-import java.util.Collection;
-
-public class NullLogPart extends BaseLogPart {
+public class NullLogPart implements LogPart {
     public static LogPart TheNullLogPart = new NullLogPart();
 
     private NullLogPart() {
-        super("I will not describe myself");
         //keep to myself
     }
 
@@ -21,7 +18,7 @@ public class NullLogPart extends BaseLogPart {
     }
 
     @Override
-    public void describeTo(Collection<Descriptor> authority) {
+    public void describeTo(Authority authority) {
         //do not tell them who you are...
     }
 }

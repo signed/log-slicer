@@ -3,8 +3,6 @@ package com.github.signed.log.core;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import java.util.Collection;
-
 public class BaseLogPart implements LogPart {
     private String description;
 
@@ -28,8 +26,8 @@ public class BaseLogPart implements LogPart {
     }
 
     @Override
-    public void describeTo(Collection<Descriptor> authority) {
-        authority.add(new Descriptor(description, this.getClass(), visible()));
+    public void describeTo(Authority authority) {
+        authority.accept(new Descriptor(description, this.getClass(), visible()));
     }
 
     protected boolean visible(){

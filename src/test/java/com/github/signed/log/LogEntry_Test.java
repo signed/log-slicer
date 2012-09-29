@@ -1,6 +1,6 @@
 package com.github.signed.log;
 
-import com.github.signed.log.core.Descriptor;
+import com.github.signed.log.core.Authority;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.thread.LoggedThread;
@@ -9,7 +9,6 @@ import lang.ArgumentClosure;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
-import java.util.Collection;
 import java.util.Collections;
 
 import static com.github.signed.log.DummyLogPart.Dummy;
@@ -26,7 +25,7 @@ public class LogEntry_Test {
     @SuppressWarnings("unchecked")
     private final ArgumentClosure<String> closure = mock(ArgumentClosure.class);
     @SuppressWarnings("unchecked")
-    private final Collection<Descriptor> authority = mock(Collection.class);
+    private final Authority authority = mock(Authority.class);
 
     @Test
     public void retrievesRawLineLine() throws Exception {
