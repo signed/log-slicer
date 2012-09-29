@@ -4,15 +4,6 @@ import com.google.common.base.Objects;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class Descriptor {
-
-    public static Descriptor Visible(String name, Class<? extends LogPart> type) {
-        return new Descriptor(name, type, true);
-    }
-
-    public static Descriptor Hidden(String name, Class<? extends LogPart> type) {
-        return new Descriptor(name, type, true);
-    }
-
     public final String name;
     public final Class<? extends LogPart> type;
     public final boolean display;
