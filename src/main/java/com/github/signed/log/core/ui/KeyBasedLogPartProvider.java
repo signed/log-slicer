@@ -1,17 +1,18 @@
 package com.github.signed.log.core.ui;
 
+import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 
 public class KeyBasedLogPartProvider implements LogPartProvider{
-    private final Class<? extends LogPart> key;
+    private final Identification identification;
 
-    public KeyBasedLogPartProvider(Class<? extends LogPart> key) {
-        this.key = key;
+    public KeyBasedLogPartProvider(Identification identification) {
+        this.identification = identification;
     }
 
     @Override
     public LogPart from(LogEntry entry) {
-        return entry.getPart(key);
+        return entry.getPart(identification);
     }
 }

@@ -1,6 +1,7 @@
 package com.github.signed.log.core.ui;
 
 import com.github.signed.log.DummyLogPart;
+import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class KeyBasedLogPartProvider_Test {
     @Test
     public void retrieveTheLogPartWithTheGivenKey() throws Exception {
         LogEntry logEntry = new LogEntry(Collections.singleton(DummyLogPart.Dummy("you are")));
-        LogPart actual = new KeyBasedLogPartProvider(DummyLogPart.class).from(logEntry);
+        LogPart actual = new KeyBasedLogPartProvider(new Identification("Dummy")).from(logEntry);
         assertThat(actual, is(DummyLogPart.Dummy("you are")));
     }
 }

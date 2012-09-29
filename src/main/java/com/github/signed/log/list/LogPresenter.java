@@ -20,7 +20,6 @@ public class LogPresenter implements Presenter {
 
     @Override
     public void initialize() {
-
         logModel.onDescriptorChange(new Runnable() {
             @Override
             public void run() {
@@ -29,7 +28,7 @@ public class LogPresenter implements Presenter {
                     @Override
                     public void accept(Descriptor descriptor) {
                         if (descriptor.display) {
-                            logView.showLogPart(descriptor.name, descriptor.type);
+                            logView.showLogPart(descriptor.name, descriptor.identification);
                         }
                     }
                 });
