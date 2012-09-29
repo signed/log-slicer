@@ -20,8 +20,7 @@ public class Descriptor {
     public boolean equals(Object obj) {
         if (obj instanceof Descriptor) {
             final Descriptor other = (Descriptor) obj;
-            return Objects.equal(this.name, other.name)
-                && Objects.equal(this.type, other.type);
+            return Objects.equal(this.identification, other.identification);
         } else {
             return false;
         }
@@ -29,7 +28,7 @@ public class Descriptor {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name, type);
+        return Objects.hashCode(identification);
     }
 
     @Override
