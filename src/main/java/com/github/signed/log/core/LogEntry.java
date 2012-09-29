@@ -57,6 +57,15 @@ public class LogEntry {
         return NullLogPart.TheNullLogPart;
     }
 
+    public void dumpPartInto(Identification identification, ArgumentClosure<String> closure) {
+        LogPart part = getPart(identification);
+        StringBuilder builder = new StringBuilder();
+        if(null != part){
+            part.dumpInto(builder);
+            closure.excecute(builder.toString());
+        }
+    }
+
     public <T extends LogPart> void  dumpPartInto(Class<T> type, ArgumentClosure<String> closure) {
         LogPart part = getPart(type);
         StringBuilder builder = new StringBuilder();

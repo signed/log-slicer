@@ -1,6 +1,6 @@
 package com.github.signed.log.list;
 
-import com.github.signed.log.RawLogEntry;
+import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -18,7 +18,7 @@ public class LogEntryRowFactory implements Callback<TableView<LogEntry>, TableRo
                 if(null == logEntry){
                     setTooltip(null);
                 }else{
-                    logEntry.dumpPartInto(RawLogEntry.class, new ArgumentClosure<String>() {
+                    logEntry.dumpPartInto(new Identification("Complete Line"), new ArgumentClosure<String>() {
                         @Override
                         public void excecute(String s) {
                             setTooltip(new Tooltip(s));
