@@ -1,6 +1,6 @@
 package com.github.signed.log.filter;
 
-import com.github.signed.log.list.Presenter;
+import com.github.signed.log.core.ui.Presenter;
 import com.github.signed.log.thread.LoggedThread;
 import lang.ArgumentClosure;
 import lang.ArgumentClosureToggle;

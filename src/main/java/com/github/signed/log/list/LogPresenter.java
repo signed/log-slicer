@@ -1,6 +1,7 @@
 package com.github.signed.log.list;
 
 import com.github.signed.log.core.LogEntry;
+import com.github.signed.log.core.ui.Presenter;
 import lang.ArgumentClosure;
 
 import java.util.List;

@@ -1,9 +1,9 @@
 package com.github.signed.log.compare;
 
 import com.github.signed.log.core.LogEntry;
+import com.github.signed.log.core.ui.Presenter;
 import com.github.signed.log.list.LogModel;
 import com.github.signed.log.list.LogPresenter;
-import com.github.signed.log.list.Presenter;
 import lang.ArgumentClosure;
 
 import java.util.List;
