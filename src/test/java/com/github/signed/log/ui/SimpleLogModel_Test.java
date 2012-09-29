@@ -11,6 +11,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.internal.verification.Times;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,12 +41,27 @@ public class SimpleLogModel_Test {
 
     @Test
     public void retrieveTheAvailableDescriptors() throws Exception {
-        LogEntry logEntry = ofParts( new DummyLogPart("do no care")).build();
-        logModel.addEntriesFrom(Collections.singletonList(logEntry));
+        logDummyLodPart();
+        Authority authority = mock(Authority.class);
+        logModel.describeTo(authority);
+
+        verify(authority).accept(new Descriptor("Dummy", DummyLogPart.class, true));
+    }
+
+
+    @Test
+    public void filterDuplicatedDescriptors() throws Exception {
+        logDummyLodPart();
+        logDummyLodPart();
 
         Authority authority = mock(Authority.class);
         logModel.describeTo(authority);
-        verify(authority).accept(new Descriptor("Dummy", DummyLogPart.class, true));
+        verify(authority, new Times(1)).accept(new Descriptor("Dummy", DummyLogPart.class, true));
+    }
+
+    private void logDummyLodPart() {
+        LogEntry logEntry = ofParts( new DummyLogPart("do no care")).build();
+        logModel.addEntriesFrom(Collections.singletonList(logEntry));
     }
 
     private void logOnThread(LoggedThread thread) {

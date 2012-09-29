@@ -1,6 +1,7 @@
 package com.github.signed.log.list;
 
 import com.github.signed.log.core.Authority;
+import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.thread.LoggedThread;
 import com.google.common.base.Function;
@@ -59,9 +60,28 @@ public class SimpleLogModel implements LogModel {
     }
 
     @Override
-    public void describeTo(Authority authority) {
+    public void describeTo(final Authority authority) {
+        final Authority uniqueDescriptors = new DuplicateFilteringAuthority(authority);
         for (LogEntry logEntry : logEntries) {
-            logEntry.describeTo(authority);
+            logEntry.describeTo(uniqueDescriptors);
+        }
+    }
+
+    private static class DuplicateFilteringAuthority implements Authority {
+        final Set<Descriptor> descriptors;
+        private final Authority authority;
+
+        public DuplicateFilteringAuthority(Authority authority) {
+            this.authority = authority;
+            descriptors = Sets.newHashSet();
+        }
+
+        @Override
+        public void accept(Descriptor descriptor) {
+            if (!descriptors.contains(descriptor)) {
+                descriptors.add(descriptor);
+                authority.accept(descriptor);
+            }
         }
     }
 }
