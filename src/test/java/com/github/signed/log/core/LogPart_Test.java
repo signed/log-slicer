@@ -15,6 +15,6 @@ public class LogPart_Test {
         DummyLogPart you = new DummyLogPart("you");
         you.describeTo(authority);
 
-        verify(authority).accept(new Descriptor("Dummy", DummyLogPart.class, true));
+        verify(authority).accept(new Descriptor("Dummy", true));
     }
 }

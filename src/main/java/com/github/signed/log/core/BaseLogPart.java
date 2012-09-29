@@ -27,7 +27,7 @@ public class BaseLogPart implements LogPart {
 
     @Override
     public void describeTo(Authority authority) {
-        authority.accept(new Descriptor(description, this.getClass(), visible()));
+        authority.accept(new Descriptor(description, visible()));
     }
 
     protected boolean visible(){

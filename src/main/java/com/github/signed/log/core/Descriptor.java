@@ -6,13 +6,11 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class Descriptor {
     public final Identification identification;
     public final String name;
-    public final Class<? extends LogPart> type;
     public final boolean display;
 
-    public Descriptor(String name, Class<? extends LogPart> type, boolean display) {
+    public Descriptor(String name, boolean display) {
         this.identification = new Identification(name);
         this.name = name;
-        this.type = type;
         this.display = display;
     }
 

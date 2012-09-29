@@ -1,6 +1,5 @@
 package com.github.signed.log.core;
 
-import com.github.signed.log.DummyLogPart;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
@@ -10,9 +9,9 @@ import static org.hamcrest.Matchers.is;
 public class Descriptor_Test {
 
     @Test
-    public void determineEqualityBasedOnClassNameAndName() throws Exception {
-        Descriptor one = new Descriptor("one", DummyLogPart.class, true);
-        Descriptor anotherOne = new Descriptor("one", DummyLogPart.class, false);
+    public void determineEqualityBasedOnName() throws Exception {
+        Descriptor one = new Descriptor("one", true);
+        Descriptor anotherOne = new Descriptor("one", false);
 
         assertThat(one, is(Matchers.equalTo(anotherOne)));
     }
