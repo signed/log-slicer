@@ -3,8 +3,9 @@ package com.github.signed.log.list;
 import com.github.signed.log.ViewOrphanage;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
-import com.github.signed.log.thread.ui.LoggedThreadProvider;
-import com.github.signed.log.timestamp.ui.TimeStampProvider;
+import com.github.signed.log.core.ui.KeyBasedLogPartProvider;
+import com.github.signed.log.thread.LoggedThread;
+import com.github.signed.log.timestamp.TimeStamp;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -39,14 +40,14 @@ public class LogView {
 
     private TableColumn<LogEntry, LogPart> createThreadColumn() {
         TableColumn<LogEntry, LogPart> threadColumn = new TableColumn<>("thread");
-        threadColumn.setCellValueFactory(new LogPartCellValueFactory(new LoggedThreadProvider()));
+        threadColumn.setCellValueFactory(new LogPartCellValueFactory( new KeyBasedLogPartProvider(LoggedThread.class)));
         threadColumn.setCellFactory(new LogPartCellFactory());
         return threadColumn;
     }
 
     private TableColumn<LogEntry, LogPart> createTimeStampColumn() {
         TableColumn<LogEntry, LogPart> timestampColumn = new TableColumn<>("timestamp");
-        timestampColumn.setCellValueFactory(new LogPartCellValueFactory(new TimeStampProvider()));
+        timestampColumn.setCellValueFactory(new LogPartCellValueFactory(new KeyBasedLogPartProvider(TimeStamp.class)));
         timestampColumn.setCellFactory(new LogPartCellFactory());
         return timestampColumn;
     }
