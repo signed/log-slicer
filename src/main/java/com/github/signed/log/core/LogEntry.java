@@ -4,6 +4,7 @@ import com.github.signed.log.RawLogEntry;
 import com.github.signed.log.loglevel.LogLevelExtractor;
 import com.github.signed.log.thread.LoggedThreadExtractor;
 import com.github.signed.log.timestamp.TimeStampExtractor;
+import com.google.common.base.Functions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lang.ArgumentClosure;
@@ -45,7 +46,7 @@ public class LogEntry {
     }
 
     public LogPart getPart(Identification identification) {
-        return partsByIdentification.get(identification);
+        return Functions.forMap(partsByIdentification, NullLogPart.TheNullLogPart).apply(identification);
     }
 
 
