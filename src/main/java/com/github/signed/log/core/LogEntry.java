@@ -44,7 +44,12 @@ public class LogEntry {
         return (T) getPart(type);
     }
 
-    public<T extends LogPart> LogPart getPart(Class<T> type) {
+    public LogPart getPart(Identification identification) {
+        return partsByIdentification.get(identification);
+    }
+
+
+    public <T extends LogPart> LogPart getPart(Class<T> type) {
         if(parts.containsKey(type)){
             return parts.get(type);
         }
@@ -65,4 +70,5 @@ public class LogEntry {
             logPart.describeTo(authority);
         }
     }
+
 }

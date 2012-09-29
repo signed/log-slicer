@@ -1,6 +1,7 @@
 package com.github.signed.log;
 
 import com.github.signed.log.core.Authority;
+import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.thread.LoggedThread;
@@ -30,6 +31,12 @@ public class LogEntry_Test {
     @Test
     public void retrievesRawLineLine() throws Exception {
         assertThat(LogEntry.createLogEntry("the raw line").getDerivedPart(RawLogEntry.class), is(new RawLogEntry("the raw line")));
+    }
+
+    @Test
+    public void retrieveLogPartsByIdentification() throws Exception {
+        LogEntry blabla = LogEntryBuilder.ofParts(new DummyLogPart("blabla")).build();
+        assertThat(blabla.getPart(new Identification("Dummy")), is( DummyLogPart.Dummy("blabla")));
     }
 
     @Test

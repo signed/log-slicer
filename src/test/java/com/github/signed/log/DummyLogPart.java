@@ -8,15 +8,15 @@ public class DummyLogPart extends BaseLogPart {
     public static LogPart Dummy(String id) {
         return new DummyLogPart(id);
     }
-    private final String id;
+    private final String property;
 
-    public DummyLogPart(String id) {
+    public DummyLogPart(String property) {
         super("Dummy");
-        this.id = id;
+        this.property = property;
     }
 
     @Override
     public void dumpInto(StringBuilder builder) {
-        builder.append(id);
+        builder.append(property);
     }
 }
