@@ -21,4 +21,9 @@ public class NullLogPart implements LogPart {
     public void describeTo(Authority authority) {
         //do not tell them who you are...
     }
+
+    @Override
+    public int compareTo(LogPart o) {
+        return -1;
+    }
 }

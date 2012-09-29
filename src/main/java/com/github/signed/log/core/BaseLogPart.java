@@ -3,7 +3,7 @@ package com.github.signed.log.core;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-public class BaseLogPart implements LogPart {
+public class BaseLogPart implements LogPart{
     private String description;
 
     public BaseLogPart(String description) {
@@ -32,5 +32,14 @@ public class BaseLogPart implements LogPart {
 
     protected boolean visible(){
         return true;
+    }
+
+    @Override
+    public int compareTo(LogPart o) {
+        StringBuilder lhs = new StringBuilder();
+        this.dumpInto(lhs);
+        StringBuilder rhs = new StringBuilder();
+        o.dumpInto(rhs);
+        return lhs.toString().compareTo(rhs.toString());
     }
 }

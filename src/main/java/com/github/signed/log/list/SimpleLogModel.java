@@ -12,6 +12,7 @@ import com.google.common.collect.Sets;
 import lang.Announcer;
 import lang.ArgumentClosure;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -55,6 +56,7 @@ public class SimpleLogModel implements LogModel {
 
         Set<LogPart> unique = Sets.newHashSet(transform);
         List<LogPart> list = Lists.newArrayList(unique);
+        Collections.sort(list);
         closure.excecute(list);
     }
 

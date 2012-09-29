@@ -3,7 +3,7 @@ package com.github.signed.log.thread;
 import com.github.signed.log.core.BaseLogPart;
 import com.github.signed.log.core.Identification;
 
-public class LoggedThread extends BaseLogPart implements Comparable<LoggedThread> {
+public class LoggedThread extends BaseLogPart {
 
     public static final Identification LoggedThreadIdentification = new Identification("thread");
 
@@ -24,8 +24,4 @@ public class LoggedThread extends BaseLogPart implements Comparable<LoggedThread
         builder.append(threadName);
     }
 
-    @Override
-    public int compareTo(LoggedThread o) {
-        return threadName.compareTo(o.threadName);
-    }
 }
