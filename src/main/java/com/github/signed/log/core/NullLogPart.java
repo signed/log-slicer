@@ -2,7 +2,7 @@ package com.github.signed.log.core;
 
 import java.util.Collection;
 
-public class NullLogPart extends LogPart{
+public class NullLogPart extends BaseLogPart {
     public static LogPart TheNullLogPart = new NullLogPart();
 
     private NullLogPart() {

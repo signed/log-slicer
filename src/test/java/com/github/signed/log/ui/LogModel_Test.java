@@ -1,10 +1,8 @@
 package com.github.signed.log.ui;
 
 import com.github.signed.log.core.LogEntry;
-import com.github.signed.log.core.LogPart;
 import com.github.signed.log.list.SimpleLogModel;
 import com.github.signed.log.thread.LoggedThread;
-import com.google.common.collect.ImmutableList;
 import lang.ArgumentClosure;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
@@ -15,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.github.signed.log.LogEntryBuilder.ofParts;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -40,8 +39,7 @@ public class LogModel_Test {
     }
 
     private void logOnThread(LoggedThread thread) {
-        ImmutableList<LogPart> of = ImmutableList.<LogPart>of(thread);
-        LogEntry logEntry = new LogEntry(of);
+        LogEntry logEntry = ofParts(thread).build();
         logModel.addEntriesFrom(Collections.singletonList(logEntry));
     }
 

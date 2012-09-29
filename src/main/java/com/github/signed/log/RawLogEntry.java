@@ -1,8 +1,8 @@
 package com.github.signed.log;
 
-import com.github.signed.log.core.LogPart;
+import com.github.signed.log.core.BaseLogPart;
 
-public class RawLogEntry extends LogPart {
+public class RawLogEntry extends BaseLogPart {
     private final String line;
 
     public RawLogEntry(String line) {

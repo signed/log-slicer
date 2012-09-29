@@ -1,8 +1,9 @@
 package com.github.signed.log;
 
+import com.github.signed.log.core.BaseLogPart;
 import com.github.signed.log.core.LogPart;
 
-public class DummyLogPart extends LogPart {
+public class DummyLogPart extends BaseLogPart {
 
     public static LogPart Dummy(String id) {
         return new DummyLogPart(id);

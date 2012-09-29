@@ -33,7 +33,7 @@ public class LogEntry {
     }
 
     @SuppressWarnings("unchecked")
-    public<T extends LogPart> T getDerivedPart(Class<T> type) {
+    public<T extends BaseLogPart> T getDerivedPart(Class<T> type) {
         return (T) getPart(type);
     }
 
