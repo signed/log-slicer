@@ -6,6 +6,7 @@ public class RawLogEntry extends LogPart {
     private final String line;
 
     public RawLogEntry(String line) {
+        super("Complete Line");
         this.line = line;
     }
 

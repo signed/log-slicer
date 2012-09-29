@@ -1,7 +1,6 @@
 package com.github.signed.log.core;
 
 import com.github.signed.log.DummyLogPart;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Collection;
@@ -14,8 +13,7 @@ public class LogPart_Test {
     private final Collection<Descriptor> authority = mock(Collection.class);
 
     @Test
-    @Ignore
-    public void handOverTheDiscriptorToTheBucket() throws Exception {
+    public void handOverTheDescriptorToTheBucket() throws Exception {
         DummyLogPart you = new DummyLogPart("you");
         you.describeTo(authority);
 

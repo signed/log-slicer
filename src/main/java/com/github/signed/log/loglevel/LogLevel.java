@@ -10,6 +10,7 @@ public class LogLevel extends LogPart {
     }
 
     public LogLevel(String text) {
+        super("level");
         this.text = text;
     }
 

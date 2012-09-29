@@ -6,6 +6,7 @@ public class LoggedThread extends LogPart implements Comparable<LoggedThread> {
     private final String threadName;
 
     public LoggedThread(String threadName) {
+        super("thread");
         this.threadName = threadName;
     }
 

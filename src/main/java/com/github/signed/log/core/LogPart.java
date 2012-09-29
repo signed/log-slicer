@@ -6,6 +6,12 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import java.util.Collection;
 
 public class LogPart {
+    private String description;
+
+    public LogPart(String description) {
+        this.description = description;
+    }
+
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
@@ -21,7 +27,7 @@ public class LogPart {
     }
 
     public void describeTo(Collection<Descriptor> authority) {
-        //To change body of created methods use File | Settings | File Templates.
+        authority.add(new Descriptor(description, this.getClass()));
     }
 
 }

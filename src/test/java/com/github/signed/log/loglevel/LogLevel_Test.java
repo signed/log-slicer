@@ -10,7 +10,7 @@ public class LogLevel_Test {
     @Test
     public void writeThePlainStringToTheBuilder() throws Exception {
         StringBuilder builder = new StringBuilder();
-        new LogLevel("TRACE").dumpInto(builder);
+        LogLevel.LogLevelOf("TRACE").dumpInto(builder);
         assertThat(builder.toString(), is("TRACE"));
     }
 }

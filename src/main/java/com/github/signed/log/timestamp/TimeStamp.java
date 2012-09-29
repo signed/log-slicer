@@ -7,6 +7,7 @@ public class TimeStamp extends LogPart {
     private final DateTime time;
 
     public TimeStamp(DateTime time){
+        super("timestamp");
         this.time = time;
     }
 

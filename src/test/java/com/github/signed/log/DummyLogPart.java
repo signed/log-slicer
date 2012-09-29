@@ -10,6 +10,7 @@ public class DummyLogPart extends LogPart {
     private final String id;
 
     public DummyLogPart(String id) {
+        super("Dummy");
         this.id = id;
     }
 
