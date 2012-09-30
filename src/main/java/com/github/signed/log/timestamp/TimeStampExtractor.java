@@ -13,7 +13,7 @@ public class TimeStampExtractor extends Extractor {
     private final SpaceSplitter splitter;
     private final Descriptor descriptor;
 
-    public TimeStampExtractor(String text, Descriptor descriptor) {
+    public TimeStampExtractor(Descriptor descriptor, String text) {
         this.splitter = new SpaceSplitter(text);
         this.descriptor = descriptor;
     }

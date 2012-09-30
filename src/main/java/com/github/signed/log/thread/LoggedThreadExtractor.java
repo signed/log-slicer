@@ -12,7 +12,7 @@ public class LoggedThreadExtractor extends Extractor {
     private final String text;
     private final Descriptor descriptor;
 
-    public LoggedThreadExtractor(String text, Descriptor descriptor) {
+    public LoggedThreadExtractor(Descriptor descriptor, String text) {
         this.text = text;
         this.descriptor = descriptor;
     }

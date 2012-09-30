@@ -21,9 +21,9 @@ public class LogEntryParser {
 
     public LogEntry parse(String text) {
         Collection<LogPart> bucket = Lists.newArrayList();
-        bucket.add(new StringLogPart(new Descriptor(LogEntryParser.RawLogIdentification, "Complete Line", false),text));
-        new TimeStampExtractor(text, new Descriptor(TimeStampIdentification, "timestamp", true)).passLogPartTo(bucket);
-        new LoggedThreadExtractor(text, new Descriptor(LoggedThreadIdentification, "thread", true)).passLogPartTo(bucket);
+        bucket.add(new StringLogPart(new Descriptor(LogEntryParser.RawLogIdentification, "Complete Line", false), text));
+        new TimeStampExtractor(new Descriptor(TimeStampIdentification, "timestamp", true), text).passLogPartTo(bucket);
+        new LoggedThreadExtractor(new Descriptor(LoggedThreadIdentification, "thread", true), text).passLogPartTo(bucket);
         new LogLevelExtractor(text, new Descriptor(LogLevelIdentification, "level", true)).passLogPartTo(bucket);
         return LogEntry.Create(bucket);
     }
