@@ -31,8 +31,8 @@ public class LogSlicer extends Application{
     private LogPanel left = LogPanel.PositionFilterLeft(logModel);
     private LogPanel right = LogPanel.PositionFilterRight(logModel);
 
-    private final SideBySideLogView logView = new SideBySideLogView(left.completeView, right.completeView);
-    private final SideBySideLogPresenter sideBySideLogPresenter = new SideBySideLogPresenter(logModel, logView, left.logPresenter, right.logPresenter);
+    private final SideBySideLogView sideBySideLogView = new SideBySideLogView(left.completeView, right.completeView);
+    private final SideBySideLogPresenter sideBySideLogPresenter = new SideBySideLogPresenter(logModel, sideBySideLogView, left.logPresenter, right.logPresenter);
 
     @Override
     public void init() throws Exception {
@@ -56,7 +56,7 @@ public class LogSlicer extends Application{
         HBox hBox = new HBox();
         HBoxControlledOrphanage orphanage = new HBoxControlledOrphanage(hBox);
         orphanage.nextGrabHorizontalSpace(Priority.ALWAYS);
-        logView.addTo(orphanage);
+        sideBySideLogView.addTo(orphanage);
 
         Scene scene = new Scene(hBox);
         scene.getStylesheets().addAll(LogSlicer.class.getResource("/hide-scroll-bar.css").toExternalForm());
