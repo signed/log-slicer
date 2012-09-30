@@ -8,20 +8,7 @@ public class LoggedThread extends StringLogPart {
 
     public static final Identification LoggedThreadIdentification = new Identification("thread");
 
-    private final String threadName;
-
     public LoggedThread(String threadName) {
-        super(new Descriptor(LoggedThreadIdentification, "thread", true));
-        this.threadName = threadName;
-    }
-
-    @Override
-    public String toString() {
-        return threadName;
-    }
-
-    @Override
-    public void dumpInto(StringBuilder builder) {
-        builder.append(threadName);
+        super(new Descriptor(LoggedThreadIdentification, "thread", true), threadName);
     }
 }

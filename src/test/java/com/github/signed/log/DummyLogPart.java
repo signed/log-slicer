@@ -12,15 +12,8 @@ public class DummyLogPart extends StringLogPart {
     public static LogPart Dummy(String id) {
         return new DummyLogPart(id);
     }
-    private final String property;
 
     public DummyLogPart(String property) {
-        super(new Descriptor(DummyLogPartIdentification, "Dummy", false));
-        this.property = property;
-    }
-
-    @Override
-    public void dumpInto(StringBuilder builder) {
-        builder.append(property);
+        super(new Descriptor(DummyLogPartIdentification, "Dummy", false), property);
     }
 }

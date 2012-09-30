@@ -11,15 +11,7 @@ public class RawLogEntry extends StringLogPart {
     }
 
     public static final Identification RawLogIdentification = new Identification("Complete Line");
-    private final String line;
-
     public RawLogEntry(String line) {
-        super(new Descriptor(RawLogIdentification, "Complete Line", false));
-        this.line = line;
-    }
-
-    @Override
-    public void dumpInto(StringBuilder builder) {
-        builder.append(line);
+        super(new Descriptor(RawLogIdentification, "Complete Line", false), line);
     }
 }
