@@ -1,6 +1,10 @@
 package com.github.signed.log.thread;
 
+import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.Extractor;
+import com.github.signed.log.core.LogPart;
+import com.github.signed.log.core.StringLogPart;
+import com.github.signed.log.core.parser.LogEntryParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,10 +17,10 @@ public class LoggedThreadExtractor extends Extractor {
     }
 
     @Override
-    protected LoggedThread extract() {
+    protected LogPart extract() {
         Pattern compile = Pattern.compile("\\(([^\\)]+)\\)");
         Matcher matcher = compile.matcher(text);
         matcher.find();
-        return new LoggedThread(matcher.group(1));
+        return new StringLogPart(new Descriptor(LogEntryParser.LoggedThreadIdentification, "thread", true), matcher.group(1));
     }
 }

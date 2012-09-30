@@ -4,6 +4,7 @@ import com.github.signed.log.core.Authority;
 import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
+import com.github.signed.log.core.parser.LogEntryParser;
 import com.github.signed.log.list.LogModel;
 import com.github.signed.log.thread.LoggedThread;
 import com.google.common.base.Function;
@@ -106,7 +107,7 @@ public class LogPartFilterModel implements LogModel {
         return  Lists.transform(logEntries, new Function<LogEntry, LogEntry>() {
             @Override
             public LogEntry apply(@Nullable LogEntry input) {
-                if ( loggedThreadsToDisplay.contains(input.getPart(LoggedThread.LoggedThreadIdentification))) {
+                if ( loggedThreadsToDisplay.contains(input.getPart(LogEntryParser.LoggedThreadIdentification))) {
                     return input;
                 }
                 return LogEntry.Null;

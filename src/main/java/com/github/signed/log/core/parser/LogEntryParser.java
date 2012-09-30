@@ -16,6 +16,7 @@ public class LogEntryParser {
 
     public static final Identification RawLogIdentification = new Identification("Complete Line");
     public static final Identification TimeStampIdentification = new Identification("timestamp");
+    public static final Identification LoggedThreadIdentification = new Identification("thread");
 
     public LogEntry parse(String text) {
         Collection<LogPart> bucket = Lists.newArrayList();

@@ -4,12 +4,14 @@ import com.github.signed.log.core.Authority;
 import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
-import com.github.signed.log.thread.LoggedThread;
+import com.github.signed.log.core.StringLogPart;
+import com.github.signed.log.core.parser.LogEntryParser;
 import lang.ArgumentClosure;
 import org.junit.Test;
 
 import java.util.Collections;
 
+import static com.github.signed.log.DescriptorBuilder.anyDescriptor;
 import static com.github.signed.log.DummyLogPart.Dummy;
 import static com.github.signed.log.LogEntryBuilder.ofParts;
 import static com.github.signed.log.LogEntryBuilder.withNoParts;
@@ -32,10 +34,13 @@ public class LogEntry_Test {
         assertThat(blabla.getPart(DummyLogPart.DummyLogPartIdentification), is(DummyLogPart.Dummy("blabla")));
     }
 
+
     @Test
     public void passTheRawStringInformationToTheClosure() throws Exception {
-        LogEntry entry = LogEntryBuilder.ofParts(new LoggedThread("uno")).build();
-        entry.dumpPartInto(LoggedThread.LoggedThreadIdentification, closure);
+        Identification identification = new Identification("test-me");
+        StringLogPart part = new StringLogPart(anyDescriptor().withIdentification(identification).build(), "uno");
+        LogEntry entry = LogEntryBuilder.ofParts(part).build();
+        entry.dumpPartInto(identification, closure);
 
         verify(closure).excecute("uno");
     }
@@ -43,7 +48,7 @@ public class LogEntry_Test {
     @Test
     public void ifTheRequestedLogPartIsNotAvailablePassAnEmptyStringToTheClosure() throws Exception {
         LogEntry entry = LogEntry.Create(Collections.<LogPart>emptyList());
-        entry.dumpPartInto(LoggedThread.LoggedThreadIdentification, closure);
+        entry.dumpPartInto(LogEntryParser.LoggedThreadIdentification, closure);
 
         verify(closure).excecute("");
     }

@@ -1,7 +1,7 @@
 package com.github.signed.log.core;
 
 public class StringLogPart extends LogPartBase {
-    private final String text;
+    public final String text;
 
     public StringLogPart(Descriptor descriptor, String text) {
         super(descriptor);
