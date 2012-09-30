@@ -22,20 +22,29 @@ public class BorderPaneControlledOrphanage implements ViewOrphanage {
         nextNode.excecute(node);
     }
 
-    public void nextAtTop() {
-        nextNode = new ArgumentClosure<Node>() {
-            @Override
-            public void excecute(Node node) {
-                borderPane.setTop(node);
-            }
-        };
-    }
-
     public void nextAtCenter() {
         nextNode = new ArgumentClosure<Node>() {
             @Override
             public void excecute(Node node) {
                 borderPane.setCenter(node);
+            }
+        };
+    }
+
+    public void nextLeft(){
+        nextNode = new ArgumentClosure<Node>() {
+            @Override
+            public void excecute(Node node) {
+                borderPane.setLeft(node);
+            }
+        };
+    }
+
+    public void nextRight() {
+        nextNode = new ArgumentClosure<Node>() {
+            @Override
+            public void excecute(Node node) {
+                borderPane.setRight(node);
             }
         };
     }

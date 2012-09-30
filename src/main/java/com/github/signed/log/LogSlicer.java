@@ -26,8 +26,8 @@ public class LogSlicer extends Application{
     private final SimpleLogModel logModel = new SimpleLogModel();
 
 
-    private LogPanel left = new LogPanel(logModel);
-    private LogPanel right = new LogPanel(logModel);
+    private LogPanel left = LogPanel.PositionFilterLeft(logModel);
+    private LogPanel right = LogPanel.PositionFilterRight(logModel);
 
     private final SideBySideLogView logView = new SideBySideLogView(left.completeView, right.completeView);
     private final SideBySideLogPresenter sideBySideLogPresenter = new SideBySideLogPresenter(logModel, logView, left.logPresenter, right.logPresenter);
