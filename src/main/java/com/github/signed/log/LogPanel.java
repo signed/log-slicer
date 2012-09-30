@@ -9,6 +9,7 @@ import com.github.signed.log.list.LogModel;
 import com.github.signed.log.list.LogPresenter;
 import com.github.signed.log.list.LogView;
 import com.google.common.collect.ImmutableList;
+import javafx.OrphanView;
 
 import java.util.List;
 
@@ -17,8 +18,8 @@ public class LogPanel {
     public static LogPanel PositionFilterLeft(LogModel model){
         return new LogPanel(model, new SideStrategy() {
             @Override
-            public LogEntryListingWithFilterInputView create(LogPartFilterView logPartFilterView, LogView logView) {
-                return LogEntryListingWithFilterInputView.putFilterLeftOfLogs(logPartFilterView, logView);
+            public LogEntryListingWithFilterInputView create(OrphanView orphanView, LogView logView) {
+                return LogEntryListingWithFilterInputView.putFilterLeftOfLogs(orphanView, logView);
             }
         });
     }
@@ -26,14 +27,14 @@ public class LogPanel {
     public static LogPanel PositionFilterRight(LogModel model){
         return new LogPanel(model, new SideStrategy() {
             @Override
-            public LogEntryListingWithFilterInputView create(LogPartFilterView logPartFilterView, LogView logView) {
-                return LogEntryListingWithFilterInputView.putFilterRightOfLogs(logPartFilterView, logView);
+            public LogEntryListingWithFilterInputView create(OrphanView orphanView, LogView logView) {
+                return LogEntryListingWithFilterInputView.putFilterRightOfLogs(orphanView, logView);
             }
         });
     }
 
     private static interface SideStrategy{
-        LogEntryListingWithFilterInputView create(LogPartFilterView logPartFilterView, LogView logView);
+        LogEntryListingWithFilterInputView create(OrphanView orphanView, LogView logView);
     }
 
     public final LogPartFilterModel logPartFilterModel;

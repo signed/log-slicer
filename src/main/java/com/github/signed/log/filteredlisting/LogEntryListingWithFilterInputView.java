@@ -1,14 +1,14 @@
 package com.github.signed.log.filteredlisting;
 
-import com.github.signed.log.filter.LogPartFilterView;
 import com.github.signed.log.list.LogView;
 import javafx.BorderPaneControlledOrphanage;
+import javafx.OrphanView;
 import javafx.ViewOrphanage;
 import javafx.scene.layout.BorderPane;
 
 public class LogEntryListingWithFilterInputView {
 
-    public static LogEntryListingWithFilterInputView putFilterLeftOfLogs(LogPartFilterView filterView, LogView logView) {
+    public static LogEntryListingWithFilterInputView putFilterLeftOfLogs(OrphanView filterView, LogView logView) {
         return new LogEntryListingWithFilterInputView(filterView, logView, new FilterPositionStrategy() {
             @Override
             public void pickPositionForFilter(BorderPaneControlledOrphanage orphanage) {
@@ -17,7 +17,7 @@ public class LogEntryListingWithFilterInputView {
         });
     }
 
-    public static LogEntryListingWithFilterInputView putFilterRightOfLogs(LogPartFilterView filterView, LogView logView) {
+    public static LogEntryListingWithFilterInputView putFilterRightOfLogs(OrphanView filterView, LogView logView) {
         return new LogEntryListingWithFilterInputView(filterView, logView, new FilterPositionStrategy() {
             @Override
             public void pickPositionForFilter(BorderPaneControlledOrphanage orphanage) {
@@ -28,7 +28,7 @@ public class LogEntryListingWithFilterInputView {
 
     private final BorderPane borderPane = new BorderPane();
 
-    public LogEntryListingWithFilterInputView(LogPartFilterView filterView, LogView logView, FilterPositionStrategy strategy) {
+    public LogEntryListingWithFilterInputView(OrphanView filterView, LogView logView, FilterPositionStrategy strategy) {
         BorderPaneControlledOrphanage orphanage = new BorderPaneControlledOrphanage(borderPane);
         orphanage.nextAtCenter();
         logView.addTo(orphanage);

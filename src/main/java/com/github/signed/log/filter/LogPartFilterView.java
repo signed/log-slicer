@@ -2,6 +2,7 @@ package com.github.signed.log.filter;
 
 import com.github.signed.log.core.LogPart;
 import com.sun.javafx.collections.ObservableListWrapper;
+import javafx.OrphanView;
 import javafx.ViewOrphanage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,7 +20,7 @@ import lang.ArgumentClosure;
 
 import java.util.List;
 
-public class LogPartFilterView {
+public class LogPartFilterView implements OrphanView {
     private final VBox vbox = new VBox();
     private ComboBox<LogPart> availableThreads;
     private final FlowPane selectedFilterContainer = new FlowPane();
@@ -31,23 +32,23 @@ public class LogPartFilterView {
         vbox.setMaxWidth(250);
     }
 
-    public void onSelection(final ArgumentClosure<LogPart> closure) {
-        selectionListener.addListener(closure);
-    }
-
     public void displayAvailableThreads(List<LogPart> threads) {
         reCreateComboBox("threads");
         availableThreads.getSelectionModel().clearSelection();
         availableThreads.setItems(new ObservableListWrapper<>(threads));
     }
 
-    public void reCreateComboBox(String promptText){
-        createAvailableThreadsCombobox(promptText);
+    public void onSelection(final ArgumentClosure<LogPart> closure) {
+        selectionListener.addListener(closure);
+    }
+
+    private void reCreateComboBox(String promptText){
+        createAvailableThreadsComboBox(promptText);
         vbox.getChildren().remove(0);
         vbox.getChildren().add(0, availableThreads);
     }
 
-    public void createAvailableThreadsCombobox(String promptText) {
+    private void createAvailableThreadsComboBox(String promptText) {
         availableThreads = new ComboBox<>();
         availableThreads.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LogPart>() {
             @Override
@@ -77,6 +78,7 @@ public class LogPartFilterView {
         });
     }
 
+    @Override
     public void addTo(ViewOrphanage viewOrphanage) {
         viewOrphanage.add(vbox);
     }
