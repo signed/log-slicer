@@ -29,6 +29,7 @@ public class LogPartFilterView {
     public LogPartFilterView() {
         createAvailableThreadsCombobox();
         vbox.getChildren().addAll(availableThreads, selectedFilterContainer);
+        vbox.setMaxWidth(250);
     }
 
     public void onSelectedThreadChanges(final ArgumentClosure<LogPart> closure) {
