@@ -1,8 +1,8 @@
 package com.github.signed.log.filter;
 
-import com.github.signed.log.ViewOrphanage;
 import com.github.signed.log.core.LogPart;
 import com.sun.javafx.collections.ObservableListWrapper;
+import javafx.ViewOrphanage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;

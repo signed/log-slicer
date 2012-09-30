@@ -1,13 +1,14 @@
 package com.github.signed.log.compare;
 
-import com.github.signed.log.HBoxControlledOrphanage;
-import com.github.signed.log.ViewOrphanage;
 import com.github.signed.log.filteredlisting.LogEntryListingWithFilterInputView;
+import javafx.HBoxControlledOrphanage;
+import javafx.ViewOrphanage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import lang.ArgumentClosure;
 
 public class SideBySideLogView {
@@ -15,9 +16,11 @@ public class SideBySideLogView {
     private final ScrollBar scrollBar = new ScrollBar();
 
     public SideBySideLogView(LogEntryListingWithFilterInputView left, LogEntryListingWithFilterInputView right) {
-        ViewOrphanage viewOrphanage = new HBoxControlledOrphanage(container);
+        HBoxControlledOrphanage viewOrphanage = new HBoxControlledOrphanage(container);
+        viewOrphanage.nextGrabHorizontalSpace(Priority.ALWAYS);
         left.addTo(viewOrphanage);
         container.getChildren().add(scrollBar);
+        viewOrphanage.nextGrabHorizontalSpace(Priority.ALWAYS);
         right.addTo(viewOrphanage);
         scrollBar.setOrientation(Orientation.VERTICAL);
         scrollBar.setMin(0);

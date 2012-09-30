@@ -6,9 +6,11 @@ import com.github.signed.log.core.RawLog;
 import com.github.signed.log.core.ui.Presenter;
 import com.github.signed.log.list.SimpleLogModel;
 import com.google.common.collect.Lists;
+import javafx.HBoxControlledOrphanage;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 
@@ -52,7 +54,9 @@ public class LogSlicer extends Application{
     @Override
     public void start(Stage stage) throws Exception {
         HBox hBox = new HBox();
-        logView.addTo(new HBoxControlledOrphanage(hBox));
+        HBoxControlledOrphanage orphanage = new HBoxControlledOrphanage(hBox);
+        orphanage.nextGrabHorizontalSpace(Priority.ALWAYS);
+        logView.addTo(orphanage);
 
         Scene scene = new Scene(hBox);
         scene.getStylesheets().addAll(LogSlicer.class.getResource("/hide-scroll-bar.css").toExternalForm());

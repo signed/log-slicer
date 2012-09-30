@@ -1,9 +1,9 @@
 package com.github.signed.log.filteredlisting;
 
-import com.github.signed.log.BorderPaneControlledOrphanage;
-import com.github.signed.log.ViewOrphanage;
 import com.github.signed.log.filter.LogPartFilterView;
 import com.github.signed.log.list.LogView;
+import javafx.BorderPaneControlledOrphanage;
+import javafx.ViewOrphanage;
 import javafx.scene.layout.BorderPane;
 
 public class LogEntryListingWithFilterInputView {

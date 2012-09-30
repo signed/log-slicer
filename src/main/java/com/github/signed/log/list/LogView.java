@@ -1,11 +1,11 @@
 package com.github.signed.log.list;
 
-import com.github.signed.log.ViewOrphanage;
 import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.core.ui.KeyBasedLogPartProvider;
 import com.sun.javafx.collections.ObservableListWrapper;
+import javafx.ViewOrphanage;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
