@@ -17,13 +17,14 @@ public class LogEntryParser {
     public static final Identification RawLogIdentification = new Identification("Complete Line");
     public static final Identification TimeStampIdentification = new Identification("timestamp");
     public static final Identification LoggedThreadIdentification = new Identification("thread");
+    public static final Identification LogLevelIdentification = new Identification("level");
 
     public LogEntry parse(String text) {
         Collection<LogPart> bucket = Lists.newArrayList();
         bucket.add(new StringLogPart(new Descriptor(LogEntryParser.RawLogIdentification, "Complete Line", false),text));
         new TimeStampExtractor(text, new Descriptor(TimeStampIdentification, "timestamp", true)).passLogPartTo(bucket);
-        new LoggedThreadExtractor(text).passLogPartTo(bucket);
-        new LogLevelExtractor(text).passLogPartTo(bucket);
+        new LoggedThreadExtractor(text, new Descriptor(LoggedThreadIdentification, "thread", true)).passLogPartTo(bucket);
+        new LogLevelExtractor(text, new Descriptor(LogLevelIdentification, "level", true)).passLogPartTo(bucket);
         return LogEntry.Create(bucket);
     }
 }
