@@ -1,16 +1,17 @@
 package com.github.signed.log.thread;
 
-import com.github.signed.log.core.BaseLogPart;
+import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.Identification;
+import com.github.signed.log.core.StringLogPart;
 
-public class LoggedThread extends BaseLogPart {
+public class LoggedThread extends StringLogPart {
 
     public static final Identification LoggedThreadIdentification = new Identification("thread");
 
     private final String threadName;
 
     public LoggedThread(String threadName) {
-        super("thread");
+        super(new Descriptor(LoggedThreadIdentification, "thread", true));
         this.threadName = threadName;
     }
 
@@ -22,10 +23,5 @@ public class LoggedThread extends BaseLogPart {
     @Override
     public void dumpInto(StringBuilder builder) {
         builder.append(threadName);
-    }
-
-    @Override
-    protected Identification identification() {
-        return LoggedThreadIdentification;
     }
 }

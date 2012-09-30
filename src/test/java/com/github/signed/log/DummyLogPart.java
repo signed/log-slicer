@@ -1,10 +1,11 @@
 package com.github.signed.log;
 
-import com.github.signed.log.core.BaseLogPart;
+import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogPart;
+import com.github.signed.log.core.StringLogPart;
 
-public class DummyLogPart extends BaseLogPart {
+public class DummyLogPart extends StringLogPart {
 
     public static Identification DummyLogPartIdentification = new Identification("Dummy");
 
@@ -14,17 +15,12 @@ public class DummyLogPart extends BaseLogPart {
     private final String property;
 
     public DummyLogPart(String property) {
-        super("Dummy");
+        super(new Descriptor(DummyLogPartIdentification, "Dummy", false));
         this.property = property;
     }
 
     @Override
     public void dumpInto(StringBuilder builder) {
         builder.append(property);
-    }
-
-    @Override
-    protected Identification identification() {
-        return DummyLogPartIdentification;
     }
 }
