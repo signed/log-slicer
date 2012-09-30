@@ -1,6 +1,5 @@
 package com.github.signed.log.core.parser;
 
-import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
@@ -12,6 +11,8 @@ import com.google.common.collect.Lists;
 
 import java.util.Collection;
 
+import static com.github.signed.log.core.DescriptorBuilder.DescriptorFor;
+
 public class LogEntryParser {
 
     public static final Identification RawLogIdentification = new Identification("Complete Line");
@@ -21,10 +22,10 @@ public class LogEntryParser {
 
     public LogEntry parse(String text) {
         Collection<LogPart> bucket = Lists.newArrayList();
-        bucket.add(new StringLogPart(new Descriptor(LogEntryParser.RawLogIdentification, "Complete Line", false), text));
-        new TimeStampExtractor(new Descriptor(TimeStampIdentification, "timestamp", true), text).passLogPartTo(bucket);
-        new LoggedThreadExtractor(new Descriptor(LoggedThreadIdentification, "thread", true), text).passLogPartTo(bucket);
-        new LogLevelExtractor(text, new Descriptor(LogLevelIdentification, "level", true)).passLogPartTo(bucket);
+        bucket.add(new StringLogPart(DescriptorFor(RawLogIdentification).thatIsNotDisplayed().canNotBeFilteredBy().build(), text));
+        new TimeStampExtractor(DescriptorFor(TimeStampIdentification).thatIsDisplayedAs("timestamp").canNotBeFilteredBy().build(), text).passLogPartTo(bucket);
+        new LoggedThreadExtractor(DescriptorFor(LoggedThreadIdentification).thatIsDisplayedAs("thread").isFilterable().build(), text).passLogPartTo(bucket);
+        new LogLevelExtractor(DescriptorFor(LogLevelIdentification).thatIsDisplayedAs("level").isFilterable().build(), text).passLogPartTo(bucket);
         return LogEntry.Create(bucket);
     }
 }

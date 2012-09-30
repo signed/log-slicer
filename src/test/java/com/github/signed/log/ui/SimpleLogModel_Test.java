@@ -45,7 +45,7 @@ public class SimpleLogModel_Test {
         Authority authority = mock(Authority.class);
         logModel.describeTo(authority);
 
-        verify(authority).accept(new Descriptor(DummyLogPart.DummyLogPartIdentification, "Dummy", true));
+        verify(authority).accept(new Descriptor(DummyLogPart.DummyLogPartIdentification, "Dummy", true, true));
     }
 
     private void logDummyPart() {
@@ -59,7 +59,7 @@ public class SimpleLogModel_Test {
 
         Authority authority = mock(Authority.class);
         logModel.describeTo(authority);
-        verify(authority, new Times(1)).accept(new Descriptor(DummyLogPart.DummyLogPartIdentification, "Dummy", true));
+        verify(authority, new Times(1)).accept(new Descriptor(DummyLogPart.DummyLogPartIdentification, "Dummy", true, true));
     }
 
     private void logDummyLogPart(String identifier) {

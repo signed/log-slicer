@@ -1,7 +1,6 @@
 package com.github.signed.log.timestamp;
 
 import com.github.signed.log.core.DateTimeLogPart;
-import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.LogPart;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -9,7 +8,6 @@ import org.mockito.ArgumentCaptor;
 
 import java.util.Collection;
 
-import static com.github.signed.log.core.parser.LogEntryParser.TimeStampIdentification;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
@@ -23,7 +21,7 @@ public class TimeStampExtractor_Test {
     @Test
     public void putExtractedLogPartIntoTheBucket() throws Exception {
         String input = "2012-09-18 20:14:58,518 stuff (ThreadName)";
-        new TimeStampExtractor(new Descriptor(TimeStampIdentification, "timestamp", true), input).passLogPartTo(bucket);
+        new TimeStampExtractor(null, input).passLogPartTo(bucket);
 
         ArgumentCaptor<LogPart> captor = ArgumentCaptor.forClass(LogPart.class);
         verify(bucket).add(captor.capture());
@@ -35,7 +33,7 @@ public class TimeStampExtractor_Test {
     @Test
     public void doNotInteractWithTheBucketIfTheLogPartCanNotBeFoundInTheSourceString() throws Exception {
         String input = "stuff";
-        new TimeStampExtractor(new Descriptor(TimeStampIdentification, "timestamp", true), input).passLogPartTo(bucket);
+        new TimeStampExtractor(null, input).passLogPartTo(bucket);
 
         verifyZeroInteractions(bucket);
     }

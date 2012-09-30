@@ -4,17 +4,16 @@ import com.google.common.base.Objects;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class Descriptor {
-
-
-
     public final Identification identification;
     public final String name;
     public final boolean display;
+    public final boolean filterable;
 
-    public Descriptor(Identification identification, String name, boolean display) {
+    public Descriptor(Identification identification, String name, boolean display, boolean filterable) {
         this.identification = identification;
         this.name = name;
         this.display = display;
+        this.filterable = filterable;
     }
 
     @Override

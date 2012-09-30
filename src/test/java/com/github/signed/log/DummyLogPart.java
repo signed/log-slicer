@@ -15,7 +15,7 @@ public class DummyLogPart extends LogPartBase {
     }
 
     public DummyLogPart(String property) {
-        super(new Descriptor(DummyLogPartIdentification, "Dummy", false));
+        super(new Descriptor(DummyLogPartIdentification, "Dummy", false, true));
         this.property = property;
     }
 

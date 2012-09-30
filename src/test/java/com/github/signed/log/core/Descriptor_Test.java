@@ -10,8 +10,8 @@ public class Descriptor_Test {
 
     @Test
     public void determineEqualityBasedOnIdentification() throws Exception {
-        Descriptor one = new Descriptor(new Identification("one"), "one", true);
-        Descriptor anotherOne = new Descriptor(new Identification("one"), "other", false);
+        Descriptor one = new Descriptor(new Identification("one"), "one", true, false);
+        Descriptor anotherOne = new Descriptor(new Identification("one"), "other", false, true);
 
         assertThat(one, is(Matchers.equalTo(anotherOne)));
     }

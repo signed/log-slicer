@@ -10,7 +10,7 @@ public class LogLevelExtractor extends Extractor {
     private final Descriptor descriptor;
     private final SpaceSplitter splitter;
 
-    public LogLevelExtractor(String text, Descriptor descriptor) {
+    public LogLevelExtractor(Descriptor descriptor, String text) {
         splitter = new SpaceSplitter(text);
         this.descriptor = descriptor;
     }
