@@ -15,11 +15,12 @@ import java.util.Collection;
 public class LogEntryParser {
 
     public static final Identification RawLogIdentification = new Identification("Complete Line");
+    public static final Identification TimeStampIdentification = new Identification("timestamp");
 
     public LogEntry parse(String text) {
         Collection<LogPart> bucket = Lists.newArrayList();
         bucket.add(new StringLogPart(new Descriptor(LogEntryParser.RawLogIdentification, "Complete Line", false),text));
-        new TimeStampExtractor(text).passLogPartTo(bucket);
+        new TimeStampExtractor(text, new Descriptor(TimeStampIdentification, "timestamp", true)).passLogPartTo(bucket);
         new LoggedThreadExtractor(text).passLogPartTo(bucket);
         new LogLevelExtractor(text).passLogPartTo(bucket);
         return LogEntry.Create(bucket);

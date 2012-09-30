@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 
 public class DateTimeLogPart extends LogPartBase{
 
-    private final DateTime dateTime;
+    public final DateTime dateTime;
 
     public DateTimeLogPart(Descriptor descriptor, DateTime dateTime) {
         super(descriptor);
