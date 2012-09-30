@@ -22,7 +22,7 @@ import java.util.List;
 
 public class LogPartFilterView implements OrphanView {
     private final VBox vbox = new VBox();
-    private ComboBox<LogPart> availableThreads;
+    private ComboBox<LogPart> availableLogParts;
     private final FlowPane selectedFilterContainer = new FlowPane();
     private final Announcer<ArgumentClosure> discardFilterListeners = new Announcer<>(ArgumentClosure.class);
     private final Announcer<ArgumentClosure> selectionListener = new Announcer<>(ArgumentClosure.class);
@@ -32,10 +32,10 @@ public class LogPartFilterView implements OrphanView {
         vbox.setMaxWidth(250);
     }
 
-    public void displayAvailableThreads(List<LogPart> threads) {
+    public void displayAvailableLogParts(List<LogPart> parts) {
         reCreateComboBox("threads");
-        availableThreads.getSelectionModel().clearSelection();
-        availableThreads.setItems(new ObservableListWrapper<>(threads));
+        availableLogParts.getSelectionModel().clearSelection();
+        availableLogParts.setItems(new ObservableListWrapper<>(parts));
     }
 
     public void onSelection(final ArgumentClosure<LogPart> closure) {
@@ -43,34 +43,34 @@ public class LogPartFilterView implements OrphanView {
     }
 
     private void reCreateComboBox(String promptText){
-        createAvailableThreadsComboBox(promptText);
+        createComboBox(promptText);
         vbox.getChildren().remove(0);
-        vbox.getChildren().add(0, availableThreads);
+        vbox.getChildren().add(0, availableLogParts);
     }
 
-    private void createAvailableThreadsComboBox(String promptText) {
-        availableThreads = new ComboBox<>();
-        availableThreads.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LogPart>() {
+    private void createComboBox(String promptText) {
+        availableLogParts = new ComboBox<>();
+        availableLogParts.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LogPart>() {
             @Override
-            public void changed(ObservableValue<? extends LogPart> observableValue, LogPart loggedThread, LogPart loggedThread1) {
-                selectionListener.announce().excecute(loggedThread1);
+            public void changed(ObservableValue<? extends LogPart> observableValue, LogPart oldLogPart, LogPart newLogPart) {
+                selectionListener.announce().excecute(newLogPart);
             }
         });
 
-        availableThreads.setPromptText(promptText);
-        availableThreads.setCellFactory(new Callback<ListView<LogPart>, ListCell<LogPart>>() {
+        availableLogParts.setPromptText(promptText);
+        availableLogParts.setCellFactory(new Callback<ListView<LogPart>, ListCell<LogPart>>() {
             @Override
-            public ListCell<LogPart> call(ListView<LogPart> loggedThreadListView) {
+            public ListCell<LogPart> call(ListView<LogPart> logPartListView) {
                 return new ListCell<LogPart>() {
                     @Override
-                    protected void updateItem(LogPart loggedThread, boolean b) {
-                        super.updateItem(loggedThread, b);
-                        if (null == loggedThread) {
+                    protected void updateItem(LogPart part, boolean b) {
+                        super.updateItem(part, b);
+                        if (null == part) {
                             setText("null");
                             return;
                         }
                         StringBuilder builder = new StringBuilder();
-                        loggedThread.dumpInto(builder);
+                        part.dumpInto(builder);
                         setText(builder.toString());
                     }
                 };
@@ -83,22 +83,22 @@ public class LogPartFilterView implements OrphanView {
         viewOrphanage.add(vbox);
     }
 
-    public void displaySelectedFilter(final List<LogPart> whiteListedThreads) {
+    public void displaySelectedFilter(final List<LogPart> whiteListedParts) {
         selectedFilterContainer.getChildren().clear();
 
-        for (final LogPart thread : whiteListedThreads) {
-            Label label = createLabelFor(thread);
+        for (final LogPart logPart : whiteListedParts) {
+            Label label = createLabelFor(logPart);
             selectedFilterContainer.getChildren().add(label);
         }
     }
 
-    private Label createLabelFor(final LogPart thread) {
-        Label label = new Label(thread.toString());
+    private Label createLabelFor(final LogPart part) {
+        Label label = new Label(part.toString());
         label.getStyleClass().add("filter-predicate");
         label.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                discardFilterListeners.announce().excecute(thread);
+                discardFilterListeners.announce().excecute(part);
             }
         });
         return label;

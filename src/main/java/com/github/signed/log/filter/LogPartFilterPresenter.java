@@ -30,7 +30,7 @@ public class LogPartFilterPresenter implements Presenter {
                 model.provideThreadChoicesTo(new ArgumentClosure<List<LogPart>>() {
                     @Override
                     public void excecute(List<LogPart> loggedThreads) {
-                        view.displayAvailableThreads(loggedThreads);
+                        view.displayAvailableLogParts(loggedThreads);
                     }
                 }, LogEntryParser.LoggedThreadIdentification);
                 updateModelWithSelection.activate();
