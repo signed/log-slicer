@@ -4,12 +4,6 @@ import com.github.signed.log.compare.SideBySideLogPresenter;
 import com.github.signed.log.compare.SideBySideLogView;
 import com.github.signed.log.core.RawLog;
 import com.github.signed.log.core.ui.Presenter;
-import com.github.signed.log.filter.LogPartFilterModel;
-import com.github.signed.log.filter.LogPartFilterPresenter;
-import com.github.signed.log.filter.LogPartFilterView;
-import com.github.signed.log.filteredlisting.LogEntryListingWithFilterInputView;
-import com.github.signed.log.list.LogPresenter;
-import com.github.signed.log.list.LogView;
 import com.github.signed.log.list.SimpleLogModel;
 import com.google.common.collect.Lists;
 import javafx.application.Application;
@@ -32,32 +26,16 @@ public class LogSlicer extends Application{
     private final SimpleLogModel logModel = new SimpleLogModel();
 
 
-    private final LogPartFilterModel leftLogPartFilterModel = new LogPartFilterModel(logModel);
-    private final LogPartFilterView  leftLogPartFilterView = new LogPartFilterView();
-    private final LogPartFilterPresenter leftLogPartFilterPresenter = new LogPartFilterPresenter(leftLogPartFilterView, leftLogPartFilterModel);
+    private LogPanel left = new LogPanel(logModel);
+    private LogPanel right = new LogPanel(logModel);
 
-    private final LogView leftLogView = new LogView();
-    private final LogPresenter leftLogPresenter = new LogPresenter(leftLogPartFilterModel, leftLogView);
-
-    private final LogPartFilterModel rightLogPartFilterModel = new LogPartFilterModel(logModel);
-    private final LogPartFilterView  rightLogPartFilterView = new LogPartFilterView();
-    private final LogPartFilterPresenter rightLogPartFilterPresenter = new LogPartFilterPresenter(rightLogPartFilterView, rightLogPartFilterModel);
-
-    private final LogView rightLogView = new LogView();
-    private final LogPresenter rightLogPresenter = new LogPresenter(rightLogPartFilterModel, rightLogView);
-
-    private final LogEntryListingWithFilterInputView left = new LogEntryListingWithFilterInputView(leftLogPartFilterView, leftLogView);
-    private final LogEntryListingWithFilterInputView right = new LogEntryListingWithFilterInputView(rightLogPartFilterView, rightLogView);
-
-    private final SideBySideLogView logView = new SideBySideLogView(left, right);
-    private final SideBySideLogPresenter sideBySideLogPresenter = new SideBySideLogPresenter(logModel, logView, leftLogPresenter, rightLogPresenter);
+    private final SideBySideLogView logView = new SideBySideLogView(left.completeView, right.completeView);
+    private final SideBySideLogPresenter sideBySideLogPresenter = new SideBySideLogPresenter(logModel, logView, left.logPresenter, right.logPresenter);
 
     @Override
     public void init() throws Exception {
-        presenters.add(leftLogPartFilterPresenter);
-        presenters.add(leftLogPresenter);
-        presenters.add(rightLogPartFilterPresenter);
-        presenters.add(rightLogPresenter);
+        presenters.addAll(left.allPresenters);
+        presenters.addAll(right.allPresenters);
         presenters.add(sideBySideLogPresenter);
 
         for (Presenter presenter : presenters) {
