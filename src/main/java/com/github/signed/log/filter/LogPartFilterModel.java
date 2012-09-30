@@ -6,7 +6,6 @@ import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.core.parser.LogEntryParser;
 import com.github.signed.log.list.LogModel;
-import com.github.signed.log.thread.LoggedThread;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
@@ -53,7 +52,7 @@ public class LogPartFilterModel implements LogModel {
         logModel.onDescriptorChange(runnable);
     }
 
-    public void matches(LoggedThread loggedThread) {
+    public void matches(LogPart loggedThread) {
         loggedThreadsToDisplay.add(loggedThread);
         announceThreadSelectionChanged();
         announceChange();
@@ -77,8 +76,8 @@ public class LogPartFilterModel implements LogModel {
     public void provideThreadChoicesTo(final ArgumentClosure<List<LogPart>> argumentClosure, Identification identification) {
         ArgumentClosure<List<LogPart>> filterClosure=  new ArgumentClosure<List<LogPart>>() {
                 @Override
-                public void excecute(List<LogPart> loggedThreads) {
-                    Collection<LogPart> filtered = Collections2.filter(loggedThreads, new Predicate<LogPart>() {
+                public void excecute(List<LogPart> logParts) {
+                    Collection<LogPart> filtered = Collections2.filter(logParts, new Predicate<LogPart>() {
                         @Override
                         public boolean apply(@Nullable LogPart input) {
                             return !loggedThreadsToDisplay.contains(input);
@@ -123,7 +122,7 @@ public class LogPartFilterModel implements LogModel {
         this.availableThreadChangeListener.addListener(runnable);
     }
 
-    public void discardFilter(LoggedThread loggedThread) {
+    public void discardFilter(LogPart loggedThread) {
         this.loggedThreadsToDisplay.remove(loggedThread);
         announceChange();
         announceThreadSelectionChanged();

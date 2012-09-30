@@ -2,7 +2,6 @@ package com.github.signed.log.filter;
 
 import com.github.signed.log.ViewOrphanage;
 import com.github.signed.log.core.LogPart;
-import com.github.signed.log.thread.LoggedThread;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -32,7 +31,7 @@ public class LogPartFilterView {
         vbox.getChildren().addAll(availableThreads, selectedFilterContainer);
     }
 
-    public void onSelectedThreadChanges(final ArgumentClosure<LoggedThread> closure) {
+    public void onSelectedThreadChanges(final ArgumentClosure<LogPart> closure) {
         selectionListener.addListener(closure);
     }
 
@@ -103,7 +102,7 @@ public class LogPartFilterView {
         return label;
     }
 
-    public void onDiscardFilter(ArgumentClosure<LoggedThread> argumentClosure) {
+    public void onDiscardFilter(ArgumentClosure<LogPart> argumentClosure) {
         discardFilterListeners.addListener(argumentClosure);
     }
 }

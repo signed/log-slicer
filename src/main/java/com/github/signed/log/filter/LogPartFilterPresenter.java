@@ -3,7 +3,6 @@ package com.github.signed.log.filter;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.core.parser.LogEntryParser;
 import com.github.signed.log.core.ui.Presenter;
-import com.github.signed.log.thread.LoggedThread;
 import lang.ArgumentClosure;
 import lang.ArgumentClosureToggle;
 
@@ -12,7 +11,7 @@ import java.util.List;
 public class LogPartFilterPresenter implements Presenter {
     private final LogPartFilterView view;
     private final LogPartFilterModel model;
-    private final ArgumentClosureToggle<LoggedThread> updateModelWithSelection;
+    private final ArgumentClosureToggle<LogPart> updateModelWithSelection;
 
 
     public LogPartFilterPresenter(LogPartFilterView view, LogPartFilterModel model) {
@@ -41,11 +40,10 @@ public class LogPartFilterPresenter implements Presenter {
 
         view.onSelectedThreadChanges(updateModelWithSelection);
         view.onDiscardFilter(new DiscardFilterInModel(model));
-
     }
 
 
-    private static class UpdateModelWithSelection implements ArgumentClosure<LoggedThread> {
+    private static class UpdateModelWithSelection implements ArgumentClosure<LogPart> {
         private final LogPartFilterModel model;
 
         public UpdateModelWithSelection(LogPartFilterModel model) {
@@ -53,13 +51,13 @@ public class LogPartFilterPresenter implements Presenter {
         }
 
         @Override
-        public void excecute(LoggedThread loggedThread) {
+        public void excecute(LogPart loggedThread) {
                 model.matches(loggedThread);
 
         }
     }
 
-    private static class DiscardFilterInModel implements ArgumentClosure<LoggedThread> {
+    private static class DiscardFilterInModel implements ArgumentClosure<LogPart> {
         private final LogPartFilterModel model;
 
         public DiscardFilterInModel(LogPartFilterModel model) {
@@ -67,7 +65,7 @@ public class LogPartFilterPresenter implements Presenter {
         }
 
         @Override
-        public void excecute(LoggedThread loggedThread) {
+        public void excecute(LogPart loggedThread) {
             model.discardFilter(loggedThread);
         }
     }
