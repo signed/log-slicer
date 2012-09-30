@@ -4,6 +4,9 @@ import com.google.common.base.Objects;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class Descriptor {
+
+
+
     public final Identification identification;
     public final String name;
     public final boolean display;

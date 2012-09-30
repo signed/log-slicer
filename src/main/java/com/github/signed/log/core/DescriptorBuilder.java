@@ -1,7 +1,4 @@
-package com.github.signed.log;
-
-import com.github.signed.log.core.Descriptor;
-import com.github.signed.log.core.Identification;
+package com.github.signed.log.core;
 
 public class DescriptorBuilder {
 

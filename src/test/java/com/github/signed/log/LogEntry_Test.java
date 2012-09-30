@@ -11,10 +11,10 @@ import org.junit.Test;
 
 import java.util.Collections;
 
-import static com.github.signed.log.DescriptorBuilder.anyDescriptor;
 import static com.github.signed.log.DummyLogPart.Dummy;
 import static com.github.signed.log.LogEntryBuilder.ofParts;
 import static com.github.signed.log.LogEntryBuilder.withNoParts;
+import static com.github.signed.log.core.DescriptorBuilder.anyDescriptor;
 import static com.github.signed.log.core.NullLogPart.TheNullLogPart;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
