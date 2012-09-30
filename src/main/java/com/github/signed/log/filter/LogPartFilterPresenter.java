@@ -37,7 +37,8 @@ public class LogPartFilterPresenter implements Presenter {
             }
         });
 
-        view.onSelectedThreadChanges(updateModelWithSelection);
+
+        view.onSelection(updateModelWithSelection);
         view.onDiscardFilter(new DiscardFilterInModel(model));
     }
 

@@ -32,7 +32,7 @@ public class LogPartFilterView {
         vbox.setMaxWidth(250);
     }
 
-    public void onSelectedThreadChanges(final ArgumentClosure<LogPart> closure) {
+    public void onSelection(final ArgumentClosure<LogPart> closure) {
         selectionListener.addListener(closure);
     }
 
