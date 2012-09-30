@@ -2,6 +2,7 @@ package com.github.signed.log;
 
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.RawLog;
+import com.github.signed.log.core.parser.LogEntryParser;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterators;
 import org.junit.Test;
@@ -72,7 +73,7 @@ public class RawLog_Test {
 
     private String toString(LogEntry next) {
         StringBuilder builder = new StringBuilder();
-        next.getPart(RawLogEntry.RawLogIdentification).dumpInto(builder);
+        next.getPart(LogEntryParser.RawLogIdentification).dumpInto(builder);
         return builder.toString();
     }
 }

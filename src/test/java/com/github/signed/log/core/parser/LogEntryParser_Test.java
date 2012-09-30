@@ -1,6 +1,5 @@
 package com.github.signed.log.core.parser;
 
-import com.github.signed.log.RawLogEntry;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,6 +9,9 @@ public class LogEntryParser_Test {
 
     @Test
     public void retrievesRawLineLine() throws Exception {
-        assertThat(new LogEntryParser().parse("the raw line").getPart(RawLogEntry.RawLogIdentification), is(RawLogEntry.RawLog("the raw line")));
+        StringBuilder parsed = new StringBuilder();
+        new LogEntryParser().parse("the raw line").getPart(LogEntryParser.RawLogIdentification).dumpInto(parsed);
+
+        assertThat(parsed.toString(),is("the raw line"));
     }
 }
