@@ -27,8 +27,7 @@ public class LogPartFilterView {
     private final Announcer<ArgumentClosure> selectionListener = new Announcer<>(ArgumentClosure.class);
 
     public LogPartFilterView() {
-        createAvailableThreadsCombobox("threads");
-        vbox.getChildren().addAll(availableThreads, selectedFilterContainer);
+        vbox.getChildren().addAll(new Label("just a placeholder"), selectedFilterContainer);
         vbox.setMaxWidth(250);
     }
 
