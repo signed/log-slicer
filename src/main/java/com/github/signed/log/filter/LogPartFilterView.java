@@ -26,14 +26,17 @@ public class LogPartFilterView implements OrphanView {
     private final FlowPane selectedFilterContainer = new FlowPane();
     private final Announcer<ArgumentClosure> discardFilterListeners = new Announcer<>(ArgumentClosure.class);
     private final Announcer<ArgumentClosure> selectionListener = new Announcer<>(ArgumentClosure.class);
+    private final String promptText;
 
-    public LogPartFilterView() {
+    public LogPartFilterView(String name) {
+        this.promptText = name;
         vbox.getChildren().addAll(new Label("just a placeholder"), selectedFilterContainer);
         vbox.setMaxWidth(250);
     }
 
+
     public void displayAvailableLogParts(List<LogPart> parts) {
-        reCreateComboBox("threads");
+        reCreateComboBox(this.promptText);
         availableLogParts.getSelectionModel().clearSelection();
         availableLogParts.setItems(new ObservableListWrapper<>(parts));
     }
