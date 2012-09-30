@@ -42,10 +42,23 @@ public class LogPartFilterView implements OrphanView {
         selectionListener.addListener(closure);
     }
 
+    public void displaySelectedFilter(final List<LogPart> whiteListedParts) {
+        selectedFilterContainer.getChildren().clear();
+
+        for (final LogPart logPart : whiteListedParts) {
+            Label label = createLabelFor(logPart);
+            selectedFilterContainer.getChildren().add(label);
+        }
+    }
+
     private void reCreateComboBox(String promptText){
         createComboBox(promptText);
         vbox.getChildren().remove(0);
         vbox.getChildren().add(0, availableLogParts);
+    }
+
+    public void onDiscardFilter(ArgumentClosure<LogPart> argumentClosure) {
+        discardFilterListeners.addListener(argumentClosure);
     }
 
     private void createComboBox(String promptText) {
@@ -83,15 +96,6 @@ public class LogPartFilterView implements OrphanView {
         viewOrphanage.add(vbox);
     }
 
-    public void displaySelectedFilter(final List<LogPart> whiteListedParts) {
-        selectedFilterContainer.getChildren().clear();
-
-        for (final LogPart logPart : whiteListedParts) {
-            Label label = createLabelFor(logPart);
-            selectedFilterContainer.getChildren().add(label);
-        }
-    }
-
     private Label createLabelFor(final LogPart part) {
         Label label = new Label(part.toString());
         label.getStyleClass().add("filter-predicate");
@@ -102,9 +106,5 @@ public class LogPartFilterView implements OrphanView {
             }
         });
         return label;
-    }
-
-    public void onDiscardFilter(ArgumentClosure<LogPart> argumentClosure) {
-        discardFilterListeners.addListener(argumentClosure);
     }
 }

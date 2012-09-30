@@ -2,8 +2,8 @@ package com.github.signed.log;
 
 import com.github.signed.log.core.ui.Presenter;
 import com.github.signed.log.filter.LogPartFilterModel;
-import com.github.signed.log.filter.LogPartFilterPresenter;
-import com.github.signed.log.filter.LogPartFilterView;
+import com.github.signed.log.filter.MultipleLogPartFilterPresenter;
+import com.github.signed.log.filter.MultipleLogPartFilterView;
 import com.github.signed.log.filteredlisting.LogEntryListingWithFilterInputView;
 import com.github.signed.log.list.LogModel;
 import com.github.signed.log.list.LogPresenter;
@@ -38,8 +38,8 @@ public class LogPanel {
     }
 
     public final LogPartFilterModel logPartFilterModel;
-    public final LogPartFilterView logPartFilterView;
-    public final LogPartFilterPresenter logPartFilterPresenter;
+    public final MultipleLogPartFilterView multipleLogPartFilterView;
+    public final MultipleLogPartFilterPresenter multipleLogPartFilterPresenter;
 
     public final LogView logView = new LogView();
     public final LogPresenter logPresenter;
@@ -50,11 +50,11 @@ public class LogPanel {
 
     public LogPanel(LogModel logModel, SideStrategy sideStrategy) {
         logPartFilterModel = new LogPartFilterModel(logModel);
-        logPartFilterView = new LogPartFilterView();
-        logPartFilterPresenter = new LogPartFilterPresenter(logPartFilterView, logPartFilterModel);
+        multipleLogPartFilterView = new MultipleLogPartFilterView();
+        multipleLogPartFilterPresenter = new MultipleLogPartFilterPresenter(logPartFilterModel, multipleLogPartFilterView);
         logPresenter = new LogPresenter(logPartFilterModel, logView);
-        completeView = sideStrategy.create(logPartFilterView, logView);
+        completeView = sideStrategy.create(multipleLogPartFilterView, logView);
 
-        allPresenters = ImmutableList.of(logPartFilterPresenter, logPresenter);
+        allPresenters = ImmutableList.of(multipleLogPartFilterPresenter, logPresenter);
     }
 }
