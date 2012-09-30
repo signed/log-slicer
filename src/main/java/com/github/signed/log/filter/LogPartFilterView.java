@@ -27,7 +27,7 @@ public class LogPartFilterView {
     private final Announcer<ArgumentClosure> selectionListener = new Announcer<>(ArgumentClosure.class);
 
     public LogPartFilterView() {
-        createAvailableThreadsCombobox();
+        createAvailableThreadsCombobox("threads");
         vbox.getChildren().addAll(availableThreads, selectedFilterContainer);
         vbox.setMaxWidth(250);
     }
@@ -37,18 +37,18 @@ public class LogPartFilterView {
     }
 
     public void displayAvailableThreads(List<LogPart> threads) {
-        reCreateComboBox();
+        reCreateComboBox("threads");
         availableThreads.getSelectionModel().clearSelection();
         availableThreads.setItems(new ObservableListWrapper<>(threads));
     }
 
-    public void reCreateComboBox(){
-        createAvailableThreadsCombobox();
+    public void reCreateComboBox(String promptText){
+        createAvailableThreadsCombobox(promptText);
         vbox.getChildren().remove(0);
         vbox.getChildren().add(0, availableThreads);
     }
 
-    public void createAvailableThreadsCombobox() {
+    public void createAvailableThreadsCombobox(String promptText) {
         availableThreads = new ComboBox<>();
         availableThreads.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LogPart>() {
             @Override
@@ -57,7 +57,7 @@ public class LogPartFilterView {
             }
         });
 
-        availableThreads.setPromptText("threads");
+        availableThreads.setPromptText(promptText);
         availableThreads.setCellFactory(new Callback<ListView<LogPart>, ListCell<LogPart>>() {
             @Override
             public ListCell<LogPart> call(ListView<LogPart> loggedThreadListView) {

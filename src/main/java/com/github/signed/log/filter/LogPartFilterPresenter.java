@@ -18,7 +18,6 @@ public class LogPartFilterPresenter implements Presenter {
         this.view = view;
         this.model = model;
         updateModelWithSelection = ArgumentClosureToggle.toggleAround(new UpdateModelWithSelection(this.model));
-
     }
 
     @Override
