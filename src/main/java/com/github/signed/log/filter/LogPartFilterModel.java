@@ -7,17 +7,21 @@ import com.github.signed.log.core.LogPart;
 import com.github.signed.log.core.parser.LogEntryParser;
 import com.github.signed.log.list.LogModel;
 import com.google.common.base.Function;
+import com.google.common.base.Functions;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.sun.istack.internal.Nullable;
 import lang.Announcer;
 import lang.ArgumentClosure;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class LogPartFilterModel implements LogModel {
@@ -26,6 +30,7 @@ public class LogPartFilterModel implements LogModel {
     private final Announcer<Runnable> changeListener = new Announcer<>(Runnable.class);
     private final LogModel logModel;
     private final Set<LogPart> loggedThreadsToDisplay = Sets.newLinkedHashSet();
+    private final Map<Identification, Set<LogPart>> whiteListedParts = Maps.newHashMap();
 
     public LogPartFilterModel(LogModel logModel) {
         this.logModel = logModel;
@@ -52,8 +57,14 @@ public class LogPartFilterModel implements LogModel {
         logModel.onDescriptorChange(runnable);
     }
 
-    public void matches(LogPart loggedThread) {
-        loggedThreadsToDisplay.add(loggedThread);
+    public void matches(Identification identification, LogPart logPart) {
+        Set<LogPart> logParts = whiteListedParts.get(identification);
+        if(null == logParts) {
+            logParts = Sets.newHashSet();
+            whiteListedParts.put(identification, logParts);
+        }
+        logParts.add(logPart);
+        loggedThreadsToDisplay.add(logPart);
         announceThreadSelectionChanged();
         announceChange();
     }
@@ -114,8 +125,10 @@ public class LogPartFilterModel implements LogModel {
         });
     }
 
-    public void provideSelectedThreadsTo(ArgumentClosure<List<LogPart>> argumentClosure) {
-        argumentClosure.excecute(ImmutableList.copyOf(loggedThreadsToDisplay));
+    public void provideSelectedThreadsTo(Identification identification, ArgumentClosure<List<LogPart>> argumentClosure) {
+        Set<LogPart> defaultValue = Collections.emptySet();
+        Set<LogPart> whiteListed = Functions.forMap(whiteListedParts, defaultValue).apply(identification);
+        argumentClosure.excecute(ImmutableList.copyOf(whiteListed));
     }
 
     public void onAvailableThreadsChanges(Runnable runnable) {

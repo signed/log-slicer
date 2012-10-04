@@ -42,7 +42,7 @@ public class LogPartFilterPresenter implements Presenter {
 
         @Override
         public void excecute(LogPart loggedThread) {
-                model.matches(loggedThread);
+                model.matches(new Identification("category"), loggedThread);
 
         }
     }
@@ -71,7 +71,7 @@ public class LogPartFilterPresenter implements Presenter {
 
         @Override
         public void run() {
-            model.provideSelectedThreadsTo(new ArgumentClosure<List<LogPart>>() {
+            model.provideSelectedThreadsTo(identification, new ArgumentClosure<List<LogPart>>() {
                 @Override
                 public void excecute(List<LogPart> loggedThread) {
                     view.displaySelectedFilter(loggedThread);
