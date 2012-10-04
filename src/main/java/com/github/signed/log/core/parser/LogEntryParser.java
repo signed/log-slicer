@@ -28,25 +28,26 @@ public class LogEntryParser {
 
     public static LogEntryParser Create() {
         Collection<Extractor> extractors = Lists.newArrayList();
+        extractors.add(new TimeStampExtractor(DescriptorFor(TimeStampIdentification).thatIsDisplayedAs("timestamp").thatIsNotDisplayed().canNotBeFilteredBy().build()));
+        extractors.add(new LoggedThreadExtractor(DescriptorFor(LoggedThreadIdentification).thatIsDisplayedAs("thread").isFilterable().build()));
+        extractors.add(new LogLevelExtractor(DescriptorFor(LogLevelIdentification).thatIsDisplayedAs("level").isFilterable().build()));
+        extractors.add(new LogLocationExtractor(DescriptorFor(LoggerNameIdentification).thatIsDisplayedAs("class").canNotBeFilteredBy().build()));
+        extractors.add(new LogMessageExtractor(DescriptorFor(LogMessageIdentifcation).thatIsDisplayedAs("message").canNotBeFilteredBy().build()));
         return new LogEntryParser(extractors);
     }
-
 
     private final Collection<Extractor> extractors;
 
     public LogEntryParser(Collection<Extractor> extractors) {
-
         this.extractors = extractors;
     }
 
     public LogEntry parse(String text) {
         Collection<LogPart> bucket = Lists.newArrayList();
         bucket.add(new StringLogPart(DescriptorFor(RawLogIdentification).thatIsNotDisplayed().canNotBeFilteredBy().build(), text));
-        new TimeStampExtractor(DescriptorFor(TimeStampIdentification).thatIsDisplayedAs("timestamp").thatIsNotDisplayed().canNotBeFilteredBy().build()).passLogPartTo(text, bucket);
-        new LoggedThreadExtractor(DescriptorFor(LoggedThreadIdentification).thatIsDisplayedAs("thread").isFilterable().build()).passLogPartTo(text, bucket);
-        new LogLevelExtractor(DescriptorFor(LogLevelIdentification).thatIsDisplayedAs("level").isFilterable().build()).passLogPartTo(text, bucket);
-        new LogLocationExtractor(DescriptorFor(LoggerNameIdentification).thatIsDisplayedAs("class").canNotBeFilteredBy().build()).passLogPartTo(text, bucket);
-        new LogMessageExtractor(DescriptorFor(LogMessageIdentifcation).thatIsDisplayedAs("message").canNotBeFilteredBy().build()).passLogPartTo(text, bucket);
+        for (Extractor extractor : extractors) {
+            extractor.passLogPartTo(text, bucket);
+        }
         return LogEntry.Create(bucket);
     }
 }
