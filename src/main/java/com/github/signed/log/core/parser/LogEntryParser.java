@@ -1,5 +1,6 @@
 package com.github.signed.log.core.parser;
 
+import com.github.signed.log.core.Extractor;
 import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
@@ -23,6 +24,20 @@ public class LogEntryParser {
     public static final Identification LogLevelIdentification = new Identification("level");
     public static final Identification LoggerNameIdentification = new Identification("location");
     public static final Identification LogMessageIdentifcation = new Identification("message");
+
+
+    public static LogEntryParser Create() {
+        Collection<Extractor> extractors = Lists.newArrayList();
+        return new LogEntryParser(extractors);
+    }
+
+
+    private final Collection<Extractor> extractors;
+
+    public LogEntryParser(Collection<Extractor> extractors) {
+
+        this.extractors = extractors;
+    }
 
     public LogEntry parse(String text) {
         Collection<LogPart> bucket = Lists.newArrayList();

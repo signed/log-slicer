@@ -34,7 +34,7 @@ public class RawLog implements Iterable<LogEntry> {
         }
 
         for (List<String> allRawEntry : allRawEntries) {
-            LogEntry e = new LogEntryParser().parse(Joiner.on("\n").join(allRawEntry));
+            LogEntry e = LogEntryParser.Create().parse(Joiner.on("\n").join(allRawEntry));
             logEntries.add(e);
         }
 
