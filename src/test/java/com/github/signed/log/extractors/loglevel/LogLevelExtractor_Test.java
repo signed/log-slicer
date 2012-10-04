@@ -20,7 +20,7 @@ public class LogLevelExtractor_Test {
     @Test
     public void takeThe3edElementFromASpaceSplitAsTheLogLevel() throws Exception {
         String warn = "2012-09-18 20:14:58,532 WARN other stuff";
-        new LogLevelExtractor(null, warn).passLogPartTo(warn, bucket);
+        new LogLevelExtractor(null).passLogPartTo(warn, bucket);
 
         assertThat(theExtractedLogLevel(), is("WARN"));
     }

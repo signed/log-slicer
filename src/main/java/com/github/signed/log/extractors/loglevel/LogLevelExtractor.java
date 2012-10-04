@@ -8,15 +8,14 @@ import com.github.signed.log.extractors.SpaceSplitter;
 
 public class LogLevelExtractor extends Extractor {
     private final Descriptor descriptor;
-    private final SpaceSplitter splitter;
 
-    public LogLevelExtractor(Descriptor descriptor, String text) {
-        splitter = new SpaceSplitter(text);
+    public LogLevelExtractor(Descriptor descriptor) {
         this.descriptor = descriptor;
     }
 
     @Override
     protected LogPart extract(String raw) {
+        SpaceSplitter splitter = new SpaceSplitter(raw);
         String warn = splitter.at(3);
         return new StringLogPart(descriptor, warn);
     }

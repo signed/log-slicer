@@ -11,16 +11,15 @@ import org.joda.time.format.DateTimeFormatter;
 
 public class TimeStampExtractor extends Extractor {
     private final static DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss,SSS");
-    private final SpaceSplitter splitter;
     private final Descriptor descriptor;
 
-    public TimeStampExtractor(Descriptor descriptor, String text) {
-        this.splitter = new SpaceSplitter(text);
+    public TimeStampExtractor(Descriptor descriptor) {
         this.descriptor = descriptor;
     }
 
     @Override
     protected LogPart extract(String raw) {
+        SpaceSplitter splitter = new SpaceSplitter(raw);
         String date = splitter.first();
         String timeStamp = splitter.second();
         DateTime dateTime = formatter.parseDateTime(date + " " + timeStamp);

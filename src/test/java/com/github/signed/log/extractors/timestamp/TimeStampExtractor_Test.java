@@ -21,7 +21,7 @@ public class TimeStampExtractor_Test {
     @Test
     public void putExtractedLogPartIntoTheBucket() throws Exception {
         String input = "2012-09-18 20:14:58,518 stuff (ThreadName)";
-        new TimeStampExtractor(null, input).passLogPartTo(input, bucket);
+        new TimeStampExtractor(null).passLogPartTo(input, bucket);
 
         ArgumentCaptor<LogPart> captor = ArgumentCaptor.forClass(LogPart.class);
         verify(bucket).add(captor.capture());
@@ -33,7 +33,7 @@ public class TimeStampExtractor_Test {
     @Test
     public void doNotInteractWithTheBucketIfTheLogPartCanNotBeFoundInTheSourceString() throws Exception {
         String input = "stuff";
-        new TimeStampExtractor(null, input).passLogPartTo(input, bucket);
+        new TimeStampExtractor(null).passLogPartTo(input, bucket);
 
         verifyZeroInteractions(bucket);
     }

@@ -17,7 +17,7 @@ public class LogMessageExtractor_Test {
     @Test
     public void everythingAfterTheFifthElementIsTheMessage() throws Exception {
         String rawLogLine = "one two three four (five) this is the multie\nline\nmessage";
-        new LogMessageExtractor(null, rawLogLine).passLogPartTo(rawLogLine, bucket);
+        new LogMessageExtractor(null).passLogPartTo(rawLogLine, bucket);
         assertThat(theExtractedMessage(), is("this is the multie\n" +
                 "line\n" +
                 "message"));

@@ -9,18 +9,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoggedThreadExtractor extends Extractor {
-    private final String text;
     private final Descriptor descriptor;
 
-    public LoggedThreadExtractor(Descriptor descriptor, String text) {
-        this.text = text;
+    public LoggedThreadExtractor(Descriptor descriptor) {
         this.descriptor = descriptor;
     }
 
     @Override
     protected LogPart extract(String raw) {
         Pattern compile = Pattern.compile("\\(([^\\)]+)\\)");
-        Matcher matcher = compile.matcher(text);
+        Matcher matcher = compile.matcher(raw);
         matcher.find();
         return new StringLogPart(descriptor, matcher.group(1));
     }
