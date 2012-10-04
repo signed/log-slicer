@@ -107,7 +107,7 @@ public class LogPartFilterModel implements LogModel {
 
         for (Map.Entry<Identification, Set<LogPart>> entry : whiteListedParts.entrySet()) {
             if (!entry.getValue().isEmpty()) {
-                forward = filterBy(entry.getKey(), logEntries);
+                forward = filterBy(entry.getKey(), forward);
             }
         }
 
