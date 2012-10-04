@@ -16,7 +16,7 @@ public class LogLevelExtractor extends Extractor {
     }
 
     @Override
-    protected LogPart extract() {
+    protected LogPart extract(String raw) {
         String warn = splitter.at(3);
         return new StringLogPart(descriptor, warn);
     }

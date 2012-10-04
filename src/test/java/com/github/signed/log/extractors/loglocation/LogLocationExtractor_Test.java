@@ -20,7 +20,7 @@ public class LogLocationExtractor_Test {
     @Test
     public void takeTheFourthElementAndRemoveEnclosingBrackets() throws Exception {
         String rawLogLine = "2012-09-18 20:14:58,531 INFO  [org.jboss.ejb3.proxy.impl.jndiregistrar.JndiSessionRegistrarBase] (Thread-2)";
-        new LogLocationExtractor(null, rawLogLine).passLogPartTo(bucket);
+        new LogLocationExtractor(null, rawLogLine).passLogPartTo(rawLogLine, bucket);
 
         assertThat(theExtractedLogLocation(), is("org.jboss.ejb3.proxy.impl.jndiregistrar.JndiSessionRegistrarBase"));
     }

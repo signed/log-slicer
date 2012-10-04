@@ -20,7 +20,7 @@ public class TimeStampExtractor extends Extractor {
     }
 
     @Override
-    protected LogPart extract() {
+    protected LogPart extract(String raw) {
         String date = splitter.first();
         String timeStamp = splitter.second();
         DateTime dateTime = formatter.parseDateTime(date + " " + timeStamp);

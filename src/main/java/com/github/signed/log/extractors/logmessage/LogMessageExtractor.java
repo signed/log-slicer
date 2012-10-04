@@ -16,7 +16,7 @@ public class LogMessageExtractor extends Extractor {
     }
 
     @Override
-    protected LogPart extract() {
+    protected LogPart extract(String raw) {
         return new StringLogPart(descriptor, splitter.allAfter(5));
     }
 }

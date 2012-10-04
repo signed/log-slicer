@@ -18,7 +18,7 @@ public class LoggedThreadExtractor extends Extractor {
     }
 
     @Override
-    protected LogPart extract() {
+    protected LogPart extract(String raw) {
         Pattern compile = Pattern.compile("\\(([^\\)]+)\\)");
         Matcher matcher = compile.matcher(text);
         matcher.find();

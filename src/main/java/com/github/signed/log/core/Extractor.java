@@ -4,13 +4,13 @@ import java.util.Collection;
 
 public abstract class Extractor {
 
-    public void passLogPartTo(Collection<LogPart> bucket) {
+    public void passLogPartTo(String raw, Collection<LogPart> bucket) {
         try {
-            bucket.add(extract());
+            bucket.add(extract(raw));
         } catch (Exception e) {
             //nothing to do...
         }
     }
 
-    protected abstract LogPart extract();
+    protected abstract LogPart extract(String raw);
 }

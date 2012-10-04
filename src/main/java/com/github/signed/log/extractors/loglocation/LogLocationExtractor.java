@@ -17,7 +17,7 @@ public class LogLocationExtractor extends Extractor{
     }
 
     @Override
-    protected LogPart extract() {
+    protected LogPart extract(String raw) {
         String rawName = spaceSplitter.at(4);
         return new StringLogPart(descriptor, rawName.substring(1, rawName.length() - 1));
     }

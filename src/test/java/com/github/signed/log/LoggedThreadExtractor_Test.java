@@ -20,24 +20,27 @@ public class LoggedThreadExtractor_Test {
 
     @Test
     public void threadEndsAtTheFirstClosingBracket() throws Exception {
-        LoggedThreadExtractor extractor = new LoggedThreadExtractor(null, "stuff (thread name) a message that contains a closing braket)");
-        extractor.passLogPartTo(bucket);
+        String text = "stuff (thread name) a message that contains a closing braket)";
+        LoggedThreadExtractor extractor = new LoggedThreadExtractor(null, text);
+        extractor.passLogPartTo(text, bucket);
 
         assertThat(theExtractedThreadName(), is("thread name"));
     }
 
     @Test
     public void passTheRetrievedThreadInformationToTheBucket() throws Exception {
-        LoggedThreadExtractor extractor = new LoggedThreadExtractor(null, "(ThreadName)");
-        extractor.passLogPartTo(bucket);
+        String text = "(ThreadName)";
+        LoggedThreadExtractor extractor = new LoggedThreadExtractor(null, text);
+        extractor.passLogPartTo(text, bucket);
 
         assertThat(theExtractedThreadName(), is("ThreadName"));
     }
 
     @Test
     public void doNotInteractWithTheBucketIfThePatternCouldNotBeFoundInTheSourceString() throws Exception {
-        LoggedThreadExtractor extractor = new LoggedThreadExtractor(null, "no thread information");
-        extractor.passLogPartTo(bucket);
+        String text = "no thread information";
+        LoggedThreadExtractor extractor = new LoggedThreadExtractor(null, text);
+        extractor.passLogPartTo(text, bucket);
 
         verifyZeroInteractions(bucket);
     }
