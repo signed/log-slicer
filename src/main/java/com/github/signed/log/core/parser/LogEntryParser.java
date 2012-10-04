@@ -1,5 +1,6 @@
 package com.github.signed.log.core.parser;
 
+import com.github.signed.log.LoggerNameExtractor;
 import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
@@ -19,6 +20,7 @@ public class LogEntryParser {
     public static final Identification TimeStampIdentification = new Identification("timestamp");
     public static final Identification LoggedThreadIdentification = new Identification("thread");
     public static final Identification LogLevelIdentification = new Identification("level");
+    public static final Identification LoggerNameIdentification = new Identification("logger name");
 
     public LogEntry parse(String text) {
         Collection<LogPart> bucket = Lists.newArrayList();
@@ -26,6 +28,7 @@ public class LogEntryParser {
         new TimeStampExtractor(DescriptorFor(TimeStampIdentification).thatIsDisplayedAs("timestamp").canNotBeFilteredBy().build(), text).passLogPartTo(bucket);
         new LoggedThreadExtractor(DescriptorFor(LoggedThreadIdentification).thatIsDisplayedAs("thread").isFilterable().build(), text).passLogPartTo(bucket);
         new LogLevelExtractor(DescriptorFor(LogLevelIdentification).thatIsDisplayedAs("level").isFilterable().build(), text).passLogPartTo(bucket);
+        new LoggerNameExtractor(DescriptorFor(LoggerNameIdentification).thatIsDisplayedAs("class").isFilterable().build(), text).passLogPartTo(bucket);
 
         return LogEntry.Create(bucket);
     }
