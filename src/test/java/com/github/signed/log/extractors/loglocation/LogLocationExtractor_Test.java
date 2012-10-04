@@ -1,4 +1,4 @@
-package com.github.signed.log.loglocation;
+package com.github.signed.log.extractors.loglocation;
 
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.core.StringLogPart;

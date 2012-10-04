@@ -1,10 +1,10 @@
-package com.github.signed.log.loglocation;
+package com.github.signed.log.extractors.loglocation;
 
 import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.Extractor;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.core.StringLogPart;
-import com.github.signed.log.timestamp.SpaceSplitter;
+import com.github.signed.log.extractors.SpaceSplitter;
 
 public class LogLocationExtractor extends Extractor{
 

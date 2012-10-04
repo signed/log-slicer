@@ -1,4 +1,4 @@
-package com.github.signed.log.loglevel;
+package com.github.signed.log.extractors.loglevel;
 
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.core.StringLogPart;

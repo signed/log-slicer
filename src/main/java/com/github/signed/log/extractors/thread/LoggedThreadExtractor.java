@@ -1,4 +1,4 @@
-package com.github.signed.log.thread;
+package com.github.signed.log.extractors.thread;
 
 import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.Extractor;

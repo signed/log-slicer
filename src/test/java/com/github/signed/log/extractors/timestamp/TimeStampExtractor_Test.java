@@ -1,4 +1,4 @@
-package com.github.signed.log.timestamp;
+package com.github.signed.log.extractors.timestamp;
 
 import com.github.signed.log.core.DateTimeLogPart;
 import com.github.signed.log.core.LogPart;

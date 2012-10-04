@@ -1,9 +1,10 @@
-package com.github.signed.log.timestamp;
+package com.github.signed.log.extractors.timestamp;
 
 import com.github.signed.log.core.DateTimeLogPart;
 import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.Extractor;
 import com.github.signed.log.core.LogPart;
+import com.github.signed.log.extractors.SpaceSplitter;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;

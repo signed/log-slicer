@@ -1,4 +1,4 @@
-package com.github.signed.log.timestamp;
+package com.github.signed.log.extractors;
 
 import org.junit.Test;
 

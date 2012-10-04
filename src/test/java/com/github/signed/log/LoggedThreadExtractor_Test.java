@@ -2,7 +2,7 @@ package com.github.signed.log;
 
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.core.StringLogPart;
-import com.github.signed.log.thread.LoggedThreadExtractor;
+import com.github.signed.log.extractors.thread.LoggedThreadExtractor;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 

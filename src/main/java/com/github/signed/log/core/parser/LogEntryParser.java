@@ -4,10 +4,10 @@ import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.core.StringLogPart;
-import com.github.signed.log.loglevel.LogLevelExtractor;
-import com.github.signed.log.loglocation.LogLocationExtractor;
-import com.github.signed.log.thread.LoggedThreadExtractor;
-import com.github.signed.log.timestamp.TimeStampExtractor;
+import com.github.signed.log.extractors.loglevel.LogLevelExtractor;
+import com.github.signed.log.extractors.loglocation.LogLocationExtractor;
+import com.github.signed.log.extractors.thread.LoggedThreadExtractor;
+import com.github.signed.log.extractors.timestamp.TimeStampExtractor;
 import com.google.common.collect.Lists;
 
 import java.util.Collection;
