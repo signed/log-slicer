@@ -1,5 +1,6 @@
 package com.github.signed.log.extractors;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 
@@ -28,11 +29,18 @@ public class SpaceSplitter {
         return elementAtPosition(oneBasedIndex);
     }
 
+    public String allAfter(int oneBasedIndex) {
+        Iterable<String> skip = Iterables.skip(spaceSplit(), oneBasedIndex );
+        return Joiner.on(" ").join(skip);
+    }
+
     private String elementAtPosition(int index) {
         try {
-            return Iterables.get(spaceSplit(), index -1);
+            Iterable<String> iterable = spaceSplit();
+            return Iterables.get(iterable, index - 1);
         } catch (Exception e) {
             throw new NoSuchElementException("no " + index + "`th element");
         }
     }
+
 }

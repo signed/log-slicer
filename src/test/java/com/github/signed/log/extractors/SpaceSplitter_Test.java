@@ -30,6 +30,26 @@ public class SpaceSplitter_Test {
         assertThat(spaceSplitter.at(6), is("six"));
     }
 
+    @Test
+    public void joinEverythingAfterTheNTheElement() throws Exception {
+        assertThat(spaceSplitter.allAfter(5), is("six"));
+    }
+
+    @Test
+    public void afterTheLastSplitGroup() throws Exception {
+        assertThat(spaceSplitter.allAfter(6), is(""));
+    }
+
+    @Test
+    public void beyondTheLastSplitGroup() throws Exception {
+        assertThat(spaceSplitter.allAfter(34), is(""));
+    }
+
+    @Test
+    public void joinEverythingAfterTheNTheElementJoinWithSpace() throws Exception {
+        assertThat(spaceSplitter.allAfter(4), is("five six"));
+    }
+
     @Test(expected = NoSuchElementException.class)
     public void retrieveElementThatIsNotAvailable() throws Exception {
         spaceSplitter.at(43);
