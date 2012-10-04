@@ -9,6 +9,10 @@ public class MultipleLogPartFilterView implements OrphanView {
 
     private final VBox vBox = new VBox();
 
+    public MultipleLogPartFilterView() {
+        vBox.setMaxWidth(200);
+    }
+
     @Override
     public void addTo(ViewOrphanage viewOrphanage) {
         viewOrphanage.add(vBox);
