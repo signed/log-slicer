@@ -46,7 +46,8 @@ public class SimpleLogModel implements LogModel {
        argumentClosure.excecute(Lists.newArrayList(logEntries));
     }
 
-    public void provideThreadChoicesTo(ArgumentClosure<List<LogPart>> closure, final Identification identification) {
+    @Override
+    public void provideRemainingChoicesTo(final Identification identification, ArgumentClosure<List<LogPart>> closure) {
         List<LogPart> transform = Lists.transform(logEntries, new Function<LogEntry, LogPart>() {
             @Override
             public LogPart apply(LogEntry input) {

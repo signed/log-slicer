@@ -73,7 +73,7 @@ public class LogPartFilterModel implements LogModel {
     }
 
     @Override
-    public void provideThreadChoicesTo(final ArgumentClosure<List<LogPart>> argumentClosure, Identification identification) {
+    public void provideRemainingChoicesTo(Identification identification, final ArgumentClosure<List<LogPart>> argumentClosure) {
         ArgumentClosure<List<LogPart>> filterClosure=  new ArgumentClosure<List<LogPart>>() {
                 @Override
                 public void excecute(List<LogPart> logParts) {
@@ -86,7 +86,7 @@ public class LogPartFilterModel implements LogModel {
                     argumentClosure.excecute(ImmutableList.copyOf(filtered));
                 }
             };
-        logModel.provideThreadChoicesTo(filterClosure, identification);
+        logModel.provideRemainingChoicesTo(identification, filterClosure);
     }
 
     @Override

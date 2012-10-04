@@ -78,7 +78,7 @@ public class SimpleLogModel_Test {
     @SuppressWarnings("unchecked")
     private List<DummyLogPart> theDummyLogPartsKnownByTheModel() {
         ArgumentClosure<List<LogPart>> closure = mock(ArgumentClosure.class);
-        logModel.provideThreadChoicesTo(closure, DummyLogPart.DummyLogPartIdentification);
+        logModel.provideRemainingChoicesTo(DummyLogPart.DummyLogPartIdentification, closure);
 
         return availableThreads(closure);
     }

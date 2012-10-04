@@ -15,7 +15,7 @@ public interface LogModel {
 
     void provideElementsTo(ArgumentClosure<List<LogEntry>> argumentClosure);
 
-    void provideThreadChoicesTo(ArgumentClosure<List<LogPart>> argumentClosure, Identification identification);
+    void provideRemainingChoicesTo(Identification identification, ArgumentClosure<List<LogPart>> argumentClosure);
 
     void describeTo(Authority authority);
 }

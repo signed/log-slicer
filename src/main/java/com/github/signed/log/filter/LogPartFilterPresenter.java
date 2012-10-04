@@ -2,7 +2,6 @@ package com.github.signed.log.filter;
 
 import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogPart;
-import com.github.signed.log.core.parser.LogEntryParser;
 import com.github.signed.log.core.ui.Presenter;
 import lang.ArgumentClosure;
 import lang.ArgumentClosureToggle;
@@ -12,12 +11,14 @@ import java.util.List;
 public class LogPartFilterPresenter implements Presenter {
     private final LogPartFilterView view;
     private final LogPartFilterModel model;
+    private final Identification identification;
     private final ArgumentClosureToggle<LogPart> updateModelWithSelection;
 
 
     public LogPartFilterPresenter(LogPartFilterView view, LogPartFilterModel model, Identification identification) {
         this.view = view;
         this.model = model;
+        this.identification = identification;
         updateModelWithSelection = ArgumentClosureToggle.toggleAround(new UpdateModelWithSelection(this.model));
     }
 
@@ -83,12 +84,12 @@ public class LogPartFilterPresenter implements Presenter {
         @Override
         public void run() {
             updateModelWithSelection.suspend();
-            model.provideThreadChoicesTo(new ArgumentClosure<List<LogPart>>() {
+            model.provideRemainingChoicesTo(identification, new ArgumentClosure<List<LogPart>>() {
                 @Override
                 public void excecute(List<LogPart> loggedThreads) {
                     view.displayAvailableLogParts(loggedThreads);
                 }
-            }, LogEntryParser.LoggedThreadIdentification);
+            });
             updateModelWithSelection.activate();
         }
     }
