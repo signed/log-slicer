@@ -1,4 +1,4 @@
-package com.github.signed.log;
+package com.github.signed.log.loglocation;
 
 import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.Extractor;
@@ -6,12 +6,12 @@ import com.github.signed.log.core.LogPart;
 import com.github.signed.log.core.StringLogPart;
 import com.github.signed.log.timestamp.SpaceSplitter;
 
-public class LoggerNameExtractor extends Extractor{
+public class LogLocationExtractor extends Extractor{
 
     private final Descriptor descriptor;
     private final SpaceSplitter spaceSplitter;
 
-    public LoggerNameExtractor(Descriptor descriptor, String rawLogLine) {
+    public LogLocationExtractor(Descriptor descriptor, String rawLogLine) {
         spaceSplitter = new SpaceSplitter(rawLogLine);
         this.descriptor = descriptor;
     }
