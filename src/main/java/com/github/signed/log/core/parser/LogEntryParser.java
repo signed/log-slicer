@@ -26,6 +26,7 @@ public class LogEntryParser {
         new TimeStampExtractor(DescriptorFor(TimeStampIdentification).thatIsDisplayedAs("timestamp").canNotBeFilteredBy().build(), text).passLogPartTo(bucket);
         new LoggedThreadExtractor(DescriptorFor(LoggedThreadIdentification).thatIsDisplayedAs("thread").isFilterable().build(), text).passLogPartTo(bucket);
         new LogLevelExtractor(DescriptorFor(LogLevelIdentification).thatIsDisplayedAs("level").isFilterable().build(), text).passLogPartTo(bucket);
+
         return LogEntry.Create(bucket);
     }
 }

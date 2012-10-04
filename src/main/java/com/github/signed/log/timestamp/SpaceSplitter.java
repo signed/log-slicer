@@ -13,7 +13,7 @@ public class SpaceSplitter {
     }
 
     private Iterable<String> spaceSplit() {
-        return Splitter.on(" ").split(text);
+        return Splitter.on(" ").omitEmptyStrings().split(text);
     }
 
     public String first() {
