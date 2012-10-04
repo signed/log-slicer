@@ -14,8 +14,12 @@ public class MultipleLogPartFilterView implements OrphanView {
         viewOrphanage.add(vBox);
     }
 
+    public void clearExistingFilterViews(){
+        vBox.getChildren().clear();
+    }
+
     public LogPartFilterView newPartFilter(String name) {
-        LogPartFilterView filterView = new LogPartFilterView("name");
+        LogPartFilterView filterView = new LogPartFilterView(name);
         VBoxControlledOrphanage orphanage = new VBoxControlledOrphanage(vBox);
         filterView.addTo(orphanage);
         return filterView;

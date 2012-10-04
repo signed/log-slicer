@@ -1,5 +1,6 @@
 package com.github.signed.log.filter;
 
+import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.core.parser.LogEntryParser;
 import com.github.signed.log.core.ui.Presenter;
@@ -14,7 +15,7 @@ public class LogPartFilterPresenter implements Presenter {
     private final ArgumentClosureToggle<LogPart> updateModelWithSelection;
 
 
-    public LogPartFilterPresenter(LogPartFilterView view, LogPartFilterModel model) {
+    public LogPartFilterPresenter(LogPartFilterView view, LogPartFilterModel model, Identification identification) {
         this.view = view;
         this.model = model;
         updateModelWithSelection = ArgumentClosureToggle.toggleAround(new UpdateModelWithSelection(this.model));
@@ -23,23 +24,11 @@ public class LogPartFilterPresenter implements Presenter {
     @Override
     public void initialize() {
         model.onLogEntryChange(new PassSelectedFiltersToView(model, view));
-        model.onAvailableThreadsChanges(new Runnable() {
-            @Override
-            public void run() {
-                updateModelWithSelection.suspend();
-                model.provideThreadChoicesTo(new ArgumentClosure<List<LogPart>>() {
-                    @Override
-                    public void excecute(List<LogPart> loggedThreads) {
-                        view.displayAvailableLogParts(loggedThreads);
-                    }
-                }, LogEntryParser.LoggedThreadIdentification);
-                updateModelWithSelection.activate();
-            }
-        });
-
-
+        PopulateViewFromModel populateViewFromModel = new PopulateViewFromModel();
+        model.onAvailableThreadsChanges(populateViewFromModel);
         view.onSelection(updateModelWithSelection);
         view.onDiscardFilter(new DiscardFilterInModel(model));
+        populateViewFromModel.run();
     }
 
 
@@ -87,6 +76,20 @@ public class LogPartFilterPresenter implements Presenter {
                     view.displaySelectedFilter(loggedThread);
                 }
             });
+        }
+    }
+
+    private class PopulateViewFromModel implements Runnable {
+        @Override
+        public void run() {
+            updateModelWithSelection.suspend();
+            model.provideThreadChoicesTo(new ArgumentClosure<List<LogPart>>() {
+                @Override
+                public void excecute(List<LogPart> loggedThreads) {
+                    view.displayAvailableLogParts(loggedThreads);
+                }
+            }, LogEntryParser.LoggedThreadIdentification);
+            updateModelWithSelection.activate();
         }
     }
 }

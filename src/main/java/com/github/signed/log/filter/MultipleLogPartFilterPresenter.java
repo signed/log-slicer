@@ -4,7 +4,7 @@ import com.github.signed.log.core.Authority;
 import com.github.signed.log.core.Descriptor;
 import com.github.signed.log.core.ui.Presenter;
 
-public class MultipleLogPartFilterPresenter implements Presenter{
+public class MultipleLogPartFilterPresenter implements Presenter {
 
     private final LogPartFilterModel filterModel;
     private final MultipleLogPartFilterView view;
@@ -17,17 +17,19 @@ public class MultipleLogPartFilterPresenter implements Presenter{
 
     @Override
     public void initialize() {
-        filterModel.onAvailableThreadsChanges(new Runnable() {
+        filterModel.onDescriptorChange(new Runnable() {
             @Override
             public void run() {
-                    filterModel.describeTo(new Authority() {
-                        @Override
-                        public void accept(Descriptor descriptor) {
-                            if(descriptor.filterable) {
-                                view.newPartFilter(descriptor.name);
-                            }
+                view.clearExistingFilterViews();
+                filterModel.describeTo(new Authority() {
+                    @Override
+                    public void accept(Descriptor descriptor) {
+                        if (descriptor.filterable) {
+                            LogPartFilterView view = MultipleLogPartFilterPresenter.this.view.newPartFilter(descriptor.name);
+                            new LogPartFilterPresenter(view, filterModel, descriptor.identification).initialize();
                         }
-                    });
+                    }
+                });
             }
         });
     }

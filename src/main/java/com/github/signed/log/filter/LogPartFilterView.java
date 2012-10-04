@@ -37,7 +37,6 @@ public class LogPartFilterView implements OrphanView {
 
     public void displayAvailableLogParts(List<LogPart> parts) {
         reCreateComboBox(this.promptText);
-        availableLogParts.getSelectionModel().clearSelection();
         availableLogParts.setItems(new ObservableListWrapper<>(parts));
     }
 
