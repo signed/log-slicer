@@ -42,7 +42,7 @@ public class LogEntry_Test {
         LogEntry entry = LogEntryBuilder.ofParts(part).build();
         entry.dumpPartInto(identification, closure);
 
-        verify(closure).excecute("uno");
+        verify(closure).execute("uno");
     }
 
     @Test
@@ -50,7 +50,7 @@ public class LogEntry_Test {
         LogEntry entry = LogEntry.Create(Collections.<LogPart>emptyList());
         entry.dumpPartInto(LogEntryParser.LoggedThreadIdentification, closure);
 
-        verify(closure).excecute("");
+        verify(closure).execute("");
     }
 
     @Test

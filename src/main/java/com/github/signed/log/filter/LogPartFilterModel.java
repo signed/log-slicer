@@ -4,7 +4,6 @@ import com.github.signed.log.core.Authority;
 import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
-import com.github.signed.log.core.parser.LogEntryParser;
 import com.github.signed.log.list.LogModel;
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
@@ -29,7 +28,6 @@ public class LogPartFilterModel implements LogModel {
     private final Announcer<Runnable> availableThreadChangeListener = new Announcer<>(Runnable.class);
     private final Announcer<Runnable> changeListener = new Announcer<>(Runnable.class);
     private final LogModel logModel;
-    private final Set<LogPart> loggedThreadsToDisplay = Sets.newLinkedHashSet();
     private final Map<Identification, Set<LogPart>> whiteListedParts = Maps.newHashMap();
 
     public LogPartFilterModel(LogModel logModel) {
@@ -58,13 +56,12 @@ public class LogPartFilterModel implements LogModel {
     }
 
     public void matches(Identification identification, LogPart logPart) {
-        Set<LogPart> logParts = whiteListedParts.get(identification);
+        Set<LogPart> logParts = getSetOfWhiteListedParts(identification);
         if(null == logParts) {
-            logParts = Sets.newHashSet();
+            logParts = Sets.newLinkedHashSet();
             whiteListedParts.put(identification, logParts);
         }
         logParts.add(logPart);
-        loggedThreadsToDisplay.add(logPart);
         announceThreadSelectionChanged();
         announceChange();
     }
@@ -77,24 +74,24 @@ public class LogPartFilterModel implements LogModel {
     public void provideElementsTo(final ArgumentClosure<List<LogEntry>> argumentClosure) {
         logModel.provideElementsTo(new ArgumentClosure<List<LogEntry>>() {
             @Override
-            public void excecute(List<LogEntry> logEntries) {
+            public void execute(List<LogEntry> logEntries) {
                 filterAndForwardTo(logEntries, argumentClosure);
             }
         });
     }
 
     @Override
-    public void provideRemainingChoicesTo(Identification identification, final ArgumentClosure<List<LogPart>> argumentClosure) {
+    public void provideRemainingChoicesTo(final Identification identification, final ArgumentClosure<List<LogPart>> argumentClosure) {
         ArgumentClosure<List<LogPart>> filterClosure=  new ArgumentClosure<List<LogPart>>() {
                 @Override
-                public void excecute(List<LogPart> logParts) {
+                public void execute(List<LogPart> logParts) {
                     Collection<LogPart> filtered = Collections2.filter(logParts, new Predicate<LogPart>() {
                         @Override
                         public boolean apply(@Nullable LogPart input) {
-                            return !loggedThreadsToDisplay.contains(input);
+                            return !getSetOfWhiteListedPartsOrDefaultToEmpty(identification).contains(input);
                         }
                     });
-                    argumentClosure.excecute(ImmutableList.copyOf(filtered));
+                    argumentClosure.execute(ImmutableList.copyOf(filtered));
                 }
             };
         logModel.provideRemainingChoicesTo(identification, filterClosure);
@@ -107,18 +104,22 @@ public class LogPartFilterModel implements LogModel {
 
     private void filterAndForwardTo(List<LogEntry> logEntries, ArgumentClosure<List<LogEntry>> argumentClosure) {
         List<LogEntry> forward = logEntries;
-        if (!this.loggedThreadsToDisplay.isEmpty()) {
-            forward = filterBySelectedThreads(logEntries);
+
+        for (Map.Entry<Identification, Set<LogPart>> entry : whiteListedParts.entrySet()) {
+            if (!entry.getValue().isEmpty()) {
+                forward = filterBy(entry.getKey(), logEntries);
+            }
         }
-        argumentClosure.excecute(ImmutableList.copyOf(forward));
+
+        argumentClosure.execute(ImmutableList.copyOf(forward));
     }
 
-    private List<LogEntry> filterBySelectedThreads(List<LogEntry> logEntries) {
+    private List<LogEntry> filterBy(final Identification identification, List<LogEntry> logEntries) {
         return  Lists.transform(logEntries, new Function<LogEntry, LogEntry>() {
             @Override
-            public LogEntry apply(@Nullable LogEntry input) {
-                if ( loggedThreadsToDisplay.contains(input.getPart(LogEntryParser.LoggedThreadIdentification))) {
-                    return input;
+            public LogEntry apply(@Nullable LogEntry logEntry) {
+                if ( whiteListedParts.get(identification).contains(logEntry.getPart(identification))) {
+                    return logEntry;
                 }
                 return LogEntry.Null;
             }
@@ -126,18 +127,27 @@ public class LogPartFilterModel implements LogModel {
     }
 
     public void provideSelectedThreadsTo(Identification identification, ArgumentClosure<List<LogPart>> argumentClosure) {
+        argumentClosure.execute(ImmutableList.copyOf(getSetOfWhiteListedPartsOrDefaultToEmpty(identification)));
+    }
+
+    private Set<LogPart> getSetOfWhiteListedPartsOrDefaultToEmpty(Identification identification) {
         Set<LogPart> defaultValue = Collections.emptySet();
-        Set<LogPart> whiteListed = Functions.forMap(whiteListedParts, defaultValue).apply(identification);
-        argumentClosure.excecute(ImmutableList.copyOf(whiteListed));
+        return Functions.forMap(whiteListedParts, defaultValue).apply(identification);
     }
 
     public void onAvailableThreadsChanges(Runnable runnable) {
         this.availableThreadChangeListener.addListener(runnable);
     }
 
-    public void discardFilter(LogPart loggedThread) {
-        this.loggedThreadsToDisplay.remove(loggedThread);
+    public void discardFilter(Identification identification, LogPart logPart) {
+        getSetOfWhiteListedParts(identification).remove(logPart);
         announceChange();
         announceThreadSelectionChanged();
+    }
+
+
+
+    private Set<LogPart> getSetOfWhiteListedParts(Identification identification) {
+        return this.whiteListedParts.get(identification);
     }
 }

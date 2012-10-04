@@ -38,7 +38,7 @@ public class SideBySideLogView {
         scrollBar.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number1) {
-                closure.excecute(number1.intValue());
+                closure.execute(number1.intValue());
             }
         });
     }

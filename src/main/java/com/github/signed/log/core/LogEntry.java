@@ -40,7 +40,7 @@ public class LogEntry {
         StringBuilder builder = new StringBuilder();
         if (null != part) {
             part.dumpInto(builder);
-            closure.excecute(builder.toString());
+            closure.execute(builder.toString());
         }
     }
 

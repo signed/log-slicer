@@ -10,7 +10,7 @@ public class HBoxControlledOrphanage implements ViewOrphanage {
     private final HBox hBox;
     private ArgumentClosure<Node> strategy = new ArgumentClosure<Node>() {
         @Override
-        public void excecute(Node node) {
+        public void execute(Node node) {
             hBox.getChildren().add(node);
         }
     };
@@ -22,7 +22,7 @@ public class HBoxControlledOrphanage implements ViewOrphanage {
     public void nextGrabHorizontalSpace(final Priority priority){
         this.strategy = new ArgumentClosure<Node>(){
             @Override
-            public void excecute(Node node) {
+            public void execute(Node node) {
                 HBox.setHgrow(node, priority);
                 hBox.getChildren().add(node);
             }
@@ -31,6 +31,6 @@ public class HBoxControlledOrphanage implements ViewOrphanage {
 
     @Override
     public void add(Node node) {
-        this.strategy.excecute(node);
+        this.strategy.execute(node);
     }
 }

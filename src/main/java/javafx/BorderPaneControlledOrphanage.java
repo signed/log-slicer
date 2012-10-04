@@ -8,7 +8,7 @@ public class BorderPaneControlledOrphanage implements ViewOrphanage {
     private final BorderPane borderPane;
     private ArgumentClosure<Node> nextNode = new ArgumentClosure<Node>() {
         @Override
-        public void excecute(Node node) {
+        public void execute(Node node) {
             borderPane.getChildren().add(node);
         }
     };
@@ -19,13 +19,13 @@ public class BorderPaneControlledOrphanage implements ViewOrphanage {
 
     @Override
     public void add(Node node) {
-        nextNode.excecute(node);
+        nextNode.execute(node);
     }
 
     public void nextAtCenter() {
         nextNode = new ArgumentClosure<Node>() {
             @Override
-            public void excecute(Node node) {
+            public void execute(Node node) {
                 borderPane.setCenter(node);
             }
         };
@@ -34,7 +34,7 @@ public class BorderPaneControlledOrphanage implements ViewOrphanage {
     public void nextLeft(){
         nextNode = new ArgumentClosure<Node>() {
             @Override
-            public void excecute(Node node) {
+            public void execute(Node node) {
                 borderPane.setLeft(node);
             }
         };
@@ -43,7 +43,7 @@ public class BorderPaneControlledOrphanage implements ViewOrphanage {
     public void nextRight() {
         nextNode = new ArgumentClosure<Node>() {
             @Override
-            public void excecute(Node node) {
+            public void execute(Node node) {
                 borderPane.setRight(node);
             }
         };

@@ -28,7 +28,7 @@ public class SideBySideLogPresenter implements Presenter {
             public void run() {
                 logModel.provideElementsTo(new ArgumentClosure<List<LogEntry>>() {
                     @Override
-                    public void excecute(List<LogEntry> logEntries) {
+                    public void execute(List<LogEntry> logEntries) {
                         logView.adjustToDisplay(logEntries.size());
                     }
                 });
@@ -38,7 +38,7 @@ public class SideBySideLogPresenter implements Presenter {
 
         logView.onScroll(new ArgumentClosure<Integer>() {
             @Override
-            public void excecute(Integer index) {
+            public void execute(Integer index) {
                 leftLogPresenter.scrollTo(index);
                 rightLogPresenter.scrollTo(index);
             }

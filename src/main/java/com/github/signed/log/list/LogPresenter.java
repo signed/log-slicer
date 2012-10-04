@@ -40,7 +40,7 @@ public class LogPresenter implements Presenter {
             public void run() {
                 logModel.provideElementsTo(new ArgumentClosure<List<LogEntry>>() {
                     @Override
-                    public void excecute(List<LogEntry> logEntries) {
+                    public void execute(List<LogEntry> logEntries) {
                         logView.display(logEntries);
                     }
                 });

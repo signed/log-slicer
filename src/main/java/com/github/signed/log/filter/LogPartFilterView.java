@@ -68,7 +68,7 @@ public class LogPartFilterView implements OrphanView {
         availableLogParts.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LogPart>() {
             @Override
             public void changed(ObservableValue<? extends LogPart> observableValue, LogPart oldLogPart, LogPart newLogPart) {
-                selectionListener.announce().excecute(newLogPart);
+                selectionListener.announce().execute(newLogPart);
             }
         });
 
@@ -104,7 +104,7 @@ public class LogPartFilterView implements OrphanView {
         label.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                discardFilterListeners.announce().excecute(part);
+                discardFilterListeners.announce().execute(part);
             }
         });
         return label;

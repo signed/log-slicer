@@ -43,7 +43,7 @@ public class SimpleLogModel implements LogModel {
 
     @Override
     public void provideElementsTo(ArgumentClosure<List<LogEntry>> argumentClosure) {
-       argumentClosure.excecute(Lists.newArrayList(logEntries));
+       argumentClosure.execute(Lists.newArrayList(logEntries));
     }
 
     @Override
@@ -58,7 +58,7 @@ public class SimpleLogModel implements LogModel {
         Set<LogPart> unique = Sets.newHashSet(transform);
         List<LogPart> list = Lists.newArrayList(unique);
         Collections.sort(list);
-        closure.excecute(list);
+        closure.execute(list);
     }
 
     @Override

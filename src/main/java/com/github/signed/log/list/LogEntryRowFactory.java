@@ -20,7 +20,7 @@ public class LogEntryRowFactory implements Callback<TableView<LogEntry>, TableRo
                 }else{
                     logEntry.dumpPartInto(new Identification("Complete Line"), new ArgumentClosure<String>() {
                         @Override
-                        public void excecute(String s) {
+                        public void execute(String s) {
                             setTooltip(new Tooltip(s));
                         }
                     });

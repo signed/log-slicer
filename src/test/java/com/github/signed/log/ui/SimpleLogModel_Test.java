@@ -86,7 +86,7 @@ public class SimpleLogModel_Test {
     @SuppressWarnings("unchecked")
     private List<DummyLogPart> availableThreads(ArgumentClosure<List<LogPart>> closure) {
         ArgumentCaptor<List> captor = ArgumentCaptor.forClass(List.class);
-        verify(closure).excecute(captor.capture());
+        verify(closure).execute(captor.capture());
         return captor.getValue();
     }
 

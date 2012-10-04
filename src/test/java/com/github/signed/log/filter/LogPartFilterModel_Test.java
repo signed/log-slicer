@@ -49,7 +49,7 @@ public class LogPartFilterModel_Test {
         ArgumentClosure<List<LogPart>> whiteListedLogParts = mock(ArgumentClosure.class);
         ArgumentCaptor<List> captor = ArgumentCaptor.forClass(List.class);
         model.provideSelectedThreadsTo(identification, whiteListedLogParts);
-        verify(whiteListedLogParts).excecute(captor.capture());
+        verify(whiteListedLogParts).execute(captor.capture());
 
         return captor.getValue();
     }

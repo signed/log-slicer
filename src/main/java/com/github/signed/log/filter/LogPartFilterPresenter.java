@@ -33,7 +33,7 @@ public class LogPartFilterPresenter implements Presenter {
     }
 
 
-    private static class UpdateModelWithSelection implements ArgumentClosure<LogPart> {
+    private class UpdateModelWithSelection implements ArgumentClosure<LogPart> {
         private final LogPartFilterModel model;
 
         public UpdateModelWithSelection(LogPartFilterModel model) {
@@ -41,13 +41,13 @@ public class LogPartFilterPresenter implements Presenter {
         }
 
         @Override
-        public void excecute(LogPart loggedThread) {
-                model.matches(new Identification("category"), loggedThread);
+        public void execute(LogPart loggedThread) {
+                model.matches(identification, loggedThread);
 
         }
     }
 
-    private static class DiscardFilterInModel implements ArgumentClosure<LogPart> {
+    private class DiscardFilterInModel implements ArgumentClosure<LogPart> {
         private final LogPartFilterModel model;
 
         public DiscardFilterInModel(LogPartFilterModel model) {
@@ -55,8 +55,8 @@ public class LogPartFilterPresenter implements Presenter {
         }
 
         @Override
-        public void excecute(LogPart loggedThread) {
-            model.discardFilter(loggedThread);
+        public void execute(LogPart loggedThread) {
+            model.discardFilter(identification, loggedThread);
         }
     }
 
@@ -73,7 +73,7 @@ public class LogPartFilterPresenter implements Presenter {
         public void run() {
             model.provideSelectedThreadsTo(identification, new ArgumentClosure<List<LogPart>>() {
                 @Override
-                public void excecute(List<LogPart> loggedThread) {
+                public void execute(List<LogPart> loggedThread) {
                     view.displaySelectedFilter(loggedThread);
                 }
             });
@@ -86,7 +86,7 @@ public class LogPartFilterPresenter implements Presenter {
             updateModelWithSelection.suspend();
             model.provideRemainingChoicesTo(identification, new ArgumentClosure<List<LogPart>>() {
                 @Override
-                public void excecute(List<LogPart> loggedThreads) {
+                public void execute(List<LogPart> loggedThreads) {
                     view.displayAvailableLogParts(loggedThreads);
                 }
             });
