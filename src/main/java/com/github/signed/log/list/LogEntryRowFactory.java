@@ -2,11 +2,11 @@ package com.github.signed.log.list;
 
 import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
+
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.util.Callback;
-import lang.ArgumentClosure;
 
 public class LogEntryRowFactory implements Callback<TableView<LogEntry>, TableRow<LogEntry>> {
     @Override
@@ -18,12 +18,7 @@ public class LogEntryRowFactory implements Callback<TableView<LogEntry>, TableRo
                 if(null == logEntry){
                     setTooltip(null);
                 }else{
-                    logEntry.dumpPartInto(new Identification("Complete Line"), new ArgumentClosure<String>() {
-                        @Override
-                        public void execute(String s) {
-                            setTooltip(new Tooltip(s));
-                        }
-                    });
+                    logEntry.dumpPartInto(new Identification("Complete Line"), s -> setTooltip(new Tooltip(s)));
                 }
             }
         };

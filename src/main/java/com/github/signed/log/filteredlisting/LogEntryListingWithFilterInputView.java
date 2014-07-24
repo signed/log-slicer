@@ -9,21 +9,11 @@ import javafx.scene.layout.BorderPane;
 public class LogEntryListingWithFilterInputView {
 
     public static LogEntryListingWithFilterInputView putFilterLeftOfLogs(OrphanView filterView, LogView logView) {
-        return new LogEntryListingWithFilterInputView(filterView, logView, new FilterPositionStrategy() {
-            @Override
-            public void pickPositionForFilter(BorderPaneControlledOrphanage orphanage) {
-                orphanage.nextLeft();
-            }
-        });
+        return new LogEntryListingWithFilterInputView(filterView, logView, BorderPaneControlledOrphanage::nextLeft);
     }
 
     public static LogEntryListingWithFilterInputView putFilterRightOfLogs(OrphanView filterView, LogView logView) {
-        return new LogEntryListingWithFilterInputView(filterView, logView, new FilterPositionStrategy() {
-            @Override
-            public void pickPositionForFilter(BorderPaneControlledOrphanage orphanage) {
-                orphanage.nextRight();
-            }
-        });
+        return new LogEntryListingWithFilterInputView(filterView, logView, BorderPaneControlledOrphanage::nextRight);
     }
 
     private final BorderPane borderPane = new BorderPane();

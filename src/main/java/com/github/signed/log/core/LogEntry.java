@@ -15,12 +15,7 @@ public class LogEntry {
     public static LogEntry Create(Collection<LogPart> availableParts) {
         final LogEntry logEntry = new LogEntry();
         for (final LogPart availablePart : availableParts) {
-            availablePart.describeTo(new Authority() {
-                @Override
-                public void accept(Descriptor descriptor) {
-                    logEntry.addPart(descriptor.identification, availablePart);
-                }
-            });
+            availablePart.describeTo(descriptor -> logEntry.addPart(descriptor.identification, availablePart));
         }
         return logEntry;
     }

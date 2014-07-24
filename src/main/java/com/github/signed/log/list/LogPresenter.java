@@ -1,12 +1,6 @@
 package com.github.signed.log.list;
 
-import com.github.signed.log.core.Authority;
-import com.github.signed.log.core.Descriptor;
-import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.ui.Presenter;
-import lang.ArgumentClosure;
-
-import java.util.List;
 
 public class LogPresenter implements Presenter {
 
@@ -20,32 +14,16 @@ public class LogPresenter implements Presenter {
 
     @Override
     public void initialize() {
-        logModel.onDescriptorChange(new Runnable() {
-            @Override
-            public void run() {
-                logView.clearDisplayedLogParts();
-                logModel.describeTo(new Authority() {
-                    @Override
-                    public void accept(Descriptor descriptor) {
-                        if (descriptor.display) {
-                            logView.showLogPart(descriptor.name, descriptor.identification);
-                        }
-                    }
-                });
-            }
+        logModel.onDescriptorChange(() -> {
+            logView.clearDisplayedLogParts();
+            logModel.describeTo(descriptor -> {
+                if (descriptor.display) {
+                    logView.showLogPart(descriptor.name, descriptor.identification);
+                }
+            });
         });
 
-        logModel.onLogEntryChange(new Runnable() {
-            @Override
-            public void run() {
-                logModel.provideElementsTo(new ArgumentClosure<List<LogEntry>>() {
-                    @Override
-                    public void execute(List<LogEntry> logEntries) {
-                        logView.display(logEntries);
-                    }
-                });
-            }
-        });
+        logModel.onLogEntryChange(() -> logModel.provideElementsTo(logEntries -> logView.display(logEntries)));
     }
 
     public void scrollTo(Integer index) {
