@@ -1,5 +1,11 @@
 package com.github.signed.log.filter;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import com.github.signed.log.core.Authority;
 import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
@@ -13,15 +19,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.sun.istack.internal.Nullable;
+
 import lang.Announcer;
 import lang.ArgumentClosure;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class LogPartFilterModel implements LogModel {
 
@@ -87,7 +87,7 @@ public class LogPartFilterModel implements LogModel {
                 public void execute(List<LogPart> logParts) {
                     Collection<LogPart> filtered = Collections2.filter(logParts, new Predicate<LogPart>() {
                         @Override
-                        public boolean apply(@Nullable LogPart input) {
+                        public boolean apply(LogPart input) {
                             return !getSetOfWhiteListedPartsOrDefaultToEmpty(identification).contains(input);
                         }
                     });
@@ -117,7 +117,7 @@ public class LogPartFilterModel implements LogModel {
     private List<LogEntry> filterBy(final Identification identification, List<LogEntry> logEntries) {
         return  Lists.transform(logEntries, new Function<LogEntry, LogEntry>() {
             @Override
-            public LogEntry apply(@Nullable LogEntry logEntry) {
+            public LogEntry apply(LogEntry logEntry) {
                 if ( whiteListedParts.get(identification).contains(logEntry.getPart(identification))) {
                     return logEntry;
                 }

@@ -1,16 +1,16 @@
 package com.github.signed.log.core;
 
-import com.google.common.base.Functions;
-import com.google.common.collect.Maps;
-import lang.ArgumentClosure;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
+import com.google.common.base.Functions;
+import com.google.common.collect.Maps;
+
+import lang.ArgumentClosure;
+
 public class LogEntry {
     public static final LogEntry Null = Create(Collections.<LogPart>emptyList());
-
 
     public static LogEntry Create(Collection<LogPart> availableParts) {
         final LogEntry logEntry = new LogEntry();
