@@ -11,9 +11,7 @@ import com.github.signed.log.core.Identification;
 import com.github.signed.log.core.LogEntry;
 import com.github.signed.log.core.LogPart;
 import com.github.signed.log.list.LogModel;
-import com.google.common.base.Function;
 import com.google.common.base.Functions;
-import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -32,12 +30,9 @@ public class LogPartFilterModel implements LogModel {
 
     public LogPartFilterModel(LogModel logModel) {
         this.logModel = logModel;
-        logModel.onLogEntryChange(new Runnable() {
-            @Override
-            public void run() {
-                announceThreadSelectionChanged();
-                announceChange();
-            }
+        logModel.onLogEntryChange(() -> {
+            announceThreadSelectionChanged();
+            announceChange();
         });
     }
 
@@ -72,12 +67,7 @@ public class LogPartFilterModel implements LogModel {
 
     @Override
     public void provideElementsTo(final ArgumentClosure<List<LogEntry>> argumentClosure) {
-        logModel.provideElementsTo(new ArgumentClosure<List<LogEntry>>() {
-            @Override
-            public void execute(List<LogEntry> logEntries) {
-                filterAndForwardTo(logEntries, argumentClosure);
-            }
-        });
+        logModel.provideElementsTo(logEntries -> filterAndForwardTo(logEntries, argumentClosure));
     }
 
     @Override
@@ -85,12 +75,7 @@ public class LogPartFilterModel implements LogModel {
         ArgumentClosure<List<LogPart>> filterClosure=  new ArgumentClosure<List<LogPart>>() {
                 @Override
                 public void execute(List<LogPart> logParts) {
-                    Collection<LogPart> filtered = Collections2.filter(logParts, new Predicate<LogPart>() {
-                        @Override
-                        public boolean apply(LogPart input) {
-                            return !getSetOfWhiteListedPartsOrDefaultToEmpty(identification).contains(input);
-                        }
-                    });
+                    Collection<LogPart> filtered = Collections2.filter(logParts, input -> !getSetOfWhiteListedPartsOrDefaultToEmpty(identification).contains(input));
                     argumentClosure.execute(ImmutableList.copyOf(filtered));
                 }
             };
@@ -115,14 +100,11 @@ public class LogPartFilterModel implements LogModel {
     }
 
     private List<LogEntry> filterBy(final Identification identification, List<LogEntry> logEntries) {
-        return  Lists.transform(logEntries, new Function<LogEntry, LogEntry>() {
-            @Override
-            public LogEntry apply(LogEntry logEntry) {
-                if ( whiteListedParts.get(identification).contains(logEntry.getPart(identification))) {
-                    return logEntry;
-                }
-                return LogEntry.Null;
+        return  Lists.transform(logEntries, logEntry -> {
+            if ( whiteListedParts.get(identification).contains(logEntry.getPart(identification))) {
+                return logEntry;
             }
+            return LogEntry.Null;
         });
     }
 
